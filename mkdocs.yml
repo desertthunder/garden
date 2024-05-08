@@ -2,3 +2,44 @@ site_name: Desert Garden
 site_url: https://desertthunder.github.io/garden
 theme:
   name: material
+  icon:
+    logo: material/lightning-bolt-circle
+  favicon: assets/favicon.ico
+  font:
+    text: "Inter"
+    code: "Roboto Mono"
+  features:
+    - navigation.indexes
+    # - navigation.sections
+    - navigation.expand
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+extra_css:
+  - stylesheets/extra.css
+copyright: Copyright &copy; 2024 Owais J.
+markdown_extensions:
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+nav:
+  - Home:
+    - README.md
+  - Data Structures:
+      - data-structures/README.md
+      - Arrays: data-structures/arrays.md
+      - Stacks: data-structures/stacks.md
+      - Trees: data-structures/trees.md
+  - Programming:
+      - programming/README.md
+plugins:
+  - search
