@@ -1,5 +1,10 @@
 # Digital Garden Project
 
+## Commit Conventions
+
+- content
+- conf
+
 ## MKDocs Command Reference
 
 - `mkdocs serve` - Start the live-reloading docs server.

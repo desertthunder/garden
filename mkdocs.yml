@@ -6,11 +6,10 @@ theme:
     logo: material/lightning-bolt-circle
   favicon: assets/favicon.ico
   font:
-    text: "Inter"
+    text: "Noto Sans"
     code: "Roboto Mono"
   features:
     - navigation.indexes
-    # - navigation.sections
     - navigation.expand
     - navigation.instant
     - navigation.instant.prefetch
