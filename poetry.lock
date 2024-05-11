@@ -376,6 +376,23 @@ files = [
 ]
 
 [[package]]
+name = "mkdocs-roamlinks-plugin"
+version = "0.3.2"
+description = "An MkDocs plugin"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "mkdocs-roamlinks-plugin-0.3.2.tar.gz", hash = "sha256:aa173e668ed782ff61988b5242034bf7c5f21519a9d75df38e6a4b790a60267e"},
+    {file = "mkdocs_roamlinks_plugin-0.3.2-py3-none-any.whl", hash = "sha256:5c5892dd077f15150ec7b32fcb4bf9efd305c453c732d722ca7ee0ed0a5dceb9"},
+]
+
+[package.dependencies]
+mkdocs = ">=1.0.4"
+
+[package.extras]
+dev = ["pytest"]
+
+[[package]]
 name = "packaging"
 version = "24.0"
 description = "Core utilities for Python packages"
@@ -724,4 +741,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "aacced9236a0ceb61e58c4e09f2ffa6c961dd6f4168f2f8f3f0f06d32e747237"
+content-hash = "3bca4055793b252dca99f42170fefa74e9a96394d61f210d84bdfe8d8244dc8f"

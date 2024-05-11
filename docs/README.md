@@ -1,5 +1,5 @@
 ---
-title: Home
+title: Welcome!
 ---
 
 ```ascii
@@ -17,7 +17,7 @@ title: Home
  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═══╝
 ```
 
-# About This Site
+## About This Site
 
 Hi! My name is Owais and this is my digital garden. It's a collection of notes
 I've taken on topics that interest me. This includes a lot of engineering and
@@ -37,6 +37,13 @@ nothing has been quite as consistent as a combination of some plaintext editor
 ![Written By a Human](./assets/written-by-human.png)
 
 ## Inspiration
+
+Top of the list is definitely the [Blue Book](https://lyz-code.github.io/blue-book/).
+After starting a new python project and activating my virtual environment, I
+pretty much always install mkdocs with the material theme. That site, while also
+having some fantastic information, reminded me that I can just use mkdocs.
+
+Also, take a look at my notes on [cultivating](./writing/cultivation.md) a garden.
 
 ## My Tools
 

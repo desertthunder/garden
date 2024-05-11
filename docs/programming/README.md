@@ -4,7 +4,7 @@ This will contain notes related to programming languages I've
 "learned" or am learning. Can you ever really know a
 programming language top to bottom unless you wrote it?
 
-## Languages
+## Proficiencies
 
 - TypeScript
 - Python
@@ -20,3 +20,4 @@ As of May 2024, these are languages that are on my radar to learn:
 - Elixir
 - Rust
 - Elm
+  - or Gleam

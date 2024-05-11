@@ -4,10 +4,12 @@ version = "0.1.0"
 description = ""
 authors = ["Owais J."]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
 mkdocs-material = "^9.5.21"
+mkdocs-roamlinks-plugin = "^0.3.2"
 
 
 [build-system]

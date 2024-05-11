@@ -30,15 +30,43 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - toc:
+      permalink: true
+      permalink_title: "Link to this section"
+      title: Table of Contents
+  - pymdownx.superfences:
+        custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - footnotes
+  - admonition
 nav:
   - Home:
     - README.md
+  - Books:
+    - books/README.md
+    - How to Take Smart Notes: writing/book-ahrens-2017.md
+  - Writing: writing/README.md
+  - Learning:
+    - Active Inhibition: writing/active_inhibition.md
+    - Autonomy in Work: writing/autonomy_in_work.md
+    - Cultivating a Digital Garden: writing/cultivation.md
+    - Feature Positive Effect: writing/feature_positive_effect.md
+    - Goal of Learning: writing/goal_of_learning.md
+    - Mere Exposure Effect: writing/mere_exposure_effect.md
+    - Motivation When Studying: writing/motivation_when_studying.md
+    - Worldly Wisdom: writing/worldly_wisdom.md
+    - Write to Learn: writing/write_to_learn.md
+  - Programming:
+      - programming/README.md
+      - Design Patterns:
+        - Adapter: programming/design/adapter.md
   - Data Structures:
       - data-structures/README.md
       - Arrays: data-structures/arrays.md
       - Stacks: data-structures/stacks.md
       - Trees: data-structures/trees.md
-  - Programming:
-      - programming/README.md
 plugins:
   - search
+  - roamlinks
