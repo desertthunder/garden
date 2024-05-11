@@ -31,6 +31,16 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://desertthunder.github.io/garden/engineering/</loc>
+         <lastmod>2024-05-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://desertthunder.github.io/garden/engineering/bash_http/</loc>
+         <lastmod>2024-05-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://desertthunder.github.io/garden/programming/</loc>
          <lastmod>2024-05-11</lastmod>
          <changefreq>daily</changefreq>
