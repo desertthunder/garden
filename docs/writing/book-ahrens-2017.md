@@ -23,9 +23,9 @@ as I am a knowledge worker
 
 !!! quote
 
-    Nothing counts other than writing.[^4]
+    Nothing counts other than writing.
 
-- The main goal of notes is to convey the truth (publishable insight)
+- The main goal[^4] of notes is to convey the truth (publishable insight)
 - Note types: Fleeting, Permanent, Project (-specific)
 - In order to find a topic, you need to have studied a subject
     - This makes me think of an old interview of Alexisonfire, where George says
@@ -112,17 +112,12 @@ accomplishing a very specific task.
 - Turn the writing everything and thinking about process in to a
 [[Motivation when Studying|hobby]].
 
-## References
-
-### Main Book
-
-Ahrens, Sönke. *How to Take Smart Notes: One Simple Technique to Boost Writing,
-Learning and Thinking: For Students, Academics and Nonfiction Book Writers*.
-North Charleston, SC: CreateSpace, 2017.
-
 [^1]: Page 20
 [^2]: <https://www.jstor.org/stable/3397642>
 [^3]: Ericsson, K. Anders, and Kyle W. Harwell. “Deliberate Practice and Proposed Limits on the Effects of Practice on the Acquisition of Expert Performance: Why the Original Definition Matters and Recommendations for Future Research.” Frontiers in Psychology 10 (2019). <https://www.frontiersin.org/articles/10.3389/fpsyg.2019.02396>.
+[^4]: Ahrens, Sönke. *How to Take Smart Notes: One Simple Technique to Boost Writing,
+Learning and Thinking: For Students, Academics and Nonfiction Book Writers*.
+North Charleston, SC: CreateSpace, 2017.
 [^5]: <https://www.reddit.com/r/Zettelkasten/comments/ots96r/on_a_failed_zettelkasten/>
 [^6]: Page 135
 [^7]: Singer, Robert N., Heather A. Hausenblas, and Christopher Janelle, eds. *Handbook of Sport Psychology*. 2nd ed. New York: Wiley, 2001.

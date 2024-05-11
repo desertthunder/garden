@@ -1,9 +1,12 @@
 site_name: Desert Garden
 site_url: https://desertthunder.github.io/garden
+repo_url: https://github.com/desertthunder/garden
+repo_name: desertthunder/garden
 theme:
   name: material
   icon:
     logo: material/lightning-bolt-circle
+    repo: fontawesome/brands/square-github
   favicon: assets/favicon.ico
   font:
     text: "Noto Sans"
@@ -41,6 +44,8 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
   - footnotes
   - admonition
+  - attr_list
+  - md_in_html
 nav:
   - Home:
     - README.md
@@ -58,6 +63,8 @@ nav:
     - Motivation When Studying: writing/motivation_when_studying.md
     - Worldly Wisdom: writing/worldly_wisdom.md
     - Write to Learn: writing/write_to_learn.md
+  - Engineering:
+    - Command Line API Testing: engineering/bash_http.md
   - Programming:
       - programming/README.md
       - Design Patterns:
@@ -70,3 +77,5 @@ nav:
 plugins:
   - search
   - roamlinks
+  - git-revision-date-localized:
+        fallback_to_build_date: true

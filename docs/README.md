@@ -30,7 +30,9 @@ of stumbling upon [information on an odd personal site](https://tilde.town/~doze
 on the internet and want to be a part of bringing that back. I've tried keeping
 gardens in various iterations with tools like notion and even google drive, but
 nothing has been quite as consistent as a combination of some plaintext editor
-(VSCode & now Neovim) or "Knowledge IDE" like Obsidian.
+(VSCode & now Neovim) or
+"[Knowledge IDE](https://dev.to/envoy_/obsidian-an-ide-for-your-brain-1bn7)"
+like Obsidian.
 
 ---
 
