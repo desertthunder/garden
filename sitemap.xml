@@ -6,6 +6,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://desertthunder.github.io/garden/algorithms/selection-sort/</loc>
+         <lastmod>2024-05-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://desertthunder.github.io/garden/books/</loc>
          <lastmod>2024-05-14</lastmod>
          <changefreq>daily</changefreq>
@@ -62,6 +67,11 @@
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/psychology/hedonic-treadmill/</loc>
+         <lastmod>2024-05-14</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://desertthunder.github.io/garden/psychology/indestructible/</loc>
          <lastmod>2024-05-14</lastmod>
          <changefreq>daily</changefreq>
     </url>
