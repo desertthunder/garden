@@ -65,6 +65,7 @@ nav:
     - Write to Learn: writing/write_to_learn.md
   - Psychology:
     - Hedonic Treadmill: psychology/hedonic-treadmill.md
+    - Indestructible: psychology/indestructible.md
     - Tsundoku: psychology/tsundoku.md
   - Engineering:
     - engineering/README.md
@@ -78,11 +79,13 @@ nav:
       - Languages:
         - Golang:
           - HTTP Requests: programming/golang/http-requests.md
-  - Data Structures:
-      - data-structures/README.md
-      - Arrays: data-structures/arrays.md
-      - Stacks: data-structures/stacks.md
-      - Trees: data-structures/trees.md
+      - Algorithms:
+        - Selection Sort: algorithms/selection-sort.md
+      - Data Structures:
+        - data-structures/README.md
+        - Arrays: data-structures/arrays.md
+        - Stacks: data-structures/stacks.md
+        - Trees: data-structures/trees.md
 plugins:
   - search
   - roamlinks
