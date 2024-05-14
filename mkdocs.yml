@@ -63,12 +63,21 @@ nav:
     - Motivation When Studying: writing/motivation_when_studying.md
     - Worldly Wisdom: writing/worldly_wisdom.md
     - Write to Learn: writing/write_to_learn.md
+  - Psychology:
+    - Hedonic Treadmill: psychology/hedonic-treadmill.md
+    - Tsundoku: psychology/tsundoku.md
   - Engineering:
+    - engineering/README.md
     - Command Line API Testing: engineering/bash_http.md
+    - Databases:
+      - DSN: engineering/databases/dsn.md
   - Programming:
       - programming/README.md
       - Design Patterns:
         - Adapter: programming/design/adapter.md
+      - Languages:
+        - Golang:
+          - HTTP Requests: programming/golang/http-requests.md
   - Data Structures:
       - data-structures/README.md
       - Arrays: data-structures/arrays.md
