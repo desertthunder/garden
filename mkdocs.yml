@@ -13,7 +13,7 @@ theme:
     code: "Roboto Mono"
   features:
     - navigation.indexes
-    - navigation.expand
+    # - navigation.expand
     - navigation.instant
     - navigation.instant.prefetch
     - navigation.instant.progress
@@ -66,6 +66,7 @@ nav:
   - Psychology:
     - Hedonic Treadmill: psychology/hedonic-treadmill.md
     - Indestructible: psychology/indestructible.md
+    - Shoshin: psychology/shoshin.md
     - Tsundoku: psychology/tsundoku.md
   - Engineering:
     - engineering/README.md
@@ -79,6 +80,8 @@ nav:
       - Languages:
         - Golang:
           - HTTP Requests: programming/golang/http-requests.md
+        - Python:
+          - Logging: programming/python/logging.md
       - Algorithms:
         - Selection Sort: algorithms/selection-sort.md
       - Data Structures:

@@ -1,8 +1,6 @@
 ---
-title: Welcome!
+title: Desert Thunder's Digital Garden
 ---
-
-## About This Site
 
 Hi! My name is Owais and this is my digital garden. It's a collection of notes
 I've taken on topics that interest me. This includes a lot of engineering and
@@ -18,10 +16,6 @@ nothing has been quite as consistent as a combination of some plaintext editor
 (VSCode & now Neovim) or
 "[Knowledge IDE](https://dev.to/envoy_/obsidian-an-ide-for-your-brain-1bn7)"
 like Obsidian.
-
----
-
-![Written By a Human](./assets/written-by-human.png)
 
 ## Inspiration
 
@@ -45,6 +39,8 @@ Also, take a look at my notes on [cultivating](./writing/cultivation.md) a garde
 - [VSCode](https://code.visualstudio.com)
 
 ## Attributions
+
+![Written By a Human](./assets/written-by-human.png)
 
 [Lightning Site Icon](https://www.flaticon.com/free-icons/lighting)
 by zky.icon from Flaticon
