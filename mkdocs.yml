@@ -64,10 +64,12 @@ nav:
     - Worldly Wisdom: writing/worldly_wisdom.md
     - Write to Learn: writing/write_to_learn.md
   - Psychology:
+    - Dealing with Pain: psychology/dealing-with-pain.md
     - Hedonic Treadmill: psychology/hedonic-treadmill.md
     - Indestructible: psychology/indestructible.md
     - Shoshin: psychology/shoshin.md
     - Tsundoku: psychology/tsundoku.md
+    - Why We Read: psychology/why-we-read.md
   - Engineering:
     - engineering/README.md
     - Command Line API Testing: engineering/bash_http.md
@@ -83,6 +85,7 @@ nav:
         - Python:
           - Logging: programming/python/logging.md
       - Algorithms:
+        - Dijkstra's Algorithm: algorithms/dijkstra.md
         - Selection Sort: algorithms/selection-sort.md
       - Data Structures:
         - data-structures/README.md
