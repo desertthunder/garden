@@ -28,6 +28,12 @@ theme:
         name: Switch to light mode
 extra_css:
   - stylesheets/extra.css
+extra:
+  social:
+  - icon: octicons/browser-24
+    link: https://desertthunder.github.io
+  - icon: material/github
+    link: https://github.com/desertthunder
 copyright: Copyright &copy; 2024 Owais J.
 markdown_extensions:
   - pymdownx.emoji:
