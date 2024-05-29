@@ -70,11 +70,16 @@ nav:
     - Shoshin: psychology/shoshin.md
     - Tsundoku: psychology/tsundoku.md
     - Why We Read: psychology/why-we-read.md
+    - IFS: psychology/ifs.md
+    - Productivity:
+      - The Cult of Done: psychology/productivity/done.md
   - Engineering:
     - engineering/README.md
     - Command Line API Testing: engineering/bash_http.md
     - Databases:
       - DSN: engineering/databases/dsn.md
+    - Web:
+      - Batteries Included: engineering/web/batteries.md
   - Programming:
       - programming/README.md
       - Design Patterns:
@@ -92,6 +97,8 @@ nav:
         - Arrays: data-structures/arrays.md
         - Stacks: data-structures/stacks.md
         - Trees: data-structures/trees.md
+  - Philosophy:
+    - Aristotle's Problem: philosophy/aristotle-problem.md
 plugins:
   - search
   - roamlinks
