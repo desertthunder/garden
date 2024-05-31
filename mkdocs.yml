@@ -9,7 +9,7 @@ theme:
     repo: fontawesome/brands/square-github
   favicon: assets/favicon.ico
   font:
-    text: "Noto Sans"
+    text: "Lexend"
     code: "Roboto Mono"
   features:
     - navigation.indexes
@@ -18,16 +18,20 @@ theme:
     - navigation.instant.prefetch
     - navigation.instant.progress
   palette:
-    - scheme: default
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: amber
+      accent: deep orange
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-    - scheme: slate
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: amber
+      accent: deep orange
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
-extra_css:
-  - stylesheets/extra.css
 extra:
   social:
   - icon: octicons/browser-24
@@ -51,7 +55,9 @@ markdown_extensions:
   - footnotes
   - admonition
   - attr_list
+  - def_list
   - md_in_html
+  - pymdownx.details
 nav:
   - Home:
     - README.md
@@ -81,6 +87,8 @@ nav:
       - The Cult of Done: psychology/productivity/done.md
   - Engineering:
     - engineering/README.md
+    - Architecture:
+      - Architecture Decision Records: engineering/architecture/adr.md
     - Command Line API Testing: engineering/bash_http.md
     - Databases:
       - DSN: engineering/databases/dsn.md

@@ -28,19 +28,25 @@ Also, take a look at my notes on [cultivating](./writing/cultivation.md) a garde
 
 ## My Tools
 
-- [Fedora](https://getfedora.org) & [MacOS](https://www.apple.com/macos)
-- [Alacritty](https://alacritty.org)
-- [Zsh](https://www.zsh.org)
-- [Neovim](https://neovim.io)
+### Operating System(s)
 
----
+:   [Fedora](https://getfedora.org) <br />
+    [MacOS](https://www.apple.com/macos)
 
-- [Obsidian](https://obsidian.md)
-- [VSCode](https://code.visualstudio.com)
+### Terminal Tools
+
+:   [Alacritty](https://alacritty.org) <br />
+    [Zsh](https://www.zsh.org)
+
+### Text Editors
+
+:   [Neovim](https://neovim.io) <br />
+    [Obsidian](https://obsidian.md) <br />
+    [VSCode](https://code.visualstudio.com)
 
 ## Attributions
 
-![Written By a Human](./assets/written-by-human.png)
-
 [Lightning Site Icon](https://www.flaticon.com/free-icons/lighting)
 by zky.icon from Flaticon
+
+![Written By a Human](./assets/written-by-human.png)
