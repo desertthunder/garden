@@ -111,8 +111,11 @@ nav:
         - Selection Sort: algorithms/selection-sort.md
       - Data Structures:
         - data-structures/README.md
-        - Arrays: data-structures/arrays.md
-        - Stacks: data-structures/stacks.md
+        - Arrays:
+            - Overview: data-structures/arrays.md
+            - Array-like:
+                - data-structures/collections/README.md
+                - Stacks: data-structures/stacks.md
         - Trees: data-structures/trees.md
   - Philosophy:
     - Aristotle's Problem: philosophy/aristotle-problem.md

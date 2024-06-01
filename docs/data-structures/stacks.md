@@ -1,33 +1,30 @@
-# Stacks
-
-- **Sources**
-  - William Fiset (YouTube)
+# More on Stacks
 
 ## What is a stack?
 
-- A one-ended linear data structure that models a real stack.
+- A one-ended linear data structure that models a real stack.[^1]
 - Two operations, push (to top), pop (off the top)
-  - We can only act on top of the stack
+    - We can only act on top of the stack
 - Last In, First Out (LIFO)
 
-### Example Problems
+## Example Problems
 
 - Brackets (validate that brackets are closed).
-- ex. `[[{}]()]`
-  - Steps
-  - Push `[`: `[`
-  - Push `[`: `[[`
-  - Push `{`: `[[{`
-  - Pop `{` (we hit `}`): `[[`
-  - Pop `[`: `[`
-  - Push `(`: `[(`
-  - Pop `(`: `[`
-  - Pop `[`: `...`
-  - Since the stack is now empty, the bracket sequence is valid
+    - ex. `[[{}]()]`
+        - **Steps**:
+            - Push `[`: `[`
+            - Push `[`: `[[`
+            - Push `{`: `[[{`
+            - Pop `{` (we hit `}`): `[[`
+            - Pop `[`: `[`
+            - Push `(`: `[(`
+            - Pop `(`: `[`
+            - Pop `[`: `...`
+            - Since the stack is now empty, the bracket sequence is valid
 - Tower of Hanoi Game
-  - Three pegs are stacks.
-  - No disk can be placed on smaller disk
-  - Move disks from one end to the other
+    - Three pegs are stacks.
+    - No disk can be placed on smaller disk
+    - Move disks from one end to the other
 
 ## Stack Implementation
 
@@ -47,3 +44,6 @@
 ### Questions
 
 - What is a concurrent modification error?
+
+[^1]: WilliamFiset. Queue Implementation. 2017. YouTube,
+<https://www.youtube.com/watch?v=EoisnPvUkOA>.
