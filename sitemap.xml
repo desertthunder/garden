@@ -41,6 +41,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://desertthunder.github.io/garden/data-structures/collections/</loc>
+         <lastmod>2024-06-01</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://desertthunder.github.io/garden/engineering/</loc>
          <lastmod>2024-06-01</lastmod>
          <changefreq>daily</changefreq>
