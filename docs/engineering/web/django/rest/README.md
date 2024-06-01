@@ -1,0 +1,35 @@
+---
+title: DRF | Django REST Framework
+---
+
+# Django REST Framework
+
+!!! warning
+    This is a work in progress.
+
+The de-facto standard for building REST APIs with Django. Also known as *DRF*.
+
+## Viewsets
+
+- A viewset[^1] is DRF's version of a controller (Rails style)
+
+## Serializers[^2]
+
+???+ info "Definition"
+    Serializers allow complex data such as querysets and model instances to be
+     converted to native Python datatypes that can then be easily rendered into
+     JSON, XML or other content types. Serializers also provide deserialization,
+     allowing parsed data to be converted back into complex types, after first
+     validating the incoming data.
+
+- Hyperlinked Fields[^2] use a lookup_field attribute (found in Meta.extra_kwargs).
+It defaults to pk.
+- The DRF docs advise that you leverage repr on the HyperlinkedModelSerializer
+class in the django shell.
+
+[^1]: Viewsets - Django REST Framework.
+<https://www.django-rest-framework.org/api-guide/viewsets/#viewsets>.
+Accessed 31 May 2024.
+[^2]: Serializers - Django REST Framework.
+<https://www.django-rest-framework.org/api-guide/serializers/>.
+Accessed 31 May 2024.

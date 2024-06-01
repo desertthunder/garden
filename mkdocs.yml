@@ -94,6 +94,9 @@ nav:
       - DSN: engineering/databases/dsn.md
     - Web:
       - Batteries Included: engineering/web/batteries.md
+      - Django:
+        - REST Framework:
+          - engineering/web/django/rest/README.md
   - Programming:
       - programming/README.md
       - Design Patterns:
