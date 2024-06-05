@@ -64,6 +64,7 @@ nav:
   - Books:
     - books/README.md
     - How to Take Smart Notes: writing/book-ahrens-2017.md
+    - How to Be Perfect: philosophy/book-schur-2023.md
   - Writing: writing/README.md
   - Learning:
     - Active Inhibition: writing/active_inhibition.md
@@ -119,6 +120,8 @@ nav:
         - Trees: data-structures/trees.md
   - Philosophy:
     - Aristotle's Problem: philosophy/aristotle-problem.md
+    - Bentham's Scale: philosophy/bentham-scale.md
+    - The Trolley Problem: philosophy/trolley-problem.md
 plugins:
   - search
   - roamlinks
