@@ -86,8 +86,13 @@ nav:
     - IFS: psychology/ifs.md
     - Productivity:
       - The Cult of Done: psychology/productivity/done.md
+    - Questionable:
+      - Submodality: psychology/submodality.md
   - Engineering:
     - engineering/README.md
+    - General:
+      - Code Kata: engineering/general/katas.md
+      - Daybook: engineering/general/daybooks.md
     - Architecture:
       - Architecture Decision Records: engineering/architecture/adr.md
     - Command Line API Testing: engineering/bash_http.md
@@ -121,7 +126,10 @@ nav:
   - Philosophy:
     - Aristotle's Problem: philosophy/aristotle-problem.md
     - Bentham's Scale: philosophy/bentham-scale.md
+    - Heuristic: philosophy/heuristic.md
     - The Trolley Problem: philosophy/trolley-problem.md
+  - Sociology:
+    - Broken Windows Policing: sociology/broken-windows.md
 plugins:
   - search
   - roamlinks

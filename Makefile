@@ -2,6 +2,6 @@
 deploy:
 	mkdocs gh-deploy
 
-.PHONY:
+.PHONY: serve
 serve:
 	mkdocs serve
