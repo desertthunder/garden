@@ -2,227 +2,237 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://desertthunder.github.io/garden/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/algorithms/dijkstra/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/algorithms/selection-sort/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/books/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/data-structures/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/data-structures/arrays/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/data-structures/stacks/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/data-structures/trees/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/data-structures/collections/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/engineering/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/engineering/bash_http/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/engineering/architecture/adr/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/engineering/databases/dsn/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/engineering/general/daybooks/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://desertthunder.github.io/garden/engineering/general/katas/</loc>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/engineering/web/batteries/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/engineering/web/django/rest/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/philosophy/aristotle-problem/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/philosophy/bentham-scale/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/philosophy/book-schur-2023/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/philosophy/heuristic/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/philosophy/trolley-problem/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/programming/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/programming/design/adapter/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/programming/golang/http-requests/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/programming/python/logging/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/psychology/dealing-with-pain/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/psychology/hedonic-treadmill/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/psychology/ifs/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/psychology/indestructible/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/psychology/shoshin/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://desertthunder.github.io/garden/psychology/submodality/</loc>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/psychology/tsundoku/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/psychology/why-we-read/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/psychology/productivity/done/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/sociology/broken-windows/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/writing/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/writing/active_inhibition/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/writing/autonomy_in_work/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/writing/book-ahrens-2017/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/writing/cultivation/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/writing/feature_positive_effect/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/writing/goal_of_learning/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/writing/mere_exposure_effect/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/writing/motivation_when_studying/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/writing/worldly_wisdom/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://desertthunder.github.io/garden/writing/write_to_learn/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-06-25</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
