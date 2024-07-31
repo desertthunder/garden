@@ -1,5 +1,5 @@
 ---
-title: Desert Thunder's Digital Garden
+title: Digital Garden
 ---
 
 Hi! My name is Owais and this is my digital garden. It's a collection of notes
@@ -28,25 +28,24 @@ Also, take a look at my notes on [cultivating](./writing/cultivation.md) a garde
 
 ## My Tools
 
-### Operating System(s)
+!!! info "Tools"
 
-:   [Fedora](https://getfedora.org) <br />
-    [MacOS](https://www.apple.com/macos)
+    === "Operating System(s)"
 
-### Terminal Tools
+        - [Fedora](https://getfedora.org) <br />
+        - [MacOS](https://www.apple.com/macos)
 
-:   [Alacritty](https://alacritty.org) <br />
-    [Zsh](https://www.zsh.org)
+    === "Terminal Tools"
 
-### Text Editors
+        - [Alacritty](https://alacritty.org) <br />
+        - [Zsh](https://www.zsh.org)
 
-:   [Neovim](https://neovim.io) <br />
-    [Obsidian](https://obsidian.md) <br />
-    [VSCode](https://code.visualstudio.com)
+    === "Text Editors"
+
+        - [Neovim](https://neovim.io) <br />
+        - [Obsidian](https://obsidian.md) <br />
+        - [VSCode](https://code.visualstudio.com)
 
 ## Attributions
 
-[Lightning Site Icon](https://www.flaticon.com/free-icons/lighting)
-by zky.icon from Flaticon
-
-![Written By a Human](./assets/written-by-human.png)
+[Lightning Site Icon](https://www.flaticon.com/free-icons/lighting) by zky.icon from Flaticon

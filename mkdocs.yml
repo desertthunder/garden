@@ -52,6 +52,9 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
   - footnotes
   - admonition
   - attr_list
@@ -112,6 +115,7 @@ nav:
           - HTTP Requests: programming/golang/http-requests.md
         - Python:
           - Logging: programming/python/logging.md
+          - Named Tuple: programming/python/named-tuple.md
       - Algorithms:
         - Dijkstra's Algorithm: algorithms/dijkstra.md
         - Selection Sort: algorithms/selection-sort.md
@@ -132,6 +136,5 @@ nav:
     - Broken Windows Policing: sociology/broken-windows.md
 plugins:
   - search
-  - roamlinks
   - git-revision-date-localized:
         fallback_to_build_date: true
