@@ -68,7 +68,9 @@ nav:
     - books/README.md
     - How to Take Smart Notes: writing/book-ahrens-2017.md
     - How to Be Perfect: philosophy/book-schur-2023.md
-  - Writing: writing/README.md
+  - Writing:
+    - writing/README.md
+    - Diátaxis: writing/diataxis.md
   - Learning:
     - Active Inhibition: writing/active_inhibition.md
     - Autonomy in Work: writing/autonomy_in_work.md
@@ -106,6 +108,7 @@ nav:
       - Django:
         - REST Framework:
           - engineering/web/django/rest/README.md
+      - Elm: engineering/elm.md
   - Programming:
       - programming/README.md
       - Design Patterns:
