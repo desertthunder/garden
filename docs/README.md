@@ -32,19 +32,20 @@ Also, take a look at my notes on [cultivating](./writing/cultivation.md) a garde
 
     === "Operating System(s)"
 
-        - [Fedora](https://getfedora.org) <br />
+        - [NixOS](https://nixos.org/) <br />
         - [MacOS](https://www.apple.com/macos)
 
     === "Terminal Tools"
 
         - [Alacritty](https://alacritty.org) <br />
-        - [Zsh](https://www.zsh.org)
+        - [Zsh](https://www.zsh.org) <br />
+        - Check out my [dotfiles](https://github.com/desertthunder/dotfiles)
 
     === "Text Editors"
 
-        - [Neovim](https://neovim.io) <br />
+        - [Neovim](https://neovim.io) (my [config](https://github.com/desertthunder/dotfiles)) <br />
         - [Obsidian](https://obsidian.md) <br />
-        - [VSCode](https://code.visualstudio.com)
+        - [Zed](https://zed.dev)
 
 ## Attributions
 
