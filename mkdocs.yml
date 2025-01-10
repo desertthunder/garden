@@ -68,7 +68,9 @@ nav:
           - books/README.md
           - How to Take Smart Notes: writing/book-ahrens-2017.md
           - How to Be Perfect: philosophy/book-schur-2023.md
-    - Writing: writing/README.md
+    - Writing:
+          - writing/README.md
+          - Diataxis: writing/diataxis.md
     - Learning:
           - Active Inhibition: writing/active_inhibition.md
           - Autonomy in Work: writing/autonomy_in_work.md
@@ -116,6 +118,8 @@ nav:
                 - Python:
                       - Logging: programming/python/logging.md
                       - Named Tuple: programming/python/named-tuple.md
+                - Rust:
+                      - Module System: programming/rust/module-system.md
           - Algorithms:
                 - Dijkstra's Algorithm: algorithms/dijkstra.md
                 - Selection Sort: algorithms/selection-sort.md
@@ -129,6 +133,7 @@ nav:
                 - Trees: data-structures/trees.md
           - Functional Programming:
                 - programming/functional-programming/README.md
+                - Elm: programming/functional-programming/elm.md
     - Philosophy:
           - Aristotle's Problem: philosophy/aristotle-problem.md
           - Bentham's Scale: philosophy/bentham-scale.md
