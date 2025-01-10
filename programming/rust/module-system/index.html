@@ -8,28 +8,24 @@
       
       
       
-        <link rel="canonical" href="https://desertthunder.github.io/garden/writing/book-ahrens-2017/">
+        <link rel="canonical" href="https://desertthunder.github.io/garden/programming/rust/module-system/">
       
       
-        <link rel="prev" href="../../books/">
       
       
-        <link rel="next" href="../../philosophy/book-schur-2023/">
-      
-      
-      <link rel="icon" href="../../assets/favicon.ico">
+      <link rel="icon" href="../../../assets/favicon.ico">
       <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.21">
     
     
       
-        <title>How to Take Smart Notes - A Digital Garden</title>
+        <title>Rust's Module System - A Digital Garden</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.66ac8b77.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -48,7 +44,7 @@
       
     
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -74,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#my-routinetakeaways" class="md-skip">
+        <a href="#terms" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +86,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="A Digital Garden" class="md-header__button md-logo" aria-label="A Digital Garden" data-md-component="logo">
+    <a href="../../.." title="A Digital Garden" class="md-header__button md-logo" aria-label="A Digital Garden" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m11.5 20 4.86-9.73H13V4l-5 9.73h3.5V20M12 2c2.75 0 5.1 1 7.05 2.95C21 6.9 22 9.25 22 12s-1 5.1-2.95 7.05C17.1 21 14.75 22 12 22s-5.1-1-7.05-2.95C3 17.1 2 14.75 2 12s1-5.1 2.95-7.05C6.9 3 9.25 2 12 2Z"/></svg>
@@ -110,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              How to Take Smart Notes
+              Rust's Module System
             
           </span>
         </div>
@@ -223,7 +219,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="A Digital Garden" class="md-nav__button md-logo" aria-label="A Digital Garden" data-md-component="logo">
+    <a href="../../.." title="A Digital Garden" class="md-nav__button md-logo" aria-label="A Digital Garden" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m11.5 20 4.86-9.73H13V4l-5 9.73h3.5V20M12 2c2.75 0 5.1 1 7.05 2.95C21 6.9 22 9.25 22 12s-1 5.1-2.95 7.05C17.1 21 14.75 22 12 22s-5.1-1-7.05-2.95C3 17.1 2 14.75 2 12s1-5.1 2.95-7.05C6.9 3 9.25 2 12 2Z"/></svg>
@@ -273,7 +269,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../.." class="md-nav__link ">
+            <a href="../../.." class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -305,8 +301,6 @@
       
   
   
-    
-  
   
   
     
@@ -323,16 +317,18 @@
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../books/" class="md-nav__link ">
+            <a href="../../../books/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -349,7 +345,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Books
@@ -362,28 +358,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    How to Take Smart Notes
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../writing/book-ahrens-2017/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -392,35 +370,6 @@
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of Contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of Contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#my-routinetakeaways" class="md-nav__link">
-    <span class="md-ellipsis">
-      My Routine/Takeaways
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -433,7 +382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../philosophy/book-schur-2023/" class="md-nav__link">
+      <a href="../../../philosophy/book-schur-2023/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -461,7 +410,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../../writing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -538,7 +487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../active_inhibition/" class="md-nav__link">
+      <a href="../../../writing/active_inhibition/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -559,7 +508,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../autonomy_in_work/" class="md-nav__link">
+      <a href="../../../writing/autonomy_in_work/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -580,7 +529,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cultivation/" class="md-nav__link">
+      <a href="../../../writing/cultivation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -601,7 +550,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../feature_positive_effect/" class="md-nav__link">
+      <a href="../../../writing/feature_positive_effect/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -622,7 +571,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../goal_of_learning/" class="md-nav__link">
+      <a href="../../../writing/goal_of_learning/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -643,7 +592,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mere_exposure_effect/" class="md-nav__link">
+      <a href="../../../writing/mere_exposure_effect/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -664,7 +613,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../motivation_when_studying/" class="md-nav__link">
+      <a href="../../../writing/motivation_when_studying/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -685,7 +634,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../worldly_wisdom/" class="md-nav__link">
+      <a href="../../../writing/worldly_wisdom/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -706,7 +655,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../write_to_learn/" class="md-nav__link">
+      <a href="../../../writing/write_to_learn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -791,7 +740,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../psychology/dealing-with-pain/" class="md-nav__link">
+      <a href="../../../psychology/dealing-with-pain/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -812,7 +761,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../psychology/hedonic-treadmill/" class="md-nav__link">
+      <a href="../../../psychology/hedonic-treadmill/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -833,7 +782,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../psychology/indestructible/" class="md-nav__link">
+      <a href="../../../psychology/indestructible/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -854,7 +803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../psychology/shoshin/" class="md-nav__link">
+      <a href="../../../psychology/shoshin/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -875,7 +824,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../psychology/tsundoku/" class="md-nav__link">
+      <a href="../../../psychology/tsundoku/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -896,7 +845,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../psychology/why-we-read/" class="md-nav__link">
+      <a href="../../../psychology/why-we-read/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -917,7 +866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../psychology/ifs/" class="md-nav__link">
+      <a href="../../../psychology/ifs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -979,7 +928,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../psychology/productivity/done/" class="md-nav__link">
+      <a href="../../../psychology/productivity/done/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1049,7 +998,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../psychology/submodality/" class="md-nav__link">
+      <a href="../../../psychology/submodality/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1115,7 +1064,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../engineering/" class="md-nav__link ">
+            <a href="../../../engineering/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1191,7 +1140,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../engineering/general/katas/" class="md-nav__link">
+      <a href="../../../engineering/general/katas/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1212,7 +1161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../engineering/general/daybooks/" class="md-nav__link">
+      <a href="../../../engineering/general/daybooks/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1282,7 +1231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../engineering/architecture/adr/" class="md-nav__link">
+      <a href="../../../engineering/architecture/adr/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1311,7 +1260,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../engineering/bash_http/" class="md-nav__link">
+      <a href="../../../engineering/bash_http/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1373,7 +1322,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../engineering/databases/dsn/" class="md-nav__link">
+      <a href="../../../engineering/databases/dsn/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1445,7 +1394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../engineering/web/batteries/" class="md-nav__link">
+      <a href="../../../engineering/web/batteries/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1527,7 +1476,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../engineering/web/django/rest/" class="md-nav__link ">
+            <a href="../../../engineering/web/django/rest/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1616,7 +1565,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../programming/" class="md-nav__link ">
+            <a href="../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -1690,7 +1639,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../programming/design/adapter/" class="md-nav__link">
+      <a href="../../design/adapter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1803,7 +1752,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../programming/golang/http-requests/" class="md-nav__link">
+      <a href="../../golang/http-requests/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1875,7 +1824,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../programming/python/logging/" class="md-nav__link">
+      <a href="../../python/logging/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1896,7 +1845,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../programming/python/named-tuple/" class="md-nav__link">
+      <a href="../../python/named-tuple/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1976,7 +1925,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithms/dijkstra/" class="md-nav__link">
+      <a href="../../../algorithms/dijkstra/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1997,7 +1946,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../algorithms/selection-sort/" class="md-nav__link">
+      <a href="../../../algorithms/selection-sort/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2050,7 +1999,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../data-structures/" class="md-nav__link ">
+            <a href="../../../data-structures/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2126,7 +2075,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../data-structures/arrays/" class="md-nav__link">
+      <a href="../../../data-structures/arrays/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2169,7 +2118,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../data-structures/collections/" class="md-nav__link ">
+            <a href="../../../data-structures/collections/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2202,7 +2151,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../data-structures/stacks/" class="md-nav__link">
+      <a href="../../../data-structures/stacks/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2239,7 +2188,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../data-structures/trees/" class="md-nav__link">
+      <a href="../../../data-structures/trees/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2288,7 +2237,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../programming/functional-programming/" class="md-nav__link ">
+            <a href="../../functional-programming/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -2378,7 +2327,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../philosophy/aristotle-problem/" class="md-nav__link">
+      <a href="../../../philosophy/aristotle-problem/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2399,7 +2348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../philosophy/bentham-scale/" class="md-nav__link">
+      <a href="../../../philosophy/bentham-scale/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2420,7 +2369,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../philosophy/heuristic/" class="md-nav__link">
+      <a href="../../../philosophy/heuristic/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2441,7 +2390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../philosophy/trolley-problem/" class="md-nav__link">
+      <a href="../../../philosophy/trolley-problem/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2510,7 +2459,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../sociology/broken-windows/" class="md-nav__link">
+      <a href="../../../sociology/broken-windows/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2558,9 +2507,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#my-routinetakeaways" class="md-nav__link">
+  <a href="#terms" class="md-nav__link">
     <span class="md-ellipsis">
-      My Routine/Takeaways
+      Terms
     </span>
   </a>
   
@@ -2584,190 +2533,20 @@
   
 
 
-  <h1>How to Take Smart Notes</h1>
+  <h1>Rust's Module System</h1>
 
+<h2 id="terms">Terms<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup><a class="headerlink" href="#terms" title="Link to this section">&para;</a></h2>
 <ul>
-<li>
-<p>Two-Slip boxes in one markdown file: note and reference - notes extend and
-relate to other notes, not in isolation (one note can exist in different
-contexts - basically, we can understand how different ideas<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>)</p>
-</li>
-<li>
-<p>Read, Think, Understand - then write your note (woops) - we have to
-[[Write to Learn|write to externalize our ideas]]</p>
-</li>
-<li>Life requires context switching, and notes with an index can help me pick up
-where I left off in the thought process. This is important for my work,
-as I am a knowledge worker</li>
-<li>Strip the workflow of everything that can be considered unimportant
-(I should probably stop using Notion for note taking - only as content management)</li>
-<li>The author advises that we always have the tools at hand - pen &amp; paper
-(anything to capture with)</li>
-<li>
-<p>A journal is a "graveyard for thoughts", the slip box should be for notes<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
-</li>
-<li>
-<p>Asking yourself what you should learn is a useless question -
-  it's easier to do things with a clear view of the destination</p>
-<ul>
-<li>Deliberate practice helps us become better at making this journey<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup></li>
-</ul>
-</li>
-</ul>
-<div class="admonition quote">
-<p class="admonition-title">Quote</p>
-<p>Nothing counts other than writing.</p>
-</div>
-<ul>
-<li>The main goal<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup> of notes is to convey the truth (publishable insight)</li>
-<li>Note types: Fleeting, Permanent, Project (-specific)</li>
-<li>In order to find a topic, you need to have studied a subject<ul>
-<li>This makes me think of an old interview of Alexisonfire, where George says
-  to make music, you have to listen to music.</li>
-</ul>
-</li>
-</ul>
-<div class="admonition quote">
-<p class="admonition-title">Quote</p>
-<p>By focusing on what is interesting and keeping written track of
-<em>your own intellectual development</em>, topics, questions and arguments will
-emerge from the material without force.</p>
-</div>
-<ul>
-<li>Rewarding work starts the positive feedback loop<ul>
-<li>Writing provides the feedback portion
-(we're forced to assess if we're understanding the material)</li>
-</ul>
-</li>
-<li>[[Mere Exposure Effect]]:  If we do something a lot,
-we <em>think</em> we're good at it, even if we're not</li>
-<li>Focused attention is not very long. New technology damages our ability to
-practice sustained attention (where we work on one thing at a time)</li>
-<li>Creativity requires keeping an open mind and being able to switch
-to a narrow, analytical approach</li>
-<li>Memo-ize memories - group in to bundles, rather than discrete facts</li>
-<li>"Mind Like Water" - get knowledge out of our short term memory</li>
-</ul>
-<div class="admonition question">
-<p class="admonition-title">Question</p>
-<p>Who said the above quote?</p>
-</div>
-<ul>
-<li>Willpower is like muscles - requires rest and gets exhausted quickly but can
-be strengthened</li>
-<li>Hand writing facilitates understanding because it is slow - college students
-have to understand what they hear rather than copy it down</li>
-<li>Shorter, in your own words allows us to focus on patterns, frames, and
-categories of an excerpt</li>
-<li>Re-reading breeds familiarity, writing forces us to confront misunderstanding</li>
-<li>Cramming is for short term retention, not for learning</li>
-<li>
-<p>The brain prioritizes comfort and its own happiness (like ego in The Power of Now)</p>
-<ul>
-<li>Writing was Richard Feynman's thinking process (think outside your brain)</li>
-</ul>
-</li>
-<li>
-<p>Forgetting can sometimes be [[Active Inhibition|done by our minds]] as a
-filter so we don't get flooded with memories and associations
-(think join models in SQL)</p>
-</li>
-<li>
-<p>Memory can be measured by storage and retrieval strength</p>
-<ul>
-<li>Storage strength can't be improved</li>
-</ul>
-</li>
-<li>
-<p>Linking is key!</p>
-<ul>
-<li>Keep an eye towards other notes and contexts such that you can build the
-matrix around things you're interested in</li>
-</ul>
-</li>
-<li>
-<p>Contradictions, paradoxes and problems help us reassess pre-existing
-knowledge stored in the slip-box
-(corrects for the [[Feature Positive Effect|feature-positive effect]])</p>
-</li>
-<li>
-<p>Remember that the slip-box is just a tool<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup></p>
-</li>
-<li>[[Worldly Wisdom|Worldly Wisdom]]: hanging life experiences on mental models</li>
-<li>
-<p>Spaced repitition and active recall are important for information retention.</p>
-</li>
-<li>
-<p>One idea per permanent note - place limits so that they stay concise.</p>
-<ul>
-<li>Structure (experiment) and restrictions (assess what is important)
-are necessary for creativity</li>
-</ul>
-</li>
-<li>
-<p>The brain prioritizes information that is recently acquired and with
-emotions attached to it</p>
-</li>
-<li>
-<p>Evolution works by trial &amp; error, not planning<sup id="fnref:6"><a class="footnote-ref" href="#fn:6">6</a></sup></p>
-</li>
-<li>
-<p>[[Motivation when Studying|Motivation]] is relational (students must
-  identify with and see the purpose of their work)</p>
-<ul>
-<li>And be [[Autonomy in Work|free]]</li>
-</ul>
-</li>
-<li>
-<p>Athletes are more motivated when they imagine the training it takes to
-win.<sup id="fnref:7"><a class="footnote-ref" href="#fn:7">7</a></sup> How can I implement this?</p>
-</li>
-<li>Build new habits to replace old ones, don't force old habits away<ul>
-<li>The [[Goal of Learning|goal of learning]] is to evolve</li>
-</ul>
-</li>
-</ul>
-<h2 id="my-routinetakeaways">My Routine/Takeaways<a class="headerlink" href="#my-routinetakeaways" title="Link to this section">&para;</a></h2>
-<ul>
-<li>Keep a pen &amp; paper handy at all times (if anything, just to avoid opening
-your phone when in the middle of a book)</li>
-<li>Abandon the notion of making perfect notes. Do you think the multicolored
-shit people made in college is something that would have helped you? Why not
-just make art instead?</li>
-<li>When processing notes, open up the source with anything you've highlighted<ul>
-<li><em>ex. the Kindle notes &amp; highlights for this book</em></li>
-</ul>
-</li>
-<li>Many of my attitudes towards learning are not conducive to learning, but to
-accomplishing a very specific task.</li>
-<li>Turn the writing everything and thinking about process in to a
-[[Motivation when Studying|hobby]].</li>
+<li>Packages: A Cargo feature that lets you build, test, and share crates</li>
+<li>Crates: A tree of modules that produces a library or executable</li>
+<li>Modules and use Let you control the organization, scope, and privacy of paths</li>
+<li>Paths: A way of naming an item, such as a struct, function, or module</li>
 </ul>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
-<p>Page 20&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-<li id="fn:2">
-<p><a href="https://www.jstor.org/stable/3397642">https://www.jstor.org/stable/3397642</a>&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
-</li>
-<li id="fn:3">
-<p>Ericsson, K. Anders, and Kyle W. Harwell. “Deliberate Practice and Proposed Limits on the Effects of Practice on the Acquisition of Expert Performance: Why the Original Definition Matters and Recommendations for Future Research.” Frontiers in Psychology 10 (2019). <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2019.02396">https://www.frontiersin.org/articles/10.3389/fpsyg.2019.02396</a>.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
-</li>
-<li id="fn:4">
-<p>Ahrens, Sönke. <em>How to Take Smart Notes: One Simple Technique to Boost Writing,
-Learning and Thinking: For Students, Academics and Nonfiction Book Writers</em>.
-North Charleston, SC: CreateSpace, 2017.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
-</li>
-<li id="fn:5">
-<p><a href="https://www.reddit.com/r/Zettelkasten/comments/ots96r/on_a_failed_zettelkasten/">https://www.reddit.com/r/Zettelkasten/comments/ots96r/on_a_failed_zettelkasten/</a>&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
-</li>
-<li id="fn:6">
-<p>Page 135&#160;<a class="footnote-backref" href="#fnref:6" title="Jump back to footnote 6 in the text">&#8617;</a></p>
-</li>
-<li id="fn:7">
-<p>Singer, Robert N., Heather A. Hausenblas, and Christopher Janelle, eds. <em>Handbook of Sport Psychology</em>. 2nd ed. New York: Wiley, 2001.&#160;<a class="footnote-backref" href="#fnref:7" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+<p>Klabnik, Steve. The Rust Programming Language. No Starch Press, Inc, 2018.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
@@ -2791,7 +2570,7 @@ North Charleston, SC: CreateSpace, 2017.&#160;<a class="footnote-backref" href="
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 11, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">January 10, 2025</span>
   </span>
 
     
@@ -2870,10 +2649,10 @@ North Charleston, SC: CreateSpace, 2017.&#160;<a class="footnote-backref" href="
       <div class="md-progress" data-md-component="progress" role="progressbar"></div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.expand", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.indexes", "navigation.expand", "navigation.instant", "navigation.instant.prefetch", "navigation.instant.progress"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.a7c05c9e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.a7c05c9e.min.js"></script>
       
     
   </body>
