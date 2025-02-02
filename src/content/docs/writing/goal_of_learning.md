@@ -9,4 +9,4 @@ title: Goal of Learning
 
 - The author is trying to say[^1] that we learn to grow, not collect.
 
-[^1]: [How to Take Smart Notes](../writing/book-ahrens-2017.md)
+[^1]: [How to Take Smart Notes](../writing/book-ahrens-2017)

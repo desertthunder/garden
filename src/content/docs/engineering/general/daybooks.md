@@ -2,8 +2,6 @@
 title: Engineering Daybooks
 ---
 
-# Engineering Daybook
-
 - An engineering daybook[^1] can/should contain...
     - What you did that day
     - What you learned

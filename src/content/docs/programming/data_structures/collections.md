@@ -1,8 +1,6 @@
 ---
-title: Stacks & Queues
+title:  Stacks, Queues, and Abstract Data Types
 ---
-
-# Stacks, Queues, and Abstract Data Types
 
 - Abstract data types are sets of theoretical rules that revolve
 around some built-in data structure.

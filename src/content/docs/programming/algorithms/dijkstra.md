@@ -2,8 +2,6 @@
 title: Dijkstra's Algorithm
 ---
 
-# Dijkstra's Algorithm
-
 - Solves the shortest path to X in a weighted graph
     - Think fastest path if each edge has a distance
     - Steps:

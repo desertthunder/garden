@@ -2,7 +2,6 @@
 title: Submodalities
 ---
 
-# Submodality
 
 - A submodality[^1] is a distinction in how we re-experience a past event.
     - *Example*: Remembering a visual event in black and white vs. color[^2]

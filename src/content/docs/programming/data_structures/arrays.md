@@ -1,8 +1,6 @@
 ---
-title: Arrays
+title: Arrays & Data Structure Basics
 ---
-
-# Arrays & Data Structure Basics
 
 - MIT 6.006 Lecture: <https://www.youtube.com/watch?v=CHhwJjR0mZA>
 - Take a look at lecture notes on the website for addl. information.

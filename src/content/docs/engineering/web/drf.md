@@ -2,8 +2,6 @@
 title: DRF | Django REST Framework
 ---
 
-# Django REST Framework
-
 !!! warning
     This is a work in progress.
 

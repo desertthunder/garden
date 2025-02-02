@@ -2,8 +2,6 @@
 title: Architecture Decision Records
 ---
 
-# Architecture Decision Records
-
 ## Overview
 
 - An Architecture Decision Record (abbr. ADR) is any document that captures

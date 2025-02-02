@@ -2,8 +2,6 @@
 title: Elm
 ---
 
-# Elm
-
 Elm is a domain specific, functional language made for building GUIs on the web. Its architecture[^1] has inspired libraries like Redux, Lustre, and Bubble tea
 
 ## Architecture

@@ -2,8 +2,6 @@
 title: Diátaxis Framework
 ---
 
-# Diátaxis
-
 Made by Daniel Procida
 
 !!! info "Foundations"

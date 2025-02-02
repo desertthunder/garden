@@ -2,8 +2,6 @@
 title: Code Katas
 ---
 
-# Code Kata
-
 A code kata is an attempt to take the kata concept from karate[^1]/sports,
 i.e. simple repeated practice, and apply it to software development.
 Good practice requires uninterrupted time with an idea and desire to grow.

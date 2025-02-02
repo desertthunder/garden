@@ -1,8 +1,6 @@
 ---
-title: Why We Read
+title: Why We Should Read
 ---
-
-# Why We Should Read
 
 !!! quote
 

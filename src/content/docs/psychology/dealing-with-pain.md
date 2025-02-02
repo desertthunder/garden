@@ -1,8 +1,6 @@
 ---
-title: Dealing with Pain
+title: Dealing with (Emotional) Pain
 ---
-
-# Dealing with (Emotional) Pain
 
 ## Three Ways to Deal with Difficult Emotions[^1]
 
