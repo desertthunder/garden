@@ -3,12 +3,18 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
 export default defineConfig({
+    site: "https://desertthunder.github.io",
+    base: "garden",
     integrations: [
         starlight({
-            title: "My Docs",
+            title: "Desert Garden",
             social: {
-                github: "https://github.com/withastro/starlight",
+                github: "https://github.com/desertthunder/garden",
+                codeberg: "https://codeberg.org/desertthunder",
+                blueSky: "https://bsky.app/profile/desertthunder.substack.com",
+                linkedin: "https://www.linkedin.com/in/owais-jamil/",
             },
+            customCss: ["./src/styles/custom.css"],
             sidebar: [
                 {
                     label: "Getting Started",
