@@ -1,11 +1,14 @@
 // @ts-check
-import { defineConfig } from "astro/config";
+import { defineConfig, passthroughImageService } from "astro/config";
 import starlight from "@astrojs/starlight";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
     site: "https://desertthunder.github.io",
     base: "garden",
+    image: {
+        service: passthroughImageService(),
+    },
     integrations: [
         starlight({
             title: "Desert Garden",
