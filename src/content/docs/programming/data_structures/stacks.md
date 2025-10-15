@@ -47,5 +47,4 @@ title: More on Stacks
 
 - What is a concurrent modification error?
 
-[^1]: WilliamFiset. Queue Implementation. 2017. YouTube,
-<https://www.youtube.com/watch?v=EoisnPvUkOA>.
+[^1]: WilliamFiset. Queue Implementation. 2017. YouTube, <https://www.youtube.com/watch?v=EoisnPvUkOA>.

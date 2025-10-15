@@ -6,15 +6,11 @@ title: How to Take Smart Notes
 relate to other notes, not in isolation (one note can exist in different
 contexts - basically, we can understand how different ideas[^1])
 
-- Read, Think, Understand - then write your note (woops) - we have to
-[[Write to Learn|write to externalize our ideas]]
-- Life requires context switching, and notes with an index can help me pick up
-where I left off in the thought process. This is important for my work,
-as I am a knowledge worker
-- Strip the workflow of everything that can be considered unimportant
-(I should probably stop using Notion for note taking - only as content management)
-- The author advises that we always have the tools at hand - pen & paper
-(anything to capture with)
+- Read, Think, Understand - then write your note (woops) - we have to [write to externalize our ideas](./write_to_learn.md)
+- Life requires context switching, and notes with an index can help me pick up where I left off in the thought process.
+This is important for my work, as I am a knowledge worker
+- Strip the workflow of everything that can be considered unimportant (I should probably stop using Notion for note taking - only as content management)
+- The author advises that we always have the tools at hand - pen & paper (anything to capture with)
 - A journal is a "graveyard for thoughts", the slip box should be for notes[^2]
 
 - Asking yourself what you should learn is a useless question -

@@ -1,21 +1,53 @@
+/* google-sans-code-latin-wght-normal */
 @font-face {
-    font-family: 'Atkinson Hyperlegible';
-    font-style: normal;
-    font-display: swap;
-    font-weight: 400;
-    src: url(https://cdn.jsdelivr.net/fontsource/fonts/atkinson-hyperlegible@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/atkinson-hyperlegible@latest/latin-400-normal.woff) format('woff');
-    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+  font-family: 'Google Sans Code Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 800;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/google-sans-code:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 
+/* outfit-latin-wght-normal */
 @font-face {
-    font-family: 'Monaspace Xenon';
-    font-style: normal;
-    font-display: swap;
-    font-weight: 400;
-    src: url(https://cdn.jsdelivr.net/fontsource/fonts/monaspace-xenon@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/monaspace-xenon@latest/latin-400-normal.woff) format('woff');
+  font-family: 'Outfit Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/outfit:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 
 :root {
-    --sl-font-system: 'Atkinson Hyperlegible', ui-sans-serif;
-    --sl-font-system-mono: 'Monaspace Xenon', ui-monospace;
+    --sl-font-system: 'Outfit Variable', ui-sans-serif;
+    --sl-font-system-mono: 'Google Sans Code Variable', ui-monospace;
+
+    /* Dark mode colors. */
+	--sl-color-accent-low: #002931;
+	--sl-color-accent: #007789;
+	--sl-color-accent-high: #7fd8eb;
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: #eeeeee;
+	--sl-color-gray-2: #c2c2c2;
+	--sl-color-gray-3: #8b8b8b;
+	--sl-color-gray-4: #585858;
+	--sl-color-gray-5: #383838;
+	--sl-color-gray-6: #272727;
+	--sl-color-black: #181818;
+}
+
+/* Light mode colors. */
+:root[data-theme='light'] {
+	--sl-color-accent-low: #a3e3f1;
+	--sl-color-accent: #007384;
+	--sl-color-accent-high: #003943;
+	--sl-color-white: #181818;
+	--sl-color-gray-1: #272727;
+	--sl-color-gray-2: #383838;
+	--sl-color-gray-3: #585858;
+	--sl-color-gray-4: #8b8b8b;
+	--sl-color-gray-5: #c2c2c2;
+	--sl-color-gray-6: #eeeeee;
+	--sl-color-gray-7: #f6f6f6;
+	--sl-color-black: #ffffff;
 }
