@@ -38,6 +38,7 @@ export default defineConfig({
             { label: "Databases", collapsed: true, autogenerate: { directory: "engineering/databases" } },
             { label: "General", collapsed: true, autogenerate: { directory: "engineering/general" } },
             { label: "Web", collapsed: true, autogenerate: { directory: "engineering/web" } },
+            { label: "Git", collapsed: true, autogenerate: { directory: "engineering/git" } },
           ],
         },
         {
