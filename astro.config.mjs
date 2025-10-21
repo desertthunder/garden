@@ -57,6 +57,7 @@ export default defineConfig({
             { label: "Golang", collapsed: true, autogenerate: { directory: "programming/golang" } },
             { label: "Python", collapsed: true, autogenerate: { directory: "programming/python" } },
             { label: "Rust", collapsed: true, autogenerate: { directory: "programming/rust" } },
+            { label: "Creative Coding", collapsed: true, autogenerate: { directory: "programming/creative" } },
           ],
         },
       ],
