@@ -2,6 +2,7 @@
 import sitemap from "@astrojs/sitemap";
 import starlight from "@astrojs/starlight";
 import { defineConfig, passthroughImageService } from "astro/config";
+import rehypeMermaid from "rehype-mermaid";
 
 export default defineConfig({
   site: "https://desertthunder.github.io",
@@ -64,4 +65,8 @@ export default defineConfig({
     }),
     sitemap(),
   ],
+  markdown: {
+    syntaxHighlight: { type: "shiki", excludeLangs: ["mermaid", "math"] },
+    rehypePlugins: [[rehypeMermaid, { strategy: "img-svg", dark: true, colorScheme: "forest" }]],
+  },
 });
