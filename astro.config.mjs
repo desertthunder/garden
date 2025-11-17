@@ -3,6 +3,8 @@ import sitemap from "@astrojs/sitemap";
 import starlight from "@astrojs/starlight";
 import { defineConfig, passthroughImageService } from "astro/config";
 import rehypeMermaid from "rehype-mermaid";
+import starlightLinksValidator from "starlight-links-validator";
+import starlightThemeRapide from "starlight-theme-rapide";
 
 export default defineConfig({
   site: "https://desertthunder.github.io",
@@ -11,6 +13,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Desert Garden",
+      plugins: [starlightThemeRapide(), starlightLinksValidator()],
       social: [
         { label: "github", icon: "github", href: "https://github.com/desertthunder/garden" },
         { label: "codeberg", icon: "codeberg", href: "https://codeberg.org/desertthunder" },
@@ -35,11 +38,11 @@ export default defineConfig({
           collapsed: true,
           items: [
             { slug: "engineering" },
+            { label: "General", collapsed: true, autogenerate: { directory: "engineering/general" } },
+            { label: "Git", collapsed: true, autogenerate: { directory: "engineering/git" } },
             { label: "Architecture", collapsed: true, autogenerate: { directory: "engineering/architecture" } },
             { label: "Databases", collapsed: true, autogenerate: { directory: "engineering/databases" } },
-            { label: "General", collapsed: true, autogenerate: { directory: "engineering/general" } },
             { label: "Web", collapsed: true, autogenerate: { directory: "engineering/web" } },
-            { label: "Git", collapsed: true, autogenerate: { directory: "engineering/git" } },
           ],
         },
         {
@@ -47,6 +50,7 @@ export default defineConfig({
           collapsed: true,
           items: [
             { slug: "programming" },
+            { label: "General", collapsed: true, autogenerate: { directory: "programming/general" } },
             { label: "Design", collapsed: true, autogenerate: { directory: "programming/design" } },
             { label: "Data Structures", collapsed: true, autogenerate: { directory: "programming/data_structures" } },
             { label: "Algorithms", collapsed: true, autogenerate: { directory: "programming/algorithms" } },
@@ -55,10 +59,10 @@ export default defineConfig({
               collapsed: true,
               autogenerate: { directory: "programming/functional_programming" },
             },
+            { label: "Creative Coding", collapsed: true, autogenerate: { directory: "programming/creative" } },
             { label: "Golang", collapsed: true, autogenerate: { directory: "programming/golang" } },
             { label: "Python", collapsed: true, autogenerate: { directory: "programming/python" } },
             { label: "Rust", collapsed: true, autogenerate: { directory: "programming/rust" } },
-            { label: "Creative Coding", collapsed: true, autogenerate: { directory: "programming/creative" } },
           ],
         },
       ],

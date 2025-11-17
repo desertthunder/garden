@@ -10,7 +10,7 @@ title: The Trolley Problem
     - Branch of consequentialism (only thing that matters is results)
     - The best action is what makes people the most happy (greatest happiness principle)
     - Developed by British philosophers Bentham (wanted himself studied and preserved after death) and Mill (had a rough childhood
-- [Bentham's Scale](./bentham-scale.md) is a way to quantify pleasure & pain (hedons & dolors - happiness points & sadness demerits)
+- [Bentham's Scale](/garden/philosophy/bentham-scale) is a way to quantify pleasure & pain (hedons & dolors - happiness points & sadness demerits)
 - Utilitarians believe all people's happiness matters equally
 - Correlation does not imply causation
     - Humans don't often know the consequences of their actions
@@ -21,4 +21,4 @@ title: The Trolley Problem
 
 ## Source/Backlink
 
-[How to Be Perfect](./book-schur-2023.mdx)
+[How to Be Perfect](/garden/philosophy/book-schur-2023)

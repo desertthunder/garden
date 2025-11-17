@@ -17,4 +17,4 @@ Aristotle's problem domain was trying to define[^1] what makes a person good:
     - We become virtuous by doing virtuous things (habitual)
 
 [^1]: Schur, Michael. How to Be Perfect: A Foolproof Guide to Making the Correct Moral Decision in Every Situation You Ever Encounter Anywhere on Earth, Forever.
-First Simon&Schuster hardcover edition, Simon & Schuster, 2022. ([source](./book-schur-2023.mdx))
+First Simon&Schuster hardcover edition, Simon & Schuster, 2022. ([source](/garden/philosophy/book-schur-2023))

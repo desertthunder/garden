@@ -13,5 +13,5 @@ title: Bentham's Scale
 
 ## Backlinks
 
-1. [How to Be Perfect](./book-schur-2023.mdx)
-2. [The Trolly Problem](./trolley-problem.md)
+1. [How to Be Perfect](/garden/philosophy/book-schur-2023)
+2. [The Trolly Problem](/garden/philosophy/trolley-problem)
