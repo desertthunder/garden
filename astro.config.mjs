@@ -33,6 +33,7 @@ export default defineConfig({
         { label: "Philosophy", collapsed: true, autogenerate: { directory: "philosophy" } },
         { label: "Psychology", collapsed: true, autogenerate: { directory: "psychology" } },
         { label: "Sociology", collapsed: true, autogenerate: { directory: "sociology" } },
+        { label: "Unix", collapsed: true, autogenerate: { directory: "unix" } },
         {
           label: "Engineering",
           collapsed: true,
