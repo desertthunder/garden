@@ -1,0 +1,239 @@
+---
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import { getGitLog, groupChangesByDate, getFileDiff } from "./lib/git";
+import { pathToSlug, extractTitle, formatDate } from "./lib/utils";
+import { formatDiff } from "./lib/diff-formatter";
+
+const contentDir = "src/content/docs";
+const diffLines = 15;
+const historyDays = 90;
+
+const changes = getGitLog(contentDir, historyDays);
+const changelog = groupChangesByDate(changes);
+---
+
+<StarlightPage
+  frontmatter={{ title: "Changelog", description: "Recent changes to the documentation" }}
+  headings={[{ depth: 2, slug: "recent-changes", text: "Recent Changes" }]}>
+  <div class="changelog-container">
+    {
+      changelog.length === 0 ? (
+        <p>No recent changes found in the last {historyDays} days.</p>
+      ) : (
+        changelog.map((entry) => (
+          <section class="changelog-entry">
+            <h2 id={entry.date}>{formatDate(entry.date)}</h2>
+
+            {entry.added.length > 0 && (
+              <div class="change-section added">
+                <h3>Added</h3>
+                <ul>
+                  {entry.added.map((change) => {
+                    const slug = pathToSlug(change.path, contentDir);
+                    const title = extractTitle(change.path);
+                    return (
+                      <li>
+                        <a href={`/${slug}`}>{title}</a>
+                        <span class="commit-msg"> — {change.message}</span>
+                        <div class="meta">by {change.author}</div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+
+            {entry.modified.length > 0 && (
+              <div class="change-section modified">
+                <h3>Updated</h3>
+                <ul>
+                  {entry.modified.map((change) => {
+                    const slug = pathToSlug(change.path, contentDir);
+                    const title = extractTitle(change.path);
+                    const diff = getFileDiff(change.path, change.commit, diffLines);
+
+                    return (
+                      <li>
+                        <a href={`/${slug}`}>{title}</a>
+                        <span class="commit-msg"> — {change.message}</span>
+                        <div class="meta">by {change.author}</div>
+                        {diff && (
+                          <details class="diff-details">
+                            <summary>Show changes</summary>
+                            {/* prettier-ignore */}
+                            <pre class="diff"><code set:html={formatDiff(diff)} /></pre>
+                          </details>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+
+            {entry.removed.length > 0 && (
+              <div class="change-section removed">
+                <h3>Removed</h3>
+                <ul>
+                  {entry.removed.map((change) => {
+                    const title = extractTitle(change.path);
+                    return (
+                      <li>
+                        <span class="removed-title">{title}</span>
+                        <span class="commit-msg"> — {change.message}</span>
+                        <div class="meta">by {change.author}</div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+          </section>
+        ))
+      )
+    }
+  </div>
+
+  <style>
+    .changelog-container {
+      max-width: 100%;
+    }
+
+    .changelog-entry {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--sl-color-gray-5);
+    }
+
+    .changelog-entry:last-child {
+      border-bottom: none;
+    }
+
+    .changelog-entry h2 {
+      color: var(--sl-color-white);
+      margin-bottom: 1.5rem;
+    }
+
+    .change-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .change-section h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .change-section.added h3 {
+      color: var(--sl-color-green);
+    }
+
+    .change-section.modified h3 {
+      color: var(--sl-color-blue);
+    }
+
+    .change-section.removed h3 {
+      color: var(--sl-color-red);
+    }
+
+    .change-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .change-section li {
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: var(--sl-color-gray-6);
+      border-radius: 0.375rem;
+    }
+
+    .change-section a {
+      font-weight: 600;
+      color: var(--sl-color-white);
+      text-decoration: none;
+    }
+
+    .change-section a:hover {
+      text-decoration: underline;
+    }
+
+    .commit-msg {
+      color: var(--sl-color-gray-2);
+      font-size: 0.9rem;
+    }
+
+    .meta {
+      font-size: 0.85rem;
+      color: var(--sl-color-gray-3);
+      margin-top: 0.25rem;
+    }
+
+    .removed-title {
+      font-weight: 600;
+      color: var(--sl-color-gray-2);
+      text-decoration: line-through;
+    }
+
+    .diff-details {
+      margin-top: 0.75rem;
+    }
+
+    .diff-details summary {
+      cursor: pointer;
+      color: var(--sl-color-text-accent);
+      font-size: 0.9rem;
+      user-select: none;
+    }
+
+    .diff-details summary:hover {
+      text-decoration: underline;
+    }
+
+    .diff {
+      margin-top: 0.5rem;
+      padding: 1rem;
+      background: var(--sl-color-black);
+      border-radius: 0.375rem;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.2;
+    }
+
+    .diff code {
+      color: var(--sl-color-gray-1);
+    }
+
+    .diff :global(.diff-add) {
+      color: var(--sl-color-green-high);
+      background: rgba(46, 160, 67, 0.15);
+      display: inline-block;
+      width: 100%;
+    }
+
+    .diff :global(.diff-remove) {
+      color: var(--sl-color-red-high);
+      background: rgba(248, 81, 73, 0.15);
+      display: inline-block;
+      width: 100%;
+    }
+
+    .diff :global(.diff-file) {
+      color: var(--sl-color-white);
+      font-weight: 600;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .diff :global(.diff-hunk) {
+      color: var(--sl-color-blue);
+      display: inline-block;
+      width: 100%;
+    }
+
+    .diff :global(.diff-context) {
+      color: var(--sl-color-gray-2);
+      display: inline-block;
+      width: 100%;
+    }
+  </style>
+</StarlightPage>

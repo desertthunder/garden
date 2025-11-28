@@ -5,6 +5,7 @@ import { defineConfig, passthroughImageService } from "astro/config";
 import rehypeMermaid from "rehype-mermaid";
 import starlightLinksValidator from "starlight-links-validator";
 import starlightThemeRapide from "starlight-theme-rapide";
+import starlightChangelog from "./src/plugins/starlight-changelog/index.ts";
 
 export default defineConfig({
   site: "https://desertthunder.github.io",
@@ -12,12 +13,16 @@ export default defineConfig({
   image: { service: passthroughImageService() },
   integrations: [
     starlight({
-      title: "Desert Garden",
-      plugins: [starlightThemeRapide(), starlightLinksValidator()],
+      title: "Desert Thunder",
+      plugins: [
+        starlightThemeRapide(),
+        starlightLinksValidator(),
+        starlightChangelog({ path: "changelog", contentDir: "src/content/docs", diffLines: 15, historyDays: 90 }),
+      ],
       social: [
         { label: "github", icon: "github", href: "https://github.com/desertthunder/garden" },
         { label: "codeberg", icon: "codeberg", href: "https://codeberg.org/desertthunder" },
-        { label: "blueSky", icon: "blueSky", href: "https://bsky.app/profile/desertthunder.substack.com" },
+        { label: "blueSky", icon: "blueSky", href: "https://bsky.app/profile/desertthunder.dev" },
         { label: "linkedin", icon: "linkedin", href: "https://www.linkedin.com/in/owais-jamil/" },
       ],
       customCss: ["./src/styles/custom.css"],
@@ -27,12 +32,21 @@ export default defineConfig({
           items: [
             { label: "Welcome", slug: "" },
             { label: "Books", slug: "books" },
+            { label: "Recent Updates", link: "changelog" },
           ],
         },
         { label: "Writing", collapsed: true, autogenerate: { directory: "writing" } },
         { label: "Philosophy", collapsed: true, autogenerate: { directory: "philosophy" } },
         { label: "Psychology", collapsed: true, autogenerate: { directory: "psychology" } },
         { label: "Sociology", collapsed: true, autogenerate: { directory: "sociology" } },
+        {
+          label: "Culture",
+          collapsed: true,
+          items: [
+            { slug: "culture" },
+            { label: "Internet", collapsed: true, autogenerate: { directory: "culture/internet" } },
+          ],
+        },
         { label: "Unix", collapsed: true, autogenerate: { directory: "unix" } },
         {
           label: "Engineering",

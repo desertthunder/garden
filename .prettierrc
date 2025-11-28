@@ -1,14 +1,8 @@
 {
   "plugins": ["prettier-plugin-astro"],
-  "overrides": [
-    {
-      "files": "*.astro",
-      "options": {
-        "parser": "astro"
-      }
-    }
-  ],
+  "overrides": [{ "files": "*.astro", "options": { "parser": "astro" } }],
   "tabWidth": 2,
   "printWidth": 121,
-  "objectWrap": "collapse"
+  "objectWrap": "collapse",
+  "bracketSameLine": true
 }
