@@ -2,7 +2,6 @@
 import sitemap from "@astrojs/sitemap";
 import starlight from "@astrojs/starlight";
 import { defineConfig, passthroughImageService } from "astro/config";
-import rehypeMermaid from "rehype-mermaid";
 import starlightLinksValidator from "starlight-links-validator";
 import starlightThemeRapide from "starlight-theme-rapide";
 import starlightChangelog from "./src/plugins/starlight-changelog/index.ts";
@@ -85,7 +84,6 @@ export default defineConfig({
     sitemap(),
   ],
   markdown: {
-    syntaxHighlight: { type: "shiki", excludeLangs: ["mermaid", "math"] },
-    rehypePlugins: [[rehypeMermaid, { strategy: "img-svg", dark: true, colorScheme: "forest" }]],
+    syntaxHighlight: { type: "shiki", excludeLangs: ["math"] },
   },
 });

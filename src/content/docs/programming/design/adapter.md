@@ -8,16 +8,26 @@ that another can understand.
     - Example: A XML to JSON parser
     - Implements the interface of one object and wraps the other (to hide complexity)
 
-```mermaid
-flowchart TD
- A(Client)
- B(Client Interface)
- C(Adapter)
- D(Service)
-
- A --> B
- C -.-> B
- C -.-> D
+```text
+┌────────┐
+│ Client │
+└───┬────┘
+    │
+    │ uses
+    ▼
+┌──────────────────┐
+│ Client Interface │◄────┐
+└──────────────────┘     │ implements
+                         │
+                    ┌────┴────┐
+                    │ Adapter │
+                    └────┬────┘
+                         │ uses
+                         │
+                         ▼
+                    ┌─────────┐
+                    │ Service │
+                    └─────────┘
 ```
 
 - An object adapter works with the client interface

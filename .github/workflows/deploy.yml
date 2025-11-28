@@ -16,8 +16,6 @@ jobs:
         steps:
             - name: Checkout your repository using git
               uses: actions/checkout@v4
-            - name: Get playwright for mermaid stuff
-              run: npx playwright install --with-deps chromium
             - name: Install, build, and upload your site
               uses: withastro/action@v3
               with:

@@ -97,15 +97,33 @@ Example `.gitmodules` file:
 
 ## Summary
 
-```mermaid
-graph TD
-  A[Parent Repo] -->|Contains pointer| B[Submodule Repo]
-  B -->|Has own commits & history| C[Submodule Commit Tree]
-  A -->|Tracks commit hash of submodule| D[.gitmodules + index]
-  E[Developer] -->|Edits & commits| B
-  B -->|"Push to remote (optional)"| F[Submodule Remote]
-  E -->|Commits updated pointer| A
-  A -->|Push to remote| G[Parent Remote]
+```text
+┌─────────────┐
+│  Developer  │
+└──────┬──────┘
+       │
+       │ Edits & commits
+       ├──────────────────────────┐
+       │                          │
+       │                          │ Commits updated pointer
+       ▼                          ▼
+┌─────────────────┐        ┌───────────────┐
+│ Submodule Repo  │        │  Parent Repo  │
+│                 │        │               │
+│ • Own commits   │        │ • Contains    │
+│ • Own history   │◄───────┤   pointer     │
+│                 │        │ • Tracks      │
+└────────┬────────┘        │   commit hash │
+         │                 │ • .gitmodules │
+         │ Push (optional) │   + index     │
+         │                 └──────┬────────┘
+         ▼                        │
+┌──────────────────┐              │ Push
+│ Submodule Remote │              │
+└──────────────────┘              ▼
+                           ┌───────────────┐
+                           │ Parent Remote │
+                           └───────────────┘
 ```
 
 1. You commit changes **inside the submodule**.
