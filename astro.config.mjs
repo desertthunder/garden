@@ -2,10 +2,11 @@
 import sitemap from "@astrojs/sitemap";
 import starlight from "@astrojs/starlight";
 import { defineConfig, passthroughImageService } from "astro/config";
+import rehypeMathjax from "rehype-mathjax";
+import remarkMath from "remark-math";
 import starlightLinksValidator from "starlight-links-validator";
 import starlightThemeRapide from "starlight-theme-rapide";
 import starlightChangelog from "./src/plugins/starlight-changelog/index.ts";
-
 export default defineConfig({
   site: "https://desertthunder.github.io",
   base: "garden",
@@ -44,6 +45,7 @@ export default defineConfig({
           items: [
             { slug: "culture" },
             { label: "Internet", collapsed: true, autogenerate: { directory: "culture/internet" } },
+            { label: "Baseball", collapsed: true, autogenerate: { directory: "culture/baseball" } },
           ],
         },
         { label: "Unix", collapsed: true, autogenerate: { directory: "unix" } },
@@ -57,6 +59,7 @@ export default defineConfig({
             { label: "Architecture", collapsed: true, autogenerate: { directory: "engineering/architecture" } },
             { label: "Databases", collapsed: true, autogenerate: { directory: "engineering/databases" } },
             { label: "Web", collapsed: true, autogenerate: { directory: "engineering/web" } },
+            { label: "AT Protocol", collapsed: true, autogenerate: { directory: "engineering/atproto" } },
           ],
         },
         {
@@ -85,5 +88,7 @@ export default defineConfig({
   ],
   markdown: {
     syntaxHighlight: { type: "shiki", excludeLangs: ["math"] },
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeMathjax],
   },
 });
