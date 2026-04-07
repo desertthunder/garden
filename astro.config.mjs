@@ -62,6 +62,7 @@ export default defineConfig({
             { label: "AT Protocol", collapsed: true, autogenerate: { directory: "engineering/atproto" } },
           ],
         },
+        { label: "UX", collapsed: true, autogenerate: { directory: "ux" } },
         {
           label: "Programming",
           collapsed: true,
