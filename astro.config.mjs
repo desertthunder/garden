@@ -22,8 +22,7 @@ function remarkDeploymentBaseLinks() {
     rewriteNodeUrls(tree, (url) => {
       if (!url.startsWith("/") || url.startsWith("//")) return url;
 
-      const path =
-        url === sourceBase ? "/" : url.startsWith(`${sourceBase}/`) ? url.slice(sourceBase.length) : url;
+      const path = url === sourceBase ? "/" : url.startsWith(`${sourceBase}/`) ? url.slice(sourceBase.length) : url;
 
       return `${basePrefix}${path}`;
     });
@@ -109,6 +108,7 @@ export default defineConfig({
             { label: "Databases", collapsed: true, autogenerate: { directory: "engineering/databases" } },
             { label: "Web", collapsed: true, autogenerate: { directory: "engineering/web" } },
             { label: "AT Protocol", collapsed: true, autogenerate: { directory: "engineering/atproto" } },
+            { label: "Flutter", collapsed: true, autogenerate: { directory: "engineering/flutter" } },
           ],
         },
         { label: "UX", collapsed: true, autogenerate: { directory: "ux" } },
