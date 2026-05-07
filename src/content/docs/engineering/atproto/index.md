@@ -58,9 +58,9 @@ An **App View** consumes the firehose and provides application-specific APIs. Fo
 
 ### Repositories
 
-A **repository** is a user's complete data store, structured as a [Merkle Search Tree (MST)](/garden/engineering/atproto/mst).
+A **repository** is a user's complete data store, structured as a [Merkle Search Tree (MST)](/engineering/atproto/mst).
 
-- **Records**: Individual data items (posts, likes, follows) stored as [DAG-CBOR](/garden/engineering/atproto/cbor).
+- **Records**: Individual data items (posts, likes, follows) stored as [DAG-CBOR](/engineering/atproto/cbor).
 - **Collections**: Namespaced groups of records (e.g., `app.bsky.feed.post`).
 - **Commits**: Signed snapshots of the repository state.
 
@@ -88,9 +88,9 @@ Format: `at://<authority>/<collection>/<rkey>`
 
 | Component                                    | Purpose                                         |
 | -------------------------------------------- | ----------------------------------------------- |
-| [DAG-CBOR](/garden/engineering/atproto/cbor) | Canonical binary serialization format           |
-| [MST](/garden/engineering/atproto/mst)       | Content-addressed, verifiable key-value storage |
-| [CAR](/garden/engineering/atproto/car)       | Archive format for repository export/sync       |
+| [DAG-CBOR](/engineering/atproto/cbor) | Canonical binary serialization format           |
+| [MST](/engineering/atproto/mst)       | Content-addressed, verifiable key-value storage |
+| [CAR](/engineering/atproto/car)       | Archive format for repository export/sync       |
 | CIDs                                         | Content identifiers linking to any data block   |
 | XRPC                                         | HTTP-based RPC protocol for API calls           |
 
@@ -100,7 +100,7 @@ Format: `at://<authority>/<collection>/<rkey>`
 
 Repositories are synchronized using:
 
-1. **`com.atproto.sync.getRepo`**: Full repository export as a [CAR file](/garden/engineering/atproto/car).
+1. **`com.atproto.sync.getRepo`**: Full repository export as a [CAR file](/engineering/atproto/car).
 2. **`com.atproto.sync.subscribeRepos`**: Real-time firehose of commits across the network.
 
 ### Event Stream

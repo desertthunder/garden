@@ -188,7 +188,7 @@ with Γ mapping variables to schemes. The important rules (up to `let`) are:
 
 ## Algorithm W
 
-See [Algorithm W](/garden/programming/functional_programming/algo-w)
+See [Algorithm W](/programming/functional_programming/algo-w)
 
 ## Further Reading
 
