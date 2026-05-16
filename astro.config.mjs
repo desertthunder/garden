@@ -127,6 +127,7 @@ export default defineConfig({
               autogenerate: { directory: "programming/functional_programming" },
             },
             { label: "Creative Coding", collapsed: true, autogenerate: { directory: "programming/creative" } },
+            { label: "C & C++", collapsed: true, autogenerate: { directory: "programming/c_cpp" } },
             { label: "Golang", collapsed: true, autogenerate: { directory: "programming/golang" } },
             { label: "Python", collapsed: true, autogenerate: { directory: "programming/python" } },
             { label: "Rust", collapsed: true, autogenerate: { directory: "programming/rust" } },
