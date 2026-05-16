@@ -6,11 +6,13 @@ import rehypeMathjax from "rehype-mathjax";
 import remarkMath from "remark-math";
 import starlightLinksValidator from "starlight-links-validator";
 import starlightThemeRapide from "starlight-theme-rapide";
+import { ogImageIntegration } from "./src/integrations/og-image/index.ts";
 import starlightChangelog from "./src/plugins/starlight-changelog/index.ts";
 
 const deploymentUrl = new URL(process.env.SITE_URL ?? "https://desertthunder.github.io/garden");
 const deploymentBase = deploymentUrl.pathname.replace(/\/$/, "") || "/";
 const sourceBase = "/garden";
+const ogImageUrl = new URL(`${deploymentBase === "/" ? "" : deploymentBase}/og.png`, deploymentUrl.origin).toString();
 
 /** @typedef {{ url?: unknown, children?: unknown, definitions?: unknown }} MarkdownNode */
 
@@ -62,6 +64,14 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Desert Thunder",
+      head: [
+        { tag: "meta", attrs: { property: "og:image", content: ogImageUrl } },
+        { tag: "meta", attrs: { property: "og:image:type", content: "image/png" } },
+        { tag: "meta", attrs: { property: "og:image:width", content: "1200" } },
+        { tag: "meta", attrs: { property: "og:image:height", content: "630" } },
+        { tag: "meta", attrs: { name: "twitter:card", content: "summary_large_image" } },
+        { tag: "meta", attrs: { name: "twitter:image", content: ogImageUrl } },
+      ],
       plugins: [
         starlightThemeRapide(),
         starlightLinksValidator(),
@@ -135,6 +145,7 @@ export default defineConfig({
         },
       ],
     }),
+    ogImageIntegration(),
     sitemap(),
   ],
   markdown: {
