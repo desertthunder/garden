@@ -26,8 +26,8 @@ function escapeHtml(value: string) {
 }
 
 function renderOgSvg() {
-  const title = escapeHtml("Desert Thunder");
-  const subtitle = escapeHtml("Owais J's digital garden.");
+  const title = escapeHtml("Owais' Places");
+  const subtitle = escapeHtml("A digital garden by desertthunder.dev");
   const path = escapeHtml("garden.desertthunder.dev");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
