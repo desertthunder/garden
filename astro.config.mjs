@@ -63,7 +63,7 @@ export default defineConfig({
   image: { service: passthroughImageService() },
   integrations: [
     starlight({
-      title: "Desert Thunder",
+      title: "Owais' Places",
       head: [
         { tag: "meta", attrs: { property: "og:image", content: ogImageUrl } },
         { tag: "meta", attrs: { property: "og:image:type", content: "image/png" } },
