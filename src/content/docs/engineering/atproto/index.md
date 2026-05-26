@@ -40,7 +40,7 @@ Every user's data lives in a **Personal Data Server**.
 A PDS:
 
 - Stores the user's repository (a signed, Merkle-tree-based data structure).
-- Handles authentication and authorization.
+- Handles [OAuth authentication and authorization](/engineering/atproto/oauth).
 - Syncs data to relays and indexers.
 
 ### Relay (BGS)
@@ -86,13 +86,14 @@ Format: `at://<authority>/<collection>/<rkey>`
 
 ## Key Technologies
 
-| Component                                    | Purpose                                         |
-| -------------------------------------------- | ----------------------------------------------- |
+| Component                             | Purpose                                         |
+| ------------------------------------- | ----------------------------------------------- |
 | [DAG-CBOR](/engineering/atproto/cbor) | Canonical binary serialization format           |
 | [MST](/engineering/atproto/mst)       | Content-addressed, verifiable key-value storage |
 | [CAR](/engineering/atproto/car)       | Archive format for repository export/sync       |
-| CIDs                                         | Content identifiers linking to any data block   |
-| XRPC                                         | HTTP-based RPC protocol for API calls           |
+| CIDs                                  | Content identifiers linking to any data block   |
+| XRPC                                  | HTTP-based RPC protocol for API calls           |
+| [OAuth](/engineering/atproto/oauth)   | Client authorization and account authentication |
 
 ## Sync & Federation
 

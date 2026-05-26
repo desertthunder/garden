@@ -1,0 +1,128 @@
+---
+title: OAuth Tokens and Security
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+After approval, the client receives tokens and granted scopes. The main security
+question changes at this point. The client is no longer proving that the user
+approved the request; it is proving that each API request comes from the same
+client instance that received the tokens.
+
+## Scopes
+
+Every AT Protocol OAuth session includes the `atproto` scope. It marks the
+session as using the AT Protocol OAuth profile. Without it, the server should
+not grant access to AT Protocol PDS resources.[^atproto-oauth]
+
+A client that only needs account login can request only `atproto`. A client that
+needs to read or write PDS resources requests additional permissions.
+
+The early OAuth migration uses transitional scopes:
+
+| Scope                  | Meaning                                                                                               |
+| ---------------------- | ----------------------------------------------------------------------------------------------------- |
+| `transition:generic`   | Broad PDS access similar to the old app-password level, excluding account-management actions and DMs. |
+| `transition:chat.bsky` | Access to `chat.bsky` APIs; depends on `transition:generic`.                                          |
+| `transition:email`     | Access to the account email address through session APIs.                                             |
+
+These are compatibility scopes. They are coarse by design and should eventually
+give way to finer-grained permissions.
+
+AT Protocol authorization servers must return granted scopes in token responses.
+A client should reject a token response that omits `scope` or lacks `atproto`.
+
+## DPoP
+
+DPoP, Demonstrating Proof of Possession, turns an access token into a
+proof-bound token.[^rfc9449]
+
+For each token request or PDS request, the client signs a fresh DPoP JWT. The
+proof includes the HTTP method, target URL, and a unique JWT ID. The server
+checks that the token is being used with the same public key it was bound to.
+
+<Aside type="note" title="Bearer token vs proof-bound token">
+
+A bearer token works like cash: whoever holds it can spend it. A DPoP-bound
+token works more like a signed instrument: possession of the string is not
+enough; the caller also needs the private key.
+
+</Aside>
+
+AT Protocol also requires server-provided DPoP nonces. Servers rotate those
+nonces, and clients track them per account session and per server. If a server
+rejects a request with a fresh nonce, the client should retry with a new proof.
+
+## Access Tokens
+
+Access tokens authorize calls to the PDS. Clients should treat them as opaque
+strings even if a particular server represents them internally as JWTs.
+
+Access tokens should be short-lived. The AT Protocol OAuth specification
+recommends less than 30 minutes. If a server cannot revoke individual access
+tokens, the maximum should be 15 minutes, with five minutes recommended.
+
+Access tokens are bound to the client software, OAuth session, and DPoP key.
+They should not be copied between devices, browser profiles, or app installs.
+
+## Refresh Tokens
+
+Refresh tokens obtain replacement tokens. In AT Protocol, refresh tokens are
+generally single-use: a refresh request returns a new refresh token and
+invalidates the old one.
+
+<Aside type="tip" title="Implementation habit">
+
+Serialize refresh requests for a session. Two concurrent refreshes can race: one
+request succeeds and rotates the token, while the other retries with a token
+that is already spent.
+
+</Aside>
+
+A client that wants refresh tokens must declare `refresh_token` in `grant_types`
+in its metadata.
+
+## Session Lifetime
+
+Session lifetime depends on the authorization server's policy and the client's
+security properties.
+
+The specification gives these guidelines:
+
+- access tokens should live less than 30 minutes;
+- untrusted public-client sessions and individual refresh tokens should usually
+  be limited to two weeks;
+- confidential clients may receive longer or unlimited overall sessions;
+- individual refresh tokens for confidential clients should be limited to 180
+  days.
+
+Confidential clients must continue using the same client authentication key
+family for refresh requests. If the relevant key disappears from client metadata
+or JWKS, the authorization server should reject refreshes tied to it.
+
+## Security Checklist
+
+| Check                     | Why it matters                                                       |
+| ------------------------- | -------------------------------------------------------------------- |
+| Harden metadata fetches   | Client metadata and JWKS URLs can become SSRF inputs.                |
+| Distrust unknown branding | `client_name` and `logo_uri` can be used for phishing.               |
+| Verify `state`            | Prevents accepting an unrelated redirect.                            |
+| Verify issuer             | Confirms which authorization server produced the response.[^rfc9207] |
+| Verify `sub`              | Confirms the account DID.                                            |
+| Do not share tokens       | DPoP assumes one key per client instance.                            |
+| Store accounts by DID     | Handles can change.                                                  |
+
+## Common Failure Modes
+
+- Using a handle as the durable account ID.
+- Treating DPoP-bound access tokens as plain bearer tokens.
+- Refreshing the same session from multiple concurrent code paths.
+- Showing untrusted client logos in the approval screen.
+- Assuming the PDS is always the authorization server.
+- Accepting a token response without `atproto` in the granted scopes.
+
+## References
+
+[^atproto-oauth]: Bluesky/AT Protocol. ["OAuth"](https://atproto.com/specs/oauth).
+[^rfc9207]: Lodderstedt, Torsten, et al. [RFC 9207: OAuth 2.0 Authorization Server Issuer Identification](https://datatracker.ietf.org/doc/html/rfc9207).
+[^rfc9449]: Fett, Daniel, et al. [RFC 9449: OAuth 2.0 Demonstrating Proof of Possession](https://datatracker.ietf.org/doc/html/rfc9449).

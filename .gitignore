@@ -234,3 +234,4 @@ pnpm-debug.log*
 .DS_Store
 
 .sandbox
+.vscode/

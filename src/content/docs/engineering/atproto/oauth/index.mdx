@@ -1,0 +1,100 @@
+---
+title: AT Protocol OAuth
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+OAuth is the account authorization system for AT Protocol clients. It lets an
+app obtain permission to call a user's Personal Data Server (PDS) without asking
+for the user's password.
+
+The unusual part is not OAuth itself. The unusual part is where OAuth runs.
+AT Protocol has many PDS hosts and can use separate authorization servers,
+sometimes called entryways. A client therefore begins by discovering authority.
+It cannot hard-code one login domain and call the result authentication.
+
+<Aside type="note" title="Working definition">
+
+AT Protocol OAuth binds four things together: an account DID, the account's
+current PDS, an authorization-server issuer, and a DPoP key held by one client
+instance.
+
+</Aside>
+
+## Why OAuth Is Part of the Protocol
+
+A client needs three facts before it can make authorized XRPC calls:
+
+1. which account it is acting for;
+2. which PDS currently hosts that account;
+3. which permissions the user granted.
+
+In AT Protocol, the stable account identifier is the DID. Handles help humans
+find accounts, but handles can change. PDS hosts can also change. OAuth has to
+respect that portability rather than smuggle in a central account database.
+
+The result is a profile of OAuth that does two jobs:
+
+- it authorizes access to PDS resources;
+- it authenticates the AT Protocol account DID for login-style use cases.
+
+OAuth 2.0 by itself is mostly an authorization framework. AT Protocol adds DID
+verification to make it usable for account authentication.[^atproto-oauth]
+
+## Roles
+
+| OAuth term           | AT Protocol term | Role                                      |
+| -------------------- | ---------------- | ----------------------------------------- |
+| Resource owner       | User             | Controls the account.                     |
+| Client               | App or service   | Requests permission to act for the user.  |
+| Resource server      | PDS              | Accepts authorized XRPC requests.         |
+| Authorization server | PDS or entryway  | Authenticates the user and issues tokens. |
+
+A small PDS can be both resource server and authorization server. A larger
+service may put authorization in a separate entryway that serves many PDS
+instances.
+
+## The AT Protocol OAuth Profile
+
+AT Protocol does not use generic OAuth with optional pieces chosen at runtime.
+It specifies a profile:
+
+- Authorization Code flow only;
+- PKCE with `S256`;
+- Pushed Authorization Requests (PAR);
+- DPoP-bound access tokens;
+- server-issued DPoP nonces;
+- client metadata discovered from the `client_id` URL;
+- required `atproto` scope;
+- required `sub` verification against the account DID.
+
+These choices follow the direction of OAuth 2.1 and OAuth security best current
+practice: avoid the implicit flow, avoid password-style grants, and do not
+pretend public clients can keep shared secrets.[^oauth21][^oauth-security]
+
+## The Main Invariant
+
+The flow is correct only if these statements hold at the end:
+
+| Binding         | Question                                                                     |
+| --------------- | ---------------------------------------------------------------------------- |
+| Account binding | Did the token response name the DID the client expected?                     |
+| Server binding  | Is the authorization-server issuer authoritative for that DID's current PDS? |
+| Token binding   | Are the tokens bound to the DPoP key for this client instance?               |
+
+This invariant explains most of the protocol's ceremony. PAR protects the
+authorization request. PKCE protects the code exchange. DPoP protects token use.
+DID and issuer checks protect account authentication.
+
+## Further Reading
+
+1. [Clients and Metadata](/engineering/atproto/oauth/clients)
+2. [Identity and Discovery](/engineering/atproto/oauth/identity)
+3. [Authorization Flow](/engineering/atproto/oauth/flow)
+4. [Tokens and Security](/engineering/atproto/oauth/tokens)
+
+## References
+
+[^atproto-oauth]: Bluesky/AT Protocol. ["OAuth"](https://atproto.com/specs/oauth).
+[^oauth21]: IETF OAuth Working Group. ["The OAuth 2.1 Authorization Framework"](https://datatracker.ietf.org/doc/draft-ietf-oauth-v2-1/).
+[^oauth-security]: Lodderstedt, Torsten, et al. [RFC 9700: Best Current Practice for OAuth 2.0 Security](https://datatracker.ietf.org/doc/html/rfc9700).
