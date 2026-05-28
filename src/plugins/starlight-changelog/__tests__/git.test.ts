@@ -1,14 +1,14 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import type { FileChange } from "../lib/git";
+import { describe, it, expect } from "vitest";
+import type { ChangeType, FileChange } from "../lib/git";
 import { groupChangesByDate } from "../lib/git";
 
 describe("groupChangesByDate", () => {
-  const createFileChange = (type: "A" | "M" | "D", path: string, dateStr: string): FileChange => ({
+  const createFileChange = (type: ChangeType, path: string, dateStr: string, commit = "abc123"): FileChange => ({
     type,
     path,
     date: new Date(dateStr),
-    commit: "abc123",
-    message: "Test commit",
+    commit,
+    message: `Test commit ${commit}`,
     author: "Test Author",
   });
 
@@ -26,22 +26,41 @@ describe("groupChangesByDate", () => {
     expect(result[1].date).toBe("2025-01-14");
   });
 
-  it("categorizes changes by type", () => {
+  it("groups changes by commit within each date", () => {
     const changes: FileChange[] = [
-      createFileChange("A", "added.md", "2025-01-15T10:00:00Z"),
-      createFileChange("M", "modified.md", "2025-01-15T11:00:00Z"),
-      createFileChange("D", "deleted.md", "2025-01-15T12:00:00Z"),
+      createFileChange("A", "added.md", "2025-01-15T10:00:00Z", "abc123"),
+      createFileChange("M", "modified.md", "2025-01-15T10:01:00Z", "abc123"),
+      createFileChange("D", "deleted.md", "2025-01-15T12:00:00Z", "def456"),
     ];
 
     const result = groupChangesByDate(changes);
 
     expect(result).toHaveLength(1);
-    expect(result[0].added).toHaveLength(1);
-    expect(result[0].modified).toHaveLength(1);
-    expect(result[0].removed).toHaveLength(1);
-    expect(result[0].added[0].path).toBe("added.md");
-    expect(result[0].modified[0].path).toBe("modified.md");
-    expect(result[0].removed[0].path).toBe("deleted.md");
+    expect(result[0].commits).toHaveLength(2);
+    expect(result[0].commits[0].commit).toBe("def456");
+    expect(result[0].commits[1].commit).toBe("abc123");
+  });
+
+  it("categorizes changes by type inside a commit", () => {
+    const changes: FileChange[] = [
+      createFileChange("A", "added.md", "2025-01-15T10:00:00Z"),
+      createFileChange("M", "modified.md", "2025-01-15T11:00:00Z"),
+      createFileChange("D", "deleted.md", "2025-01-15T12:00:00Z"),
+      { ...createFileChange("R", "new.md", "2025-01-15T13:00:00Z"), oldPath: "old.md" },
+    ];
+
+    const result = groupChangesByDate(changes);
+    const commit = result[0].commits[0];
+
+    expect(commit.added).toHaveLength(1);
+    expect(commit.modified).toHaveLength(1);
+    expect(commit.removed).toHaveLength(1);
+    expect(commit.renamed).toHaveLength(1);
+    expect(commit.added[0].path).toBe("added.md");
+    expect(commit.modified[0].path).toBe("modified.md");
+    expect(commit.removed[0].path).toBe("deleted.md");
+    expect(commit.renamed[0].path).toBe("new.md");
+    expect(commit.renamed[0].oldPath).toBe("old.md");
   });
 
   it("sorts dates in descending order", () => {
@@ -64,22 +83,6 @@ describe("groupChangesByDate", () => {
     expect(result).toHaveLength(0);
   });
 
-  it("groups multiple changes on same date", () => {
-    const changes: FileChange[] = [
-      createFileChange("A", "file1.md", "2025-01-15T10:00:00Z"),
-      createFileChange("A", "file2.md", "2025-01-15T11:00:00Z"),
-      createFileChange("M", "file3.md", "2025-01-15T12:00:00Z"),
-      createFileChange("M", "file4.md", "2025-01-15T13:00:00Z"),
-    ];
-
-    const result = groupChangesByDate(changes);
-
-    expect(result).toHaveLength(1);
-    expect(result[0].added).toHaveLength(2);
-    expect(result[0].modified).toHaveLength(2);
-    expect(result[0].removed).toHaveLength(0);
-  });
-
   it("preserves file change metadata", () => {
     const changes: FileChange[] = [
       {
@@ -94,7 +97,8 @@ describe("groupChangesByDate", () => {
 
     const result = groupChangesByDate(changes);
 
-    expect(result[0].added[0]).toMatchObject({
+    expect(result[0].commits[0]).toMatchObject({ commit: "abc123def456", message: "Add test file", author: "John Doe" });
+    expect(result[0].commits[0].added[0]).toMatchObject({
       type: "A",
       path: "test.md",
       commit: "abc123def456",

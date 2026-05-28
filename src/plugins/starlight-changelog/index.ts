@@ -46,7 +46,25 @@ export default function starlightChangelog(userConfig?: StarlightChangelogConfig
         addIntegration({
           name: "starlight-changelog-integration",
           hooks: {
-            "astro:config:setup": ({ injectRoute }) => {
+            "astro:config:setup": ({ injectRoute, updateConfig }) => {
+              updateConfig({
+                vite: {
+                  plugins: [
+                    {
+                      name: "starlight-changelog-config",
+                      resolveId(id) {
+                        return id === "virtual:starlight-changelog-config" ? "\0starlight-changelog-config" : undefined;
+                      },
+                      load(id) {
+                        return id === "\0starlight-changelog-config"
+                          ? `export default ${JSON.stringify(config)};`
+                          : undefined;
+                      },
+                    },
+                  ],
+                },
+              });
+
               injectRoute({
                 pattern: config.path,
                 entrypoint: new URL("./route.astro", import.meta.url).pathname,
