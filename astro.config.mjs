@@ -158,6 +158,7 @@ export default defineConfig({
               collapsed: true,
               autogenerate: { directory: "programming/functional_programming" },
             },
+            { label: "BEAM", collapsed: true, autogenerate: { directory: "programming/beam" } },
             { label: "Creative Coding", collapsed: true, autogenerate: { directory: "programming/creative" } },
             { label: "C & C++", collapsed: true, autogenerate: { directory: "programming/c_cpp" } },
             { label: "Golang", collapsed: true, autogenerate: { directory: "programming/golang" } },
