@@ -1,4 +1,5 @@
-import { execSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
+import { readFileSync } from "node:fs";
 
 export type ChangeType = "A" | "M" | "D" | "R";
 
@@ -30,12 +31,57 @@ export type ChangelogEntry = { date: string; commits: CommitEntry[] };
  */
 function execGit(args: string[], cwd: string): string {
   try {
-    return execSync(`git ${args.join(" ")}`, { cwd, encoding: "utf-8", stdio: ["pipe", "pipe", "pipe"] }).trim();
+    return execFileSync("git", args, { cwd, encoding: "utf-8", stdio: ["pipe", "pipe", "pipe"] }).trim();
   } catch (error) {
     throw new Error(
       `Git command failed: git ${args.join(" ")}\n${error instanceof Error ? error.message : String(error)}`,
     );
   }
+}
+
+function tryExecGit(args: string[], cwd: string): string {
+  try {
+    return execGit(args, cwd);
+  } catch {
+    return "";
+  }
+}
+
+function tryRunGit(args: string[], cwd: string): boolean {
+  try {
+    execGit(args, cwd);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function getShallowCommits(cwd: string): Set<string> {
+  if (tryExecGit(["rev-parse", "--is-shallow-repository"], cwd) !== "true") return new Set();
+
+  const shallowPath = tryExecGit(["rev-parse", "--git-path", "shallow"], cwd);
+  if (!shallowPath) return new Set();
+
+  try {
+    return new Set(readFileSync(shallowPath, "utf-8").split("\n").filter(Boolean));
+  } catch {
+    return new Set();
+  }
+}
+
+function ensureGitHistory(cwd: string): Set<string> {
+  const shallowCommits = getShallowCommits(cwd);
+  if (shallowCommits.size === 0) return shallowCommits;
+
+  // Cloudflare Pages checks out a shallow clone by default. In that state Git
+  // treats the shallow boundary as a root commit and `git log --name-status`
+  // reports every tracked file as added in that one commit. Fetch history when
+  // possible; if it is not possible, the returned boundary commits are skipped.
+  if (!tryRunGit(["fetch", "--unshallow", "--quiet"], cwd)) {
+    tryRunGit(["fetch", "--deepen=1000", "--quiet"], cwd);
+  }
+
+  return getShallowCommits(cwd);
 }
 
 /**
@@ -56,24 +102,26 @@ export function getGitLog(contentDir: string, historyDays: number): FileChange[]
   const args = [
     "log",
     "--find-renames",
-    `--since=\"${sinceStr}\"`,
+    `--since=${sinceStr}`,
     "--name-status",
     `--pretty=format:${COMMIT_ARGS_FORMAT}`,
     "--",
     contentDir,
   ];
 
-  const output = execGit(args, process.cwd());
+  const cwd = process.cwd();
+  const shallowCommits = ensureGitHistory(cwd);
+  const output = tryExecGit(args, cwd);
   if (!output) return [];
 
-  return parseGitLog(output);
+  return parseGitLog(output, shallowCommits);
 }
 
 /**
  * Parses git log output into FileChange objects.
  * We skip commits with invalid dates to avoid issues with malformed git history.
  */
-function parseGitLog(output: string): FileChange[] {
+function parseGitLog(output: string, skipCommits = new Set<string>()): FileChange[] {
   const changes: FileChange[] = [];
   const lines = output.split("\n");
   let currentCommit: { hash: string; date: Date; author: string; message: string } | null = null;
@@ -97,7 +145,7 @@ function parseGitLog(output: string): FileChange[] {
       continue;
     }
 
-    if (!currentCommit) continue;
+    if (!currentCommit || skipCommits.has(currentCommit.hash)) continue;
 
     const parts = line.split("\t");
     if (status?.startsWith("R")) {
