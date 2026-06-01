@@ -1,10 +1,5 @@
 ---
 title: On Programming
-sidebar:
-    badge:
-        text: Start
-        variant: note
-
 ---
 
 This will contain notes related to programming languages I've
@@ -13,18 +8,16 @@ programming language top to bottom unless you wrote it?
 
 ## Proficiencies
 
+Updated June 2026
+
 - TypeScript
 - Python
 - Java
 - Ruby
 - Go
-
-## Languages to Learn
-
-As of May 2024, these are languages that are on my radar to learn:
-
-- C++
+- Dart
 - Elixir
+- Gleam
 - Rust
-- Elm
-  - or Gleam
+- F#
+- OCaml
