@@ -187,10 +187,15 @@ function parseGitLog(output: string, skipCommits = new Set<string>()): FileChang
  * Gets the diff for a specific file at a specific commit.
  * `contextLines` is passed to git as unified context instead of slicing the
  * output, because slicing can leave a single file's diff cut off mid-hunk.
+ * `--inter-hunk-context` fuses hunks from the same file so the UI does not
+ * render one file's changes as separate fragments.
  */
 export function getFileDiff(filePath: string, commit: string, contextLines: number): string {
   try {
-    return execGit(["diff", `${commit}^`, commit, `--unified=${contextLines}`, "--", filePath], process.cwd());
+    return execGit(
+      ["diff", `${commit}^`, commit, `--unified=${contextLines}`, "--inter-hunk-context=10000", "--", filePath],
+      process.cwd(),
+    );
   } catch {
     return "";
   }
