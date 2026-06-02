@@ -36,9 +36,9 @@ d[i][0] = i
 ```
 
 Those mean an empty string needs `j` insertions to become a prefix of length
-`j`, and a prefix of length `i` needs `i` deletions to become empty.[^1][^2]
+`j`, and a prefix of length `i` needs `i` deletions to become empty.[^1]
 
-Recurrence:
+Recurrence[^2]:
 
 ```py
 cost = 0 if a[i - 1] == b[j - 1] else 1
@@ -74,4 +74,5 @@ Levenshtein distance is useful for:
 - comparing biological or symbolic sequences
 
 [^1]: V. I. Levenshtein, "Binary Codes Capable of Correcting Deletions, Insertions, and Reversals", 1966 English translation of the 1965 Russian paper. <https://nymity.ch/sybilhunting/pdf/Levenshtein1966a.pdf>
+
 [^2]: Robert A. Wagner and Michael J. Fischer, "The String-to-String Correction Problem", Journal of the ACM, 1974.
