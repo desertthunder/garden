@@ -55,7 +55,7 @@ function commitSummary(commit: CommitEntry) {
                         <ul>
                           {commit.added.map((change) => (
                             <li>
-                              <a href={hrefFor(change.path)}>{extractTitle(change.path)}</a>
+                              <a href={hrefFor(change.path)}>{extractTitle(change.path, contentDir)}</a>
                             </li>
                           ))}
                         </ul>
@@ -71,7 +71,7 @@ function commitSummary(commit: CommitEntry) {
 
                             return (
                               <li>
-                                <a href={hrefFor(change.path)}>{extractTitle(change.path)}</a>
+                                <a href={hrefFor(change.path)}>{extractTitle(change.path, contentDir)}</a>
                                 {diff && (
                                   <details class="diff-details">
                                     <summary>Show diff</summary>
@@ -92,8 +92,10 @@ function commitSummary(commit: CommitEntry) {
                         <ul>
                           {commit.renamed.map((change) => (
                             <li>
-                              <a href={hrefFor(change.path)}>{extractTitle(change.path)}</a>
-                              {change.oldPath && <span class="path-note"> from {extractTitle(change.oldPath)}</span>}
+                              <a href={hrefFor(change.path)}>{extractTitle(change.path, contentDir)}</a>
+                              {change.oldPath && (
+                                <span class="path-note"> from {extractTitle(change.oldPath, contentDir)}</span>
+                              )}
                             </li>
                           ))}
                         </ul>
@@ -106,7 +108,7 @@ function commitSummary(commit: CommitEntry) {
                         <ul>
                           {commit.removed.map((change) => (
                             <li>
-                              <span class="removed-title">{extractTitle(change.path)}</span>
+                              <span class="removed-title">{extractTitle(change.path, contentDir)}</span>
                             </li>
                           ))}
                         </ul>
