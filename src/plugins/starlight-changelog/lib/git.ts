@@ -97,8 +97,8 @@ const COMMIT_ARGS_FORMAT = ["%H", "%aI", "%an", "%s"].join("%x1f");
 export function getGitLog(contentDir: string, historyDays: number): FileChange[] {
   const since = new Date();
   since.setDate(since.getDate() - historyDays);
-  const sinceStr = since.toISOString().split("T")[0];
 
+  const sinceStr = since.toISOString().split("T")[0];
   const args = [
     "log",
     "--find-renames",
@@ -184,20 +184,13 @@ function parseGitLog(output: string, skipCommits = new Set<string>()): FileChang
 }
 
 /**
- * Gets the diff for a specific file at a specific commit,
- * taking only the first N (`maxLines`) lines of the diff.
+ * Gets the diff for a specific file at a specific commit.
+ * `contextLines` is passed to git as unified context instead of slicing the
+ * output, because slicing can leave a single file's diff cut off mid-hunk.
  */
-export function getFileDiff(filePath: string, commit: string, maxLines: number): string {
+export function getFileDiff(filePath: string, commit: string, contextLines: number): string {
   try {
-    const args = ["diff", `${commit}^`, commit, "--unified=3", "--", filePath];
-
-    const diff = execGit(args, process.cwd());
-    if (!diff) return "";
-
-    const lines = diff.split("\n");
-    const relevantLines = lines.slice(0, maxLines);
-
-    return relevantLines.join("\n");
+    return execGit(["diff", `${commit}^`, commit, `--unified=${contextLines}`, "--", filePath], process.cwd());
   } catch {
     return "";
   }

@@ -14,7 +14,7 @@ export type StarlightChangelogConfig = {
   contentDir?: string;
 
   /**
-   * Number of lines to show in diffs
+   * Number of context lines to show around each diff hunk
    * @default 15
    */
   diffLines?: number;

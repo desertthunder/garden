@@ -1,7 +1,7 @@
 ---
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import changelogConfig from "virtual:starlight-changelog-config";
-import { getGitLog, groupChangesByDate, getFileDiff } from "./lib/git";
+import { getGitLog, groupChangesByDate, getFileDiff, type CommitEntry } from "./lib/git";
 import { pathToSlug, extractTitle, formatDate } from "./lib/utils";
 import { formatDiff } from "./lib/diff-formatter";
 
@@ -14,16 +14,7 @@ const hrefFor = (path: string) => `${base.replace(/\/$/, "")}/${pathToSlug(path,
 
 const fileCountLabel = (count: number, action: string) => `${count} ${count === 1 ? "file" : "files"} ${action}`;
 
-function commitCategory(message: string) {
-  if (/^feat(?:\(.+\))?:/.test(message)) return "New";
-  if (/^docs(?:\(.+\))?:/.test(message)) return "Docs";
-  if (/^fix(?:\(.+\))?:/.test(message)) return "Fix";
-  if (/^refactor(?:\(.+\))?:/.test(message)) return "Maintenance";
-  if (/^chore(?:\(.+\))?:/.test(message)) return "Chore";
-  return "Update";
-}
-
-function commitSummary(commit: (typeof changelog)[number]["commits"][number]) {
+function commitSummary(commit: CommitEntry) {
   return [
     commit.added.length > 0 && fileCountLabel(commit.added.length, "added"),
     commit.modified.length > 0 && fileCountLabel(commit.modified.length, "updated"),
@@ -52,13 +43,9 @@ function commitSummary(commit: (typeof changelog)[number]["commits"][number]) {
                 <details class="commit-card">
                   <summary>
                     <span class="commit-summary-main">
-                      <span class="commit-badge">{commitCategory(commit.message)}</span>
                       <span class="commit-title">{commit.message}</span>
                     </span>
-                    <span class="commit-meta">
-                      {commit.author}
-                      {commitSummary(commit) && <> · {commitSummary(commit)}</>}
-                    </span>
+                    {commitSummary(commit) && <span class="commit-meta">{commitSummary(commit)}</span>}
                   </summary>
 
                   <div class="commit-body">
@@ -206,21 +193,7 @@ function commitSummary(commit: (typeof changelog)[number]["commits"][number]) {
     .commit-summary-main {
       align-items: center;
       display: flex;
-      gap: 0.625rem;
       grid-column: 2;
-    }
-
-    .commit-badge {
-      background: color-mix(in srgb, var(--sl-color-text-accent) 18%, transparent);
-      border: 1px solid color-mix(in srgb, var(--sl-color-text-accent) 35%, transparent);
-      border-radius: 999px;
-      color: var(--sl-color-text-accent);
-      flex: 0 0 auto;
-      font-size: 0.72rem;
-      font-weight: 700;
-      line-height: 1;
-      padding: 0.25rem 0.5rem;
-      text-transform: uppercase;
     }
 
     .commit-title {
