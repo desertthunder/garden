@@ -1,0 +1,17 @@
+---
+import StarlightFooter from "@astrojs/starlight/components/Footer.astro";
+---
+
+<StarlightFooter />
+<div class="website-carbon-badge" aria-label="Website carbon badge">
+  <div id="wcb" class="carbonbadge wcb-d"></div>
+</div>
+<script is:inline src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
+
+<style>
+  .website-carbon-badge {
+    display: flex;
+    justify-content: center;
+    margin-block: 1.5rem 0;
+  }
+</style>

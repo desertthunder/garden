@@ -8,6 +8,7 @@ import starlightLinksValidator from "starlight-links-validator";
 import starlightThemeRapide from "starlight-theme-rapide";
 import { ogImageIntegration } from "./src/integrations/og-image/index.ts";
 import starlightChangelog from "./src/plugins/starlight-changelog/index.ts";
+import process from "node:process";
 
 const deploymentUrl = new URL(process.env.SITE_URL ?? "https://desertthunder.github.io/garden");
 const deploymentBase = deploymentUrl.pathname.replace(/\/$/, "") || "/";
@@ -64,6 +65,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Owais' Places",
+      lastUpdated: true,
       head: [
         { tag: "meta", attrs: { property: "og:image", content: ogImageUrl } },
         { tag: "meta", attrs: { property: "og:image:type", content: "image/png" } },
@@ -84,6 +86,7 @@ export default defineConfig({
         { label: "linkedin", icon: "linkedin", href: "https://www.linkedin.com/in/owais-jamil/" },
       ],
       customCss: ["./src/styles/custom.css"],
+      components: { Footer: "./src/components/Footer.astro" },
       sidebar: [
         {
           label: "Getting Started",
@@ -164,6 +167,7 @@ export default defineConfig({
                 { label: "Golang", collapsed: true, autogenerate: { directory: "programming/golang" } },
                 { label: "Python", collapsed: true, autogenerate: { directory: "programming/python" } },
                 { label: "Rust", collapsed: true, autogenerate: { directory: "programming/rust" } },
+                { label: "Zig", collapsed: true, autogenerate: { directory: "programming/zig" } },
               ],
             },
             { label: "Unix", collapsed: true, autogenerate: { directory: "unix" } },
