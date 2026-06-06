@@ -4,14 +4,127 @@ import StarlightFooter from "@astrojs/starlight/components/Footer.astro";
 
 <StarlightFooter />
 <div class="website-carbon-badge" aria-label="Website carbon badge">
-  <div id="wcb" class="carbonbadge wcb-d"></div>
+  <div id="wcb" class="carbonbadge wcb-d">
+    <div id="wcb_p">
+      <span id="wcb_g">Measuring CO<sub>2</sub>&hellip;</span>
+      <a id="wcb_a" target="_blank" rel="noopener" href="https://www.websitecarbon.com/website/garden-desertthunder-dev/"
+        >Website Carbon</a
+      >
+    </div>
+    <span id="wcb_2">&nbsp;</span>
+  </div>
 </div>
-<script is:inline src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
+<script is:inline>
+  const carbonBadge = document.getElementById("wcb");
+  const carbonGrams = document.getElementById("wcb_g");
+  const carbonRating = document.getElementById("wcb_2");
+
+  function pageTransferBytes() {
+    const entries = performance.getEntriesByType("resource").concat(performance.getEntriesByType("navigation"));
+    const transferBytes = entries.reduce(
+      (total, entry) => total + (entry.transferSize || entry.encodedBodySize || 0),
+      0,
+    );
+
+    if (transferBytes > 0) return transferBytes;
+
+    return new Blob([document.documentElement.outerHTML]).size;
+  }
+
+  function ratingForGrams(grams) {
+    if (grams <= 0.095) return "A+";
+    if (grams <= 0.186) return "A";
+    if (grams <= 0.341) return "B";
+    if (grams <= 0.493) return "C";
+    if (grams <= 0.656) return "D";
+    if (grams <= 0.846) return "E";
+    return "F";
+  }
+
+  function renderCarbonBadge() {
+    if (!carbonBadge || !carbonGrams || !carbonRating) return;
+
+    const bytes = pageTransferBytes();
+    const adjustedBytes = bytes * 0.755;
+    const energyKwh = (adjustedBytes / 1_000_000_000) * 0.279;
+    const grams = energyKwh * 403.2;
+    const displayedGrams = Math.max(grams, 0.01).toFixed(2);
+
+    carbonGrams.innerHTML = `${displayedGrams}g of CO<sub>2</sub>/view`;
+    carbonRating.innerHTML = `<strong>${ratingForGrams(grams)}</strong>&nbsp;carbon rating`;
+  }
+
+  if (document.readyState === "complete") {
+    renderCarbonBadge();
+  } else {
+    window.addEventListener("load", renderCarbonBadge, { once: true });
+  }
+</script>
 
 <style>
   .website-carbon-badge {
     display: flex;
     justify-content: center;
     margin-block: 1.5rem 0;
+  }
+
+  #wcb.carbonbadge {
+    --b1: #0e11a8;
+    --b2: #00ffbc;
+    color: var(--b1);
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  #wcb.carbonbadge sub {
+    font-size: 0.7em;
+    position: relative;
+    top: 0.3em;
+    vertical-align: middle;
+  }
+
+  #wcb #wcb_2,
+  #wcb #wcb_a,
+  #wcb #wcb_g {
+    align-items: center;
+    display: inline-flex;
+    font-size: 1em;
+    justify-content: center;
+    line-height: 1.15;
+    margin: 0.2em 0;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  #wcb #wcb_a,
+  #wcb #wcb_g {
+    border: 0.13em solid var(--b2);
+    padding: 0.3em 0.5em;
+  }
+
+  #wcb #wcb_g {
+    background: #fff;
+    border-radius: 0.3em 0 0 0.3em;
+    border-right: 0;
+    min-width: 8.2em;
+  }
+
+  #wcb #wcb_a {
+    background: var(--b2);
+    border-color: var(--b2);
+    border-left: 0;
+    border-radius: 0 0.3em 0.3em 0;
+    color: var(--b1);
+    font-weight: 700;
+  }
+
+  #wcb #wcb_2 {
+    color: #fff;
+  }
+
+  #wcb #wcb_2 strong {
+    font-weight: 700;
   }
 </style>
