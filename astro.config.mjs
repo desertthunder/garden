@@ -1,6 +1,7 @@
 // @ts-check
 import sitemap from "@astrojs/sitemap";
 import starlight from "@astrojs/starlight";
+import { unified } from "@astrojs/markdown-remark";
 import { defineConfig, passthroughImageService } from "astro/config";
 import rehypeMathjax from "rehype-mathjax";
 import remarkMath from "remark-math";
@@ -96,17 +97,17 @@ export default defineConfig({
             { label: "Recent Updates", link: "changelog" },
           ],
         },
-        { label: "Writing", collapsed: true, autogenerate: { directory: "writing" } },
-        { label: "Philosophy", collapsed: true, autogenerate: { directory: "philosophy" } },
-        { label: "Psychology", collapsed: true, autogenerate: { directory: "psychology" } },
-        { label: "Sociology", collapsed: true, autogenerate: { directory: "sociology" } },
+        { label: "Writing", collapsed: true, items: [{ autogenerate: { directory: "writing", collapsed: true } }] },
+        { label: "Philosophy", collapsed: true, items: [{ autogenerate: { directory: "philosophy", collapsed: true } }] },
+        { label: "Psychology", collapsed: true, items: [{ autogenerate: { directory: "psychology", collapsed: true } }] },
+        { label: "Sociology", collapsed: true, items: [{ autogenerate: { directory: "sociology", collapsed: true } }] },
         {
           label: "Culture",
           collapsed: true,
           items: [
             { slug: "culture" },
-            { label: "Internet", collapsed: true, autogenerate: { directory: "culture/internet" } },
-            { label: "Baseball", collapsed: true, autogenerate: { directory: "culture/baseball" } },
+            { label: "Internet", collapsed: true, items: [{ autogenerate: { directory: "culture/internet", collapsed: true } }] },
+            { label: "Baseball", collapsed: true, items: [{ autogenerate: { directory: "culture/baseball", collapsed: true } }] },
           ],
         },
         {
@@ -114,11 +115,11 @@ export default defineConfig({
           collapsed: true,
           items: [
             { slug: "engineering" },
-            { label: "General", collapsed: true, autogenerate: { directory: "engineering/general" } },
-            { label: "Git", collapsed: true, autogenerate: { directory: "engineering/git" } },
-            { label: "Architecture", collapsed: true, autogenerate: { directory: "engineering/architecture" } },
-            { label: "Databases", collapsed: true, autogenerate: { directory: "engineering/databases" } },
-            { label: "Web", collapsed: true, autogenerate: { directory: "engineering/web" } },
+            { label: "General", collapsed: true, items: [{ autogenerate: { directory: "engineering/general", collapsed: true } }] },
+            { label: "Git", collapsed: true, items: [{ autogenerate: { directory: "engineering/git", collapsed: true } }] },
+            { label: "Architecture", collapsed: true, items: [{ autogenerate: { directory: "engineering/architecture", collapsed: true } }] },
+            { label: "Databases", collapsed: true, items: [{ autogenerate: { directory: "engineering/databases", collapsed: true } }] },
+            { label: "Web", collapsed: true, items: [{ autogenerate: { directory: "engineering/web", collapsed: true } }] },
             {
               label: "AT Protocol",
               collapsed: true,
@@ -142,36 +143,36 @@ export default defineConfig({
                 },
               ],
             },
-            { label: "Flutter", collapsed: true, autogenerate: { directory: "engineering/flutter" } },
+            { label: "Flutter", collapsed: true, items: [{ autogenerate: { directory: "engineering/flutter", collapsed: true } }] },
             {
               label: "Programming",
               collapsed: true,
               items: [
                 { slug: "programming" },
-                { label: "General", collapsed: true, autogenerate: { directory: "programming/general" } },
-                { label: "Design", collapsed: true, autogenerate: { directory: "programming/design" } },
+                { label: "General", collapsed: true, items: [{ autogenerate: { directory: "programming/general", collapsed: true } }] },
+                { label: "Design", collapsed: true, items: [{ autogenerate: { directory: "programming/design", collapsed: true } }] },
                 {
                   label: "Data Structures",
                   collapsed: true,
-                  autogenerate: { directory: "programming/data_structures" },
+                  items: [{ autogenerate: { directory: "programming/data_structures", collapsed: true } }],
                 },
-                { label: "Algorithms", collapsed: true, autogenerate: { directory: "programming/algorithms" } },
+                { label: "Algorithms", collapsed: true, items: [{ autogenerate: { directory: "programming/algorithms", collapsed: true } }] },
                 {
                   label: "Functional Programming",
                   collapsed: true,
-                  autogenerate: { directory: "programming/functional_programming" },
+                  items: [{ autogenerate: { directory: "programming/functional_programming", collapsed: true } }],
                 },
-                { label: "BEAM", collapsed: true, autogenerate: { directory: "programming/beam" } },
-                { label: "Creative Coding", collapsed: true, autogenerate: { directory: "programming/creative" } },
-                { label: "C & C++", collapsed: true, autogenerate: { directory: "programming/c_cpp" } },
-                { label: "Golang", collapsed: true, autogenerate: { directory: "programming/golang" } },
-                { label: "Python", collapsed: true, autogenerate: { directory: "programming/python" } },
-                { label: "Rust", collapsed: true, autogenerate: { directory: "programming/rust" } },
-                { label: "Zig", collapsed: true, autogenerate: { directory: "programming/zig" } },
+                { label: "BEAM", collapsed: true, items: [{ autogenerate: { directory: "programming/beam", collapsed: true } }] },
+                { label: "Creative Coding", collapsed: true, items: [{ autogenerate: { directory: "programming/creative", collapsed: true } }] },
+                { label: "C & C++", collapsed: true, items: [{ autogenerate: { directory: "programming/c_cpp", collapsed: true } }] },
+                { label: "Golang", collapsed: true, items: [{ autogenerate: { directory: "programming/golang", collapsed: true } }] },
+                { label: "Python", collapsed: true, items: [{ autogenerate: { directory: "programming/python", collapsed: true } }] },
+                { label: "Rust", collapsed: true, items: [{ autogenerate: { directory: "programming/rust", collapsed: true } }] },
+                { label: "Zig", collapsed: true, items: [{ autogenerate: { directory: "programming/zig", collapsed: true } }] },
               ],
             },
-            { label: "Unix", collapsed: true, autogenerate: { directory: "unix" } },
-            { label: "UX", collapsed: true, autogenerate: { directory: "ux" } },
+            { label: "Unix", collapsed: true, items: [{ autogenerate: { directory: "unix", collapsed: true } }] },
+            { label: "UX", collapsed: true, items: [{ autogenerate: { directory: "ux", collapsed: true } }] },
           ],
         },
       ],
@@ -181,7 +182,9 @@ export default defineConfig({
   ],
   markdown: {
     syntaxHighlight: { type: "shiki", excludeLangs: ["math"] },
-    remarkPlugins: [remarkDeploymentBaseLinks, remarkMath],
-    rehypePlugins: [rehypeMathjax],
+    processor: unified({
+      remarkPlugins: [remarkDeploymentBaseLinks, remarkMath],
+      rehypePlugins: [rehypeMathjax],
+    }),
   },
 });
