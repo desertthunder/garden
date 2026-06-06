@@ -5,7 +5,7 @@ title: Motivation when Studying
 - Students fail when they are not motivated
   - When they don't see the meaning in their work[^1]
   - When they can't connect it to their goals[^2]
-  - When they lack [freedom](/garden/writing/autonomy_in_work/)
+  - When they lack [freedom](/writing/autonomy_in_work/)
 
 - Motivation comes best from enjoying your work
   - Turn the writing everything and thinking about process in to a hobby

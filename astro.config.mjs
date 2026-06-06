@@ -11,7 +11,7 @@ import { ogImageIntegration } from "./src/integrations/og-image/index.ts";
 import starlightChangelog from "./src/plugins/starlight-changelog/index.ts";
 import process from "node:process";
 
-const deploymentUrl = new URL(process.env.SITE_URL ?? "https://desertthunder.github.io/garden");
+const deploymentUrl = new URL(process.env.SITE_URL ?? "https://garden.desertthunder.dev");
 const deploymentBase = deploymentUrl.pathname.replace(/\/$/, "") || "/";
 const sourceBase = "/garden";
 const ogImageUrl = new URL(`${deploymentBase === "/" ? "" : deploymentBase}/og.png`, deploymentUrl.origin).toString();
