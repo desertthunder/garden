@@ -1,5 +1,5 @@
 ---
-title: Testing Svelte Applications
+title: Testing Svelte Projects
 ---
 
 This page provides an overview of testing strategies for Svelte applications, covering unit

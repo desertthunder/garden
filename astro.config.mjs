@@ -98,16 +98,32 @@ export default defineConfig({
           ],
         },
         { label: "Writing", collapsed: true, items: [{ autogenerate: { directory: "writing", collapsed: true } }] },
-        { label: "Philosophy", collapsed: true, items: [{ autogenerate: { directory: "philosophy", collapsed: true } }] },
-        { label: "Psychology", collapsed: true, items: [{ autogenerate: { directory: "psychology", collapsed: true } }] },
+        {
+          label: "Philosophy",
+          collapsed: true,
+          items: [{ autogenerate: { directory: "philosophy", collapsed: true } }],
+        },
+        {
+          label: "Psychology",
+          collapsed: true,
+          items: [{ autogenerate: { directory: "psychology", collapsed: true } }],
+        },
         { label: "Sociology", collapsed: true, items: [{ autogenerate: { directory: "sociology", collapsed: true } }] },
         {
           label: "Culture",
           collapsed: true,
           items: [
             { slug: "culture" },
-            { label: "Internet", collapsed: true, items: [{ autogenerate: { directory: "culture/internet", collapsed: true } }] },
-            { label: "Baseball", collapsed: true, items: [{ autogenerate: { directory: "culture/baseball", collapsed: true } }] },
+            {
+              label: "Internet",
+              collapsed: true,
+              items: [{ autogenerate: { directory: "culture/internet", collapsed: true } }],
+            },
+            {
+              label: "Baseball",
+              collapsed: true,
+              items: [{ autogenerate: { directory: "culture/baseball", collapsed: true } }],
+            },
           ],
         },
         {
@@ -115,11 +131,37 @@ export default defineConfig({
           collapsed: true,
           items: [
             { slug: "engineering" },
-            { label: "General", collapsed: true, items: [{ autogenerate: { directory: "engineering/general", collapsed: true } }] },
-            { label: "Git", collapsed: true, items: [{ autogenerate: { directory: "engineering/git", collapsed: true } }] },
-            { label: "Architecture", collapsed: true, items: [{ autogenerate: { directory: "engineering/architecture", collapsed: true } }] },
-            { label: "Databases", collapsed: true, items: [{ autogenerate: { directory: "engineering/databases", collapsed: true } }] },
-            { label: "Web", collapsed: true, items: [{ autogenerate: { directory: "engineering/web", collapsed: true } }] },
+            {
+              label: "General",
+              collapsed: true,
+              items: [{ autogenerate: { directory: "engineering/general", collapsed: true } }],
+            },
+            {
+              label: "Git",
+              collapsed: true,
+              items: [{ autogenerate: { directory: "engineering/git", collapsed: true } }],
+            },
+            {
+              label: "Architecture",
+              collapsed: true,
+              items: [{ autogenerate: { directory: "engineering/architecture", collapsed: true } }],
+            },
+            {
+              label: "Databases",
+              collapsed: true,
+              items: [{ autogenerate: { directory: "engineering/databases", collapsed: true } }],
+            },
+            {
+              label: "Web",
+              collapsed: true,
+              items: [
+                // { autogenerate: { directory: "engineering/web", collapsed: true } }
+                { label: "Batteries Included", slug: "engineering/web/batteries" },
+                { label: "Django REST Framework", slug: "engineering/web/drf" },
+                { label: "Starlight Plugins", slug: "engineering/web/starlight-plugins" },
+                { label: "Svelte", items: [{ autogenerate: { directory: "engineering/web/svelte" } }] },
+              ],
+            },
             {
               label: "AT Protocol",
               collapsed: true,
@@ -143,32 +185,76 @@ export default defineConfig({
                 },
               ],
             },
-            { label: "Flutter", collapsed: true, items: [{ autogenerate: { directory: "engineering/flutter", collapsed: true } }] },
+            {
+              label: "Flutter",
+              collapsed: true,
+              items: [{ autogenerate: { directory: "engineering/flutter", collapsed: true } }],
+            },
             {
               label: "Programming",
               collapsed: true,
               items: [
                 { slug: "programming" },
-                { label: "General", collapsed: true, items: [{ autogenerate: { directory: "programming/general", collapsed: true } }] },
-                { label: "Design", collapsed: true, items: [{ autogenerate: { directory: "programming/design", collapsed: true } }] },
+                {
+                  label: "General",
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: "programming/general", collapsed: true } }],
+                },
+                {
+                  label: "Design",
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: "programming/design", collapsed: true } }],
+                },
                 {
                   label: "Data Structures",
                   collapsed: true,
                   items: [{ autogenerate: { directory: "programming/data_structures", collapsed: true } }],
                 },
-                { label: "Algorithms", collapsed: true, items: [{ autogenerate: { directory: "programming/algorithms", collapsed: true } }] },
+                {
+                  label: "Algorithms",
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: "programming/algorithms", collapsed: true } }],
+                },
                 {
                   label: "Functional Programming",
                   collapsed: true,
                   items: [{ autogenerate: { directory: "programming/functional_programming", collapsed: true } }],
                 },
-                { label: "BEAM", collapsed: true, items: [{ autogenerate: { directory: "programming/beam", collapsed: true } }] },
-                { label: "Creative Coding", collapsed: true, items: [{ autogenerate: { directory: "programming/creative", collapsed: true } }] },
-                { label: "C & C++", collapsed: true, items: [{ autogenerate: { directory: "programming/c_cpp", collapsed: true } }] },
-                { label: "Golang", collapsed: true, items: [{ autogenerate: { directory: "programming/golang", collapsed: true } }] },
-                { label: "Python", collapsed: true, items: [{ autogenerate: { directory: "programming/python", collapsed: true } }] },
-                { label: "Rust", collapsed: true, items: [{ autogenerate: { directory: "programming/rust", collapsed: true } }] },
-                { label: "Zig", collapsed: true, items: [{ autogenerate: { directory: "programming/zig", collapsed: true } }] },
+                {
+                  label: "BEAM",
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: "programming/beam", collapsed: true } }],
+                },
+                {
+                  label: "Creative Coding",
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: "programming/creative", collapsed: true } }],
+                },
+                {
+                  label: "C & C++",
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: "programming/c_cpp", collapsed: true } }],
+                },
+                {
+                  label: "Golang",
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: "programming/golang", collapsed: true } }],
+                },
+                {
+                  label: "Python",
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: "programming/python", collapsed: true } }],
+                },
+                {
+                  label: "Rust",
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: "programming/rust", collapsed: true } }],
+                },
+                {
+                  label: "Zig",
+                  collapsed: true,
+                  items: [{ autogenerate: { directory: "programming/zig", collapsed: true } }],
+                },
               ],
             },
             { label: "Unix", collapsed: true, items: [{ autogenerate: { directory: "unix", collapsed: true } }] },
@@ -182,9 +268,6 @@ export default defineConfig({
   ],
   markdown: {
     syntaxHighlight: { type: "shiki", excludeLangs: ["math"] },
-    processor: unified({
-      remarkPlugins: [remarkDeploymentBaseLinks, remarkMath],
-      rehypePlugins: [rehypeMathjax],
-    }),
+    processor: unified({ remarkPlugins: [remarkDeploymentBaseLinks, remarkMath], rehypePlugins: [rehypeMathjax] }),
   },
 });
