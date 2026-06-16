@@ -1,0 +1,106 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { pathForDoc } from "../lib/content-paths";
+
+const entries = await getCollection("docs");
+const entry = entries.find((item) => pathForDoc(item) === "/");
+
+if (!entry) {
+  throw new Error("Missing homepage content entry: src/content/docs/index.mdx");
+}
+
+const { Content } = await render(entry);
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+function hrefFor(path: string) {
+  return `${base}${path}` || "/";
+}
+
+function sectionTitle(section: string) {
+  return section
+    .split(/[-_]/)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+const notes = entries
+  .filter((item) => pathForDoc(item) !== "/" && item.data.sidebar?.hidden !== true)
+  .map((item) => {
+    const path = pathForDoc(item);
+    const section = path.split("/").filter(Boolean)[0] ?? "writing";
+
+    return { item, path, section };
+  });
+
+const featuredSections = ["writing", "engineering", "programming", "psychology", "philosophy", "culture"]
+  .map((section) => ({
+    section,
+    items: notes.filter((note) => note.section === section).slice(0, 4),
+  }))
+  .filter((group) => group.items.length > 0);
+
+const recentNotes = [...notes]
+  .sort((a, b) => a.item.id.localeCompare(b.item.id))
+  .slice(0, 8);
+---
+
+<BaseLayout title="Owais' Places" description={entry.data.description}>
+  <header class="home-hero">
+    <p class="home-kicker">Digital garden</p>
+    <h1>Owais' Places</h1>
+    <p class="home-deck">
+      Notes on software, writing, philosophy, psychology, and the odd trail that connects them.
+    </p>
+    <div class="home-actions">
+      <a href={hrefFor("/engineering/")}>Start with engineering</a>
+      <a href={hrefFor("/changelog/")}>Recent updates</a>
+    </div>
+  </header>
+
+  <section class="home-intro">
+    <Content />
+  </section>
+
+  <section class="home-section" aria-labelledby="paths-heading">
+    <div class="home-section-header">
+      <h2 id="paths-heading">Paths Through The Garden</h2>
+      <p>Loose clusters, not a strict taxonomy.</p>
+    </div>
+
+    <div class="home-grid">
+      {
+        featuredSections.map((group) => (
+          <section class="home-card">
+            <h3>{sectionTitle(group.section)}</h3>
+            <ul>
+              {group.items.map(({ item, path }) => (
+                <li>
+                  <a href={hrefFor(path)}>{item.data.title}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="notes-heading">
+    <div class="home-section-header">
+      <h2 id="notes-heading">Browse Notes</h2>
+      <p>A small entry point into the larger archive.</p>
+    </div>
+
+    <ol class="home-note-list">
+      {
+        recentNotes.map(({ item, path, section }) => (
+          <li>
+            <a href={hrefFor(path)}>{item.data.title}</a>
+            <span>{sectionTitle(section)}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</BaseLayout>

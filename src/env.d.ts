@@ -1,8 +1,8 @@
 /// <reference types="astro/client" />
 
-declare module "virtual:starlight-changelog-config" {
-  import type { StarlightChangelogConfig } from "./plugins/starlight-changelog/index";
+declare module "virtual:garden-changelog-config" {
+  import type { ChangelogConfig } from "./plugins/changelog/index";
 
-  const config: Required<StarlightChangelogConfig>;
+  const config: Required<ChangelogConfig>;
   export default config;
 }

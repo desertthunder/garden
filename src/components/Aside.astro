@@ -1,0 +1,13 @@
+---
+type Props = {
+  title?: string;
+  type?: "note" | "tip" | "caution" | "danger";
+};
+
+const { title, type = "note" } = Astro.props;
+---
+
+<aside class:list={["aside", `aside-${type}`]}>
+  {title && <p class="aside-title">{title}</p>}
+  <slot />
+</aside>

@@ -1,0 +1,108 @@
+---
+import { getCollection } from "astro:content";
+import Footer from "../components/Footer.astro";
+import { pathForDoc } from "../lib/content-paths";
+import "../styles/custom.css";
+
+type Props = {
+  title: string;
+  description?: string;
+};
+
+const { title, description = "A digital garden by desertthunder.dev" } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const currentPath = Astro.url.pathname.replace(base, "").replace(/\/$/, "") || "/";
+const ogImageUrl = new URL(`${base}/og.png`, Astro.site ?? Astro.url.origin).toString();
+const entries = await getCollection("docs");
+
+function hrefFor(path: string) {
+  return `${base}${path}` || "/";
+}
+
+function sectionTitle(section: string) {
+  return section
+    .split(/[-_]/)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+const navEntries = entries
+  .map((entry) => ({ entry, path: pathForDoc(entry) }))
+  .filter(({ entry }) => entry.data.sidebar?.hidden !== true)
+  .sort((a, b) => {
+    if (a.path === "/") return -1;
+    if (b.path === "/") return 1;
+    return a.path.localeCompare(b.path);
+  });
+
+const groupedEntries = navEntries.reduce(
+  (groups, item) => {
+    const section = item.path === "/" ? "Home" : item.path.split("/").filter(Boolean)[0] ?? "Home";
+    groups[section] ??= [];
+    groups[section].push(item);
+    return groups;
+  },
+  {} as Record<string, typeof navEntries>,
+);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <link rel="icon" href={`${base}/favicon.svg`} />
+    <title>{title === "Owais' Places" ? title : `${title} | Owais' Places`}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-title" href={hrefFor("/")}>Owais' Places</a>
+      <nav class="site-links" aria-label="Social links">
+        <a href="https://github.com/desertthunder/garden">GitHub</a>
+        <a href="https://codeberg.org/desertthunder">Codeberg</a>
+        <a href="https://bsky.app/profile/desertthunder.dev">Bluesky</a>
+        <a href="https://www.linkedin.com/in/owais-jamil/">LinkedIn</a>
+      </nav>
+    </header>
+
+    <div class="site-shell">
+      <aside class="site-sidebar" aria-label="Garden navigation">
+        <nav>
+          <a class:list={["nav-link", currentPath === "/changelog" && "is-active"]} href={hrefFor("/changelog/")}>
+            Recent Updates
+          </a>
+          {
+            Object.entries(groupedEntries).map(([section, items]) => (
+              <section class="nav-section">
+                <h2>{sectionTitle(section)}</h2>
+                <ul>
+                  {items.map(({ entry, path }) => (
+                    <li>
+                      <a class:list={["nav-link", currentPath === path.replace(/\/$/, "") && "is-active"]} href={hrefFor(path)}>
+                        {entry.data.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))
+          }
+        </nav>
+      </aside>
+
+      <main class="site-main">
+        <article class="content">
+          <slot />
+        </article>
+        <Footer />
+      </main>
+    </div>
+  </body>
+</html>

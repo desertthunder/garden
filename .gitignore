@@ -235,3 +235,4 @@ pnpm-debug.log*
 
 .sandbox
 .vscode/
+.pnpm-store/

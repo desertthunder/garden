@@ -1,6 +1,6 @@
 ---
-import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
-import changelogConfig from "virtual:starlight-changelog-config";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import changelogConfig from "virtual:garden-changelog-config";
 import { getGitLog, groupChangesByDate, getFileDiff, type CommitEntry } from "./lib/git";
 import { pathToSlug, extractTitle, formatDate } from "./lib/utils";
 import { formatDiff } from "./lib/diff-formatter";
@@ -26,9 +26,12 @@ function commitSummary(commit: CommitEntry) {
 }
 ---
 
-<StarlightPage
-  frontmatter={{ title: "Changelog", description: "Recent changes to the documentation" }}
-  headings={[{ depth: 2, slug: "recent-changes", text: "Recent Changes" }]}>
+<BaseLayout title="Changelog" description="Recent changes to the garden">
+  <header class="content-header">
+    <h1>Changelog</h1>
+    <p>Recent changes to the garden.</p>
+  </header>
+
   <div class="changelog-container">
     {
       changelog.length === 0 ? (
@@ -132,7 +135,7 @@ function commitSummary(commit: CommitEntry) {
     .changelog-entry {
       margin-bottom: 3rem;
       padding-bottom: 2rem;
-      border-bottom: 1px solid var(--sl-color-gray-5);
+      border-bottom: 1px solid var(--color-border);
     }
 
     .changelog-entry:last-child {
@@ -140,7 +143,7 @@ function commitSummary(commit: CommitEntry) {
     }
 
     .changelog-entry h2 {
-      color: var(--sl-color-white);
+      color: var(--color-text);
       margin-bottom: 1rem;
     }
 
@@ -150,8 +153,8 @@ function commitSummary(commit: CommitEntry) {
     }
 
     .commit-card {
-      background: var(--sl-color-gray-6);
-      border: 1px solid var(--sl-color-gray-5);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
       border-radius: 0.75rem;
       overflow: hidden;
     }
@@ -173,7 +176,7 @@ function commitSummary(commit: CommitEntry) {
 
     .commit-card > summary::before {
       align-self: center;
-      color: var(--sl-color-gray-3);
+      color: var(--color-muted);
       content: "›";
       font-size: 1.15rem;
       line-height: 1;
@@ -189,7 +192,7 @@ function commitSummary(commit: CommitEntry) {
 
     .commit-card > summary:hover::before,
     .commit-card > summary:hover .commit-title {
-      color: var(--sl-color-text-accent);
+      color: var(--color-accent);
     }
 
     .commit-summary-main {
@@ -199,19 +202,19 @@ function commitSummary(commit: CommitEntry) {
     }
 
     .commit-title {
-      color: var(--sl-color-white);
+      color: var(--color-text);
       font-weight: 650;
       transition: color 120ms ease;
     }
 
     .commit-meta {
-      color: var(--sl-color-gray-3);
+      color: var(--color-muted);
       font-size: 0.85rem;
       grid-column: 2;
     }
 
     .commit-body {
-      border-top: 1px solid var(--sl-color-gray-5);
+      border-top: 1px solid var(--color-border);
       min-width: 0;
       padding: 0.25rem 1rem 1rem;
     }
@@ -226,19 +229,19 @@ function commitSummary(commit: CommitEntry) {
     }
 
     .change-section.added h3 {
-      color: var(--sl-color-green);
+      color: var(--color-green);
     }
 
     .change-section.modified h3 {
-      color: var(--sl-color-blue);
+      color: var(--color-blue);
     }
 
     .change-section.renamed h3 {
-      color: var(--sl-color-purple);
+      color: var(--color-purple);
     }
 
     .change-section.removed h3 {
-      color: var(--sl-color-red);
+      color: var(--color-red);
     }
 
     .change-section ul {
@@ -249,14 +252,14 @@ function commitSummary(commit: CommitEntry) {
     }
 
     .change-section li {
-      background: var(--sl-color-gray-7);
+      background: var(--color-surface-raised);
       border-radius: 0.5rem;
       min-width: 0;
       padding: 0.65rem 0.75rem;
     }
 
     .change-section a {
-      color: var(--sl-color-white);
+      color: var(--color-text);
       font-weight: 600;
       text-decoration: none;
     }
@@ -266,12 +269,12 @@ function commitSummary(commit: CommitEntry) {
     }
 
     .path-note {
-      color: var(--sl-color-gray-3);
+      color: var(--color-muted);
       font-size: 0.9rem;
     }
 
     .removed-title {
-      color: var(--sl-color-gray-2);
+      color: var(--color-muted);
       font-weight: 600;
       text-decoration: line-through;
     }
@@ -282,7 +285,7 @@ function commitSummary(commit: CommitEntry) {
 
     .diff-details > summary {
       align-items: center;
-      color: var(--sl-color-text-accent);
+      color: var(--color-accent);
       cursor: pointer;
       display: inline-flex;
       font-size: 0.9rem;
@@ -312,7 +315,7 @@ function commitSummary(commit: CommitEntry) {
     }
 
     .diff {
-      background: var(--sl-color-black);
+      background: var(--color-code-bg);
       border-radius: 0.375rem;
       box-sizing: border-box;
       font-size: 0.85rem;
@@ -324,7 +327,7 @@ function commitSummary(commit: CommitEntry) {
     }
 
     .diff code {
-      color: var(--sl-color-gray-1);
+      color: var(--color-text);
       display: block;
       min-width: max-content;
       padding-right: 1rem;
@@ -332,35 +335,35 @@ function commitSummary(commit: CommitEntry) {
 
     .diff :global(.diff-add) {
       background: rgba(46, 160, 67, 0.15);
-      color: var(--sl-color-green-high);
+      color: var(--color-green);
       display: inline-block;
       width: 100%;
     }
 
     .diff :global(.diff-remove) {
       background: rgba(248, 81, 73, 0.15);
-      color: var(--sl-color-red-high);
+      color: var(--color-red);
       display: inline-block;
       width: 100%;
     }
 
     .diff :global(.diff-file) {
-      color: var(--sl-color-white);
+      color: var(--color-text);
       display: inline-block;
       font-weight: 600;
       width: 100%;
     }
 
     .diff :global(.diff-hunk) {
-      color: var(--sl-color-blue);
+      color: var(--color-blue);
       display: inline-block;
       width: 100%;
     }
 
     .diff :global(.diff-context) {
-      color: var(--sl-color-gray-2);
+      color: var(--color-muted);
       display: inline-block;
       width: 100%;
     }
   </style>
-</StarlightPage>
+</BaseLayout>
