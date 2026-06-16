@@ -1,6 +1,2 @@
 import eslintPluginAstro from "eslint-plugin-astro";
-export default [
-  // js.configs.recommended,
-  ...eslintPluginAstro.configs.recommended,
-  { rules: {} },
-];
+export default [...eslintPluginAstro.configs.recommended, { rules: {} }];

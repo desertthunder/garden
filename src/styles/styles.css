@@ -37,7 +37,7 @@
 :root {
   color-scheme: dark;
   --font-heading: "Instrument Sans Variable", system-ui, sans-serif;
-  --font-body: "Cabin Variable", system-ui, sans-serif;
+  --font-body: "Instrument Sans Variable", system-ui, sans-serif;
   --font-mono: "Google Sans Code Variable", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --color-bg: #181818;
   --color-surface: #232323;
@@ -104,7 +104,9 @@ img {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  font-family: var(--font-mono);
+  align-items: center;
 }
 
 .site-links a,
@@ -114,9 +116,15 @@ img {
 }
 
 .site-links a:hover,
+.site-nav-link.is-active,
 .nav-link:hover,
 .nav-link.is-active {
   color: var(--color-accent);
+}
+
+.site-nav-link.is-active {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
 }
 
 .site-shell {
@@ -133,6 +141,21 @@ img {
   padding: 1.25rem clamp(1rem, 2vw, 1.5rem);
   position: sticky;
   top: 4rem;
+}
+
+.site-search {
+  margin-bottom: 1.25rem;
+}
+
+.site-search pagefind-searchbox {
+  --pagefind-ui-scale: 0.78;
+  --pagefind-ui-primary: var(--color-accent);
+  --pagefind-ui-text: var(--color-text);
+  --pagefind-ui-background: var(--color-surface);
+  --pagefind-ui-border: var(--color-border);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 6px;
+  --pagefind-ui-font: var(--font-body);
 }
 
 .nav-section {

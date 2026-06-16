@@ -2,22 +2,18 @@
 import { getCollection } from "astro:content";
 import Footer from "../components/Footer.astro";
 import { pathForDoc } from "../lib/content-paths";
-import "../styles/custom.css";
+import "../styles/styles.css";
 
-type Props = {
-  title: string;
-  description?: string;
-};
+type Props = { title: string; description?: string };
 
 const { title, description = "A digital garden by desertthunder.dev" } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const pagefindBundlePath = `${base}/pagefind/`;
 const currentPath = Astro.url.pathname.replace(base, "").replace(/\/$/, "") || "/";
 const ogImageUrl = new URL(`${base}/og.png`, Astro.site ?? Astro.url.origin).toString();
 const entries = await getCollection("docs");
 
-function hrefFor(path: string) {
-  return `${base}${path}` || "/";
-}
+const hrefFor = (path: string) => `${base}${path}` || "/";
 
 function sectionTitle(section: string) {
   return section
@@ -28,7 +24,6 @@ function sectionTitle(section: string) {
 
 const navEntries = entries
   .map((entry) => ({ entry, path: pathForDoc(entry) }))
-  .filter(({ entry }) => entry.data.sidebar?.hidden !== true)
   .sort((a, b) => {
     if (a.path === "/") return -1;
     if (b.path === "/") return 1;
@@ -37,7 +32,7 @@ const navEntries = entries
 
 const groupedEntries = navEntries.reduce(
   (groups, item) => {
-    const section = item.path === "/" ? "Home" : item.path.split("/").filter(Boolean)[0] ?? "Home";
+    const section = item.path === "/" ? "Home" : (item.path.split("/").filter(Boolean)[0] ?? "Home");
     groups[section] ??= [];
     groups[section].push(item);
     return groups;
@@ -59,12 +54,17 @@ const groupedEntries = navEntries.reduce(
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImageUrl} />
     <link rel="icon" href={`${base}/favicon.svg`} />
+    <link rel="stylesheet" href={`${base}/pagefind/pagefind-component-ui.css`} />
+    <script is:inline src={`${base}/pagefind/pagefind-component-ui.js`} type="module"></script>
     <title>{title === "Owais' Places" ? title : `${title} | Owais' Places`}</title>
   </head>
   <body>
     <header class="site-header">
       <a class="site-title" href={hrefFor("/")}>Owais' Places</a>
-      <nav class="site-links" aria-label="Social links">
+      <nav class="site-links" aria-label="Site links">
+        <a class:list={["site-nav-link", currentPath === "/changelog" && "is-active"]} href={hrefFor("/changelog/")}>
+          CHANGELOG
+        </a>
         <a href="https://github.com/desertthunder/garden">GitHub</a>
         <a href="https://codeberg.org/desertthunder">Codeberg</a>
         <a href="https://bsky.app/profile/desertthunder.dev">Bluesky</a>
@@ -74,10 +74,12 @@ const groupedEntries = navEntries.reduce(
 
     <div class="site-shell">
       <aside class="site-sidebar" aria-label="Garden navigation">
+        <div class="site-search">
+          <pagefind-config bundle-path={pagefindBundlePath}></pagefind-config>
+          <pagefind-searchbox placeholder="Search"></pagefind-searchbox>
+        </div>
+
         <nav>
-          <a class:list={["nav-link", currentPath === "/changelog" && "is-active"]} href={hrefFor("/changelog/")}>
-            Recent Updates
-          </a>
           {
             Object.entries(groupedEntries).map(([section, items]) => (
               <section class="nav-section">
@@ -85,7 +87,9 @@ const groupedEntries = navEntries.reduce(
                 <ul>
                   {items.map(({ entry, path }) => (
                     <li>
-                      <a class:list={["nav-link", currentPath === path.replace(/\/$/, "") && "is-active"]} href={hrefFor(path)}>
+                      <a
+                        class:list={["nav-link", currentPath === path.replace(/\/$/, "") && "is-active"]}
+                        href={hrefFor(path)}>
                         {entry.data.title}
                       </a>
                     </li>
@@ -98,7 +102,7 @@ const groupedEntries = navEntries.reduce(
       </aside>
 
       <main class="site-main">
-        <article class="content">
+        <article class="content" data-pagefind-body>
           <slot />
         </article>
         <Footer />

@@ -7,6 +7,7 @@ import process from "node:process";
 import rehypeMathjax from "rehype-mathjax";
 import remarkMath from "remark-math";
 import { ogImageIntegration } from "./src/integrations/og-image/index.ts";
+import search from "./src/integrations/search/index.ts";
 import changelog from "./src/plugins/changelog/index.ts";
 
 const deploymentUrl = new URL(process.env.SITE_URL ?? "https://garden.desertthunder.dev");
@@ -64,6 +65,7 @@ export default defineConfig({
     mdx(),
     changelog({ path: "changelog", contentDir: "src/content/docs", diffLines: 15, historyDays: 90 }),
     ogImageIntegration(),
+    search(),
     sitemap(),
   ],
   markdown: {
