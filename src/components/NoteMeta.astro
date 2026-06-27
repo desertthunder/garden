@@ -1,19 +1,18 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import { formatDate } from "$lib/content/dates";
 import { tagSlug, tagsForDoc } from "$lib/tags";
 import type { DocEntry } from "$lib/content/tree";
+import { hrefFor } from "$lib/utils/path";
 
 type Props = { entry: DocEntry; updated: Date; base: string };
 
 const { entry, updated, base } = Astro.props;
 const tags = tagsForDoc(entry);
-const hrefFor = (path: string) => `${base}${path}` || "/";
 ---
 
 <p class="note-meta">
   <time datetime={updated.toISOString()}>{formatDate(updated)}</time>
-  {tags.map((tag) => <a href={hrefFor(`/tags/${tagSlug(tag)}/`)}>{tag}</a>)}
+  {tags.map((tag) => <a href={hrefFor(base, `/tags/${tagSlug(tag)}/`)}>{tag}</a>)}
 </p>
 
 <style>

@@ -1,14 +1,10 @@
 ---
+import { hrefFor } from "$lib/utils/path";
 import type { SidebarNode } from "../lib/content/tree";
 
-type Props = {
-  base: string;
-  currentPath: string;
-  node: SidebarNode;
-};
+type Props = { base: string; currentPath: string; node: SidebarNode };
 
 const { base, currentPath, node } = Astro.props;
-const hrefFor = (path: string) => `${base}${path}` || "/";
 
 function isActive(path: string) {
   return currentPath === path.replace(/\/$/, "") || (path === "/" && currentPath === "/");
@@ -28,7 +24,7 @@ function isAncestor(path: string) {
       isActive(node.path) && "is-active",
       node.kind === "folder" && isAncestor(node.path) && "is-ancestor",
     ]}
-    href={hrefFor(node.path)}>
+    href={hrefFor(base, node.path)}>
     {node.label}
   </a>
 

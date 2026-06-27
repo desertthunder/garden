@@ -1,18 +1,19 @@
 ---
+import { hrefFor } from "$lib/utils/path";
+
 type Props = { base: string; currentPath: string };
 
 const { base, currentPath } = Astro.props;
-const hrefFor = (path: string) => `${base}${path}` || "/";
 ---
 
 <header class="site-header">
-  <a class="site-title" href={hrefFor("/")}>Owais' Places</a>
+  <a class="site-title" href={hrefFor(base, "/")}>Owais' Places</a>
   <nav class="site-links" aria-label="Site links">
     <div style="border-right: 1px solid; padding: 0 1rem">
-      <a class:list={["site-nav-link", currentPath === "/changelog" && "is-active"]} href={hrefFor("/changelog/")}>
+      <a class:list={["site-nav-link", currentPath === "/changelog" && "is-active"]} href={hrefFor(base, "/changelog/")}>
         CHANGELOG
       </a>
-      <a class:list={["site-nav-link", currentPath === "/tags" && "is-active"]} href={hrefFor("/tags/")}>Tags</a>
+      <a class:list={["site-nav-link", currentPath === "/tags" && "is-active"]} href={hrefFor(base, "/tags/")}>Tags</a>
     </div>
     <div>
       <a href="https://github.com/desertthunder/garden">GitHub</a>

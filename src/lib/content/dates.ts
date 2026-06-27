@@ -1,4 +1,3 @@
-import type { CollectionEntry } from "astro:content";
 import proc from "node:child_process";
 import fs from "node:fs";
 import type { DocEntry } from "./tree";
@@ -18,17 +17,17 @@ export function gitUpdatedDateForDoc(entry: DocEntry) {
 
 function filePathForDoc(entry: DocEntry) {
   const path = `${contentDir}/${entry.id}`;
-  const candidates = [
-    path,
-    `${path}.md`,
-    `${path}.mdx`,
-    `${path}/index.md`,
-    `${path}/index.mdx`,
-    `${path}/README.md`,
-    `${path}/README.mdx`,
-  ];
-
-  return candidates.find((candidate) => fs.existsSync(candidate)) ?? path;
+  return (
+    [
+      path,
+      `${path}.md`,
+      `${path}.mdx`,
+      `${path}/index.md`,
+      `${path}/index.mdx`,
+      `${path}/README.md`,
+      `${path}/README.mdx`,
+    ].find((candidate) => fs.existsSync(candidate)) ?? path
+  );
 }
 
 function readGitDate(filePath: string) {

@@ -1,9 +1,12 @@
 ---
 import { getCollection, render } from "astro:content";
 import NoteList from "$components/NoteList.astro";
+import NoteMeta from "$components/NoteMeta.astro";
 import BaseLayout from "$layouts/BaseLayout.astro";
+import { gitUpdatedDateForDoc } from "$lib/content/dates";
 import { pathForDoc } from "$lib/content/paths";
 import { folderListingForPath, folderPathsForEntries } from "$lib/content/tree";
+import { hrefFor } from "$lib/utils/path";
 
 export async function getStaticPaths() {
   const entries = await getCollection("docs");
@@ -22,7 +25,6 @@ export async function getStaticPaths() {
 const { page } = Astro.props;
 const entries = await getCollection("docs");
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const hrefFor = (path: string) => `${base}${path}` || "/";
 const folder = page.kind === "folder" ? folderListingForPath(entries, page.path) : undefined;
 const entry = page.kind === "note" ? page.entry : folder?.entry;
 const rendered = entry ? await render(entry) : undefined;
@@ -30,16 +32,19 @@ const Content = rendered?.Content;
 const headings = rendered?.headings ?? [];
 const pageTitle = page.kind === "folder" ? (entry?.data.title ?? folder?.label ?? "Folder") : page.entry.data.title;
 const pageDescription = entry?.data.description;
+const noteUpdated = page.kind === "note" ? gitUpdatedDateForDoc(page.entry) : undefined;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
   <header class="content-header">
     <h1>{pageTitle}</h1>
     {pageDescription && <p>{pageDescription}</p>}
+    {page.kind === "note" && noteUpdated && <NoteMeta entry={page.entry} updated={noteUpdated} base={base} />}
   </header>
 
   {Content && <Content />}
 
+  <!-- TODO: Folder component -->
   {
     folder && (
       <section class:list={["folder-page", Content && "has-intro"]} aria-labelledby="folder-listing-heading">
@@ -49,7 +54,7 @@ const pageDescription = entry?.data.description;
           <ol class="folder-list">
             {folder.folders.map((child) => (
               <li>
-                <a href={hrefFor(child.path)}>{child.label}</a>
+                <a href={hrefFor(base, child.path)}>{child.label}</a>
               </li>
             ))}
           </ol>
@@ -60,6 +65,7 @@ const pageDescription = entry?.data.description;
     )
   }
 
+  <!-- TODO: ToC component -->
   {
     headings.length > 0 && (
       <div slot="right-rail">

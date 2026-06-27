@@ -9,7 +9,7 @@
 - [x] Add `tags?: string[]` to the Astro content schema.
 - [x] Add true recent notes using git-derived dates.
 - [x] Prefer git-derived dates for recent-note sorting.
-- [ ] Show updated dates in note headers and listing pages.
+- [x] Show updated dates in note headers and listing pages.
 - [ ] Add note maturity/status frontmatter such as seedling, growing, evergreen, or archived.
 - [ ] Use note status in headers, listings, related notes, and search filters.
 - [ ] Keep note status optional.
@@ -69,7 +69,7 @@
 
 ## Reading Layout
 
-- [ ] Add Notion-style note metadata at the top of each note.
+- [x] Add Notion-style note metadata at the top of each note.
 - [ ] Show updated date, tags, status, and optional description below note titles.
 - [ ] Reuse note metadata across pages, listings, previews, and related-note cards.
 - [ ] Add Notion-style listing cards for home, folder, tag, and related-note lists.

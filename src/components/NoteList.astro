@@ -1,18 +1,18 @@
 ---
 import type { NoteListItem } from "$lib/content/tree";
+import { hrefFor } from "$lib/utils/path";
 import NoteMeta from "./NoteMeta.astro";
 
 type Props = { notes: NoteListItem[]; base: string };
 
 const { notes, base } = Astro.props;
-const hrefFor = (path: string) => `${base}${path}` || "/";
 ---
 
 <ol class="note-list">
   {
     notes.map(({ entry, path, updated }) => (
       <li>
-        <a class="note-list-title" href={hrefFor(path)}>
+        <a class="note-list-title" href={hrefFor(base, path)}>
           {entry.data.title}
         </a>
         {entry.data.description && <p class="note-list-description">{entry.data.description}</p>}
