@@ -30,8 +30,20 @@ const hasRightRail = Astro.slots.has("right-rail");
   <body>
     <SiteHeader base={base} currentPath={currentPath} />
 
-    <div class:list={["site-shell", hasRightRail && "has-right-rail"]}>
-      <SiteSidebar base={base} currentPath={currentPath} />
+    <div class:list={["site-shell", hasRightRail && "has-right-rail"]} data-sidebar-shell>
+      <div class="sidebar-frame sidebar-frame--left">
+        <button
+          aria-controls="garden-map"
+          aria-expanded="true"
+          class="sidebar-toggle"
+          data-sidebar-toggle="left"
+          type="button">
+          <span class="sidebar-toggle__open">Collapse map</span>
+          <span class="sidebar-toggle__closed" aria-hidden="true">Map</span>
+        </button>
+        <SiteSidebar base={base} currentPath={currentPath} />
+      </div>
+
       <main class="site-main">
         <article class="content" data-pagefind-body>
           <slot />
@@ -40,27 +52,78 @@ const hasRightRail = Astro.slots.has("right-rail");
 
       {
         hasRightRail && (
-          <aside class="right-rail" aria-label="Page context">
-            <slot name="right-rail" />
-          </aside>
+          <div class="sidebar-frame sidebar-frame--right">
+            <button
+              aria-controls="garden-context"
+              aria-expanded="true"
+              class="sidebar-toggle"
+              data-sidebar-toggle="right"
+              type="button">
+              <span class="sidebar-toggle__open">Collapse context</span>
+              <span class="sidebar-toggle__closed" aria-hidden="true">
+                Context
+              </span>
+            </button>
+            <aside class="right-rail" id="garden-context" aria-label="Page context">
+              <slot name="right-rail" />
+            </aside>
+          </div>
         )
       }
     </div>
 
+    <script>
+      const sidebarShell = document.querySelector("[data-sidebar-shell]");
+      const sidebarToggles = document.querySelectorAll("[data-sidebar-toggle]");
+
+      function applySidebarState(side, collapsed) {
+        sidebarShell?.classList.toggle(`is-${side}-collapsed`, collapsed);
+
+        document.querySelectorAll(`[data-sidebar-toggle="${side}"]`).forEach((toggle) => {
+          toggle.setAttribute("aria-expanded", String(!collapsed));
+        });
+      }
+
+      for (const side of ["left", "right"]) {
+        applySidebarState(side, localStorage.getItem(`garden-${side}-rail`) === "collapsed");
+      }
+
+      sidebarToggles.forEach((toggle) => {
+        toggle.addEventListener("click", () => {
+          const side = toggle.getAttribute("data-sidebar-toggle");
+          if (!side) return;
+
+          const collapsed = !sidebarShell?.classList.contains(`is-${side}-collapsed`);
+          applySidebarState(side, collapsed);
+          localStorage.setItem(`garden-${side}-rail`, collapsed ? "collapsed" : "open");
+        });
+      });
+    </script>
+
     <style>
       .site-shell {
+        --left-rail-width: minmax(15rem, 20rem);
+        --right-rail-width: minmax(15rem, 19rem);
         display: grid;
-        grid-template-columns: minmax(13rem, 18rem) minmax(0, 1fr);
+        grid-template-columns: var(--left-rail-width) minmax(0, 1fr);
         height: calc(100dvh - 4rem);
         margin-inline: auto;
-        max-width: 90rem;
+        max-width: 96rem;
         min-width: 0;
         overflow: hidden;
       }
 
       .site-shell.has-right-rail {
-        grid-template-columns: minmax(13rem, 18rem) minmax(0, 1fr) minmax(12rem, 16rem);
-        max-width: 106rem;
+        grid-template-columns: var(--left-rail-width) minmax(0, 1fr) var(--right-rail-width);
+        max-width: 112rem;
+      }
+
+      .site-shell.is-left-collapsed {
+        --left-rail-width: 3rem;
+      }
+
+      .site-shell.is-right-collapsed {
+        --right-rail-width: 3rem;
       }
 
       .site-main {
@@ -69,14 +132,89 @@ const hasRightRail = Astro.slots.has("right-rail");
         padding: clamp(1.25rem, 4vw, 3rem);
       }
 
-      .right-rail {
-        align-self: stretch;
+      .sidebar-frame {
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr);
+        min-width: 0;
+        overflow: hidden;
+      }
+
+      .sidebar-frame--left {
+        border-right: 1px solid var(--color-border);
+      }
+
+      .sidebar-frame--right {
         border-left: 1px solid var(--color-border);
+      }
+
+      .sidebar-toggle {
+        align-items: center;
+        background: color-mix(in srgb, var(--color-bg) 88%, var(--color-surface));
+        border: 0;
+        border-bottom: 1px solid var(--color-border);
         color: var(--color-muted);
+        cursor: pointer;
+        display: flex;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        gap: 0.4rem;
+        justify-content: flex-start;
+        letter-spacing: 0;
+        line-height: 1.2;
+        min-height: 2.6rem;
+        padding: 0.75rem 1rem;
+        text-transform: uppercase;
+        width: 100%;
+      }
+
+      .sidebar-toggle:hover,
+      .sidebar-toggle:focus-visible {
+        color: var(--color-accent);
+      }
+
+      .sidebar-toggle:focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: -2px;
+      }
+
+      .sidebar-toggle__closed {
+        display: none;
+      }
+
+      .is-left-collapsed .sidebar-frame--left .sidebar-toggle,
+      .is-right-collapsed .sidebar-frame--right .sidebar-toggle {
+        align-items: center;
+        height: 100%;
+        justify-content: center;
+        padding: 0.75rem 0;
+        writing-mode: vertical-rl;
+      }
+
+      .is-left-collapsed .sidebar-frame--left,
+      .is-right-collapsed .sidebar-frame--right {
+        grid-template-rows: minmax(0, 1fr);
+      }
+
+      .is-left-collapsed .sidebar-frame--left .sidebar-toggle__open,
+      .is-right-collapsed .sidebar-frame--right .sidebar-toggle__open {
+        display: none;
+      }
+
+      .is-left-collapsed .sidebar-frame--left .sidebar-toggle__closed,
+      .is-right-collapsed .sidebar-frame--right .sidebar-toggle__closed {
+        display: inline;
+      }
+
+      :global(.is-left-collapsed .site-sidebar),
+      .is-right-collapsed .right-rail {
+        display: none;
+      }
+
+      .right-rail {
         height: 100%;
         min-width: 0;
         overflow: auto;
-        padding: 1rem 2rem;
+        padding: 1.1rem clamp(1rem, 2vw, 1.5rem) 1.5rem;
       }
 
       @media (max-width: 860px) {
@@ -86,10 +224,35 @@ const hasRightRail = Astro.slots.has("right-rail");
           overflow: visible;
         }
 
-        .right-rail {
+        .sidebar-frame--left,
+        .sidebar-frame--right {
           border-left: 0;
+          border-right: 0;
+        }
+
+        .sidebar-frame--left {
+          border-bottom: 1px solid var(--color-border);
+        }
+
+        .sidebar-frame--right {
           border-top: 1px solid var(--color-border);
-          max-height: 70dvh;
+        }
+
+        .is-left-collapsed .sidebar-frame--left .sidebar-toggle,
+        .is-right-collapsed .sidebar-frame--right .sidebar-toggle {
+          height: auto;
+          justify-content: flex-start;
+          padding: 0.75rem clamp(1rem, 4vw, 1.5rem);
+          writing-mode: horizontal-tb;
+        }
+
+        .is-left-collapsed .sidebar-frame--left,
+        .is-right-collapsed .sidebar-frame--right {
+          grid-template-rows: auto;
+        }
+
+        .right-rail {
+          max-height: none;
           overflow: auto;
           padding: 1.25rem clamp(1rem, 4vw, 1.5rem);
         }

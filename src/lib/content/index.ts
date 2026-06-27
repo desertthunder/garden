@@ -74,6 +74,15 @@ export function backlinkNotes(notes: ContentIndexNote[], currentPath: string): N
     .map(noteListItem);
 }
 
+export function outboundLinkNotes(notes: ContentIndexNote[], currentPath: string): NoteListItem[] {
+  const noteByPath = new Map(notes.map((note) => [note.path, note]));
+  return (noteByPath.get(currentPath)?.outbound ?? [])
+    .map((path) => noteByPath.get(path))
+    .filter((note): note is ContentIndexNote => Boolean(note))
+    .toSorted((a, b) => a.title.localeCompare(b.title))
+    .map(noteListItem);
+}
+
 export function previewPayload(notes: ContentIndexNote[]) {
   return Object.fromEntries(
     notes.map((note) => [

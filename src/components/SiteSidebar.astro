@@ -2,34 +2,134 @@
 import { getCollection } from "astro:content";
 import SidebarTree from "$components/SidebarTree.svelte";
 import { buildSidebarTree } from "../lib/content/tree";
+import { hrefFor } from "$lib/utils/path";
 
 type Props = { base: string; currentPath: string };
 
 const { base, currentPath } = Astro.props;
 const entries = await getCollection("docs");
 const tree = buildSidebarTree(entries);
+const topicNodes = tree.filter((node) => node.kind === "folder").slice(0, 8);
 ---
 
-<aside class="site-sidebar" aria-label="Garden navigation">
-  <nav aria-label="Content tree">
-    <SidebarTree base={base} currentPath={currentPath} nodes={tree} client:load />
-  </nav>
+<aside class="site-sidebar" id="garden-map" aria-label="Garden navigation">
+  <div class="map-section">
+    <div class="map-section__header">
+      <h2>Paths</h2>
+    </div>
+    <nav class="path-grid" aria-label="Garden paths">
+      <a class:list={[currentPath === "/" && "is-active"]} href={hrefFor(base, "/")}>Home</a>
+      <a class:list={[currentPath === "/tags" && "is-active"]} href={hrefFor(base, "/tags/")}>Tags</a>
+      <a class:list={[currentPath === "/changelog" && "is-active"]} href={hrefFor(base, "/changelog/")}>Updates</a>
+      {
+        topicNodes.map((node) => (
+          <a
+            class:list={[currentPath.startsWith(node.path.replace(/\/$/, "")) && "is-active"]}
+            href={hrefFor(base, node.path)}>
+            {node.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+
+  <details class="map-index">
+    <summary>Full index</summary>
+    <nav aria-label="Content tree">
+      <SidebarTree base={base} currentPath={currentPath} nodes={tree} client:load />
+    </nav>
+  </details>
 </aside>
 
 <style>
   .site-sidebar {
-    border-right: 1px solid var(--color-border);
+    display: grid;
+    gap: 1.25rem;
+    grid-template-rows: auto minmax(0, 1fr);
     height: 100%;
     overflow: auto;
     padding: 1.25rem clamp(1rem, 2vw, 1.5rem);
   }
 
+  .map-section__header {
+    align-items: baseline;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .map-section h2 {
+    color: var(--color-text);
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .path-grid {
+    display: grid;
+    gap: 0.45rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .path-grid a {
+    background: color-mix(in srgb, var(--color-surface) 66%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+    border-radius: 0.45rem;
+    color: var(--color-text);
+    font-size: 0.85rem;
+    font-weight: 650;
+    line-height: 1.2;
+    min-width: 0;
+    overflow: hidden;
+    padding: 0.55rem 0.6rem;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .path-grid a:hover,
+  .path-grid a:focus-visible,
+  .path-grid a.is-active {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .path-grid a:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .map-index {
+    border-top: 1px solid var(--color-border);
+    min-height: 0;
+    padding-top: 0.85rem;
+  }
+
+  .map-index summary {
+    color: var(--color-muted);
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .map-index summary:hover,
+  .map-index summary:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .map-index summary:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
   @media (max-width: 860px) {
     .site-sidebar {
-      border-bottom: 1px solid var(--color-border);
-      border-right: 0;
       height: auto;
-      max-height: 18rem;
+      max-height: none;
     }
   }
 </style>

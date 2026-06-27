@@ -5,7 +5,14 @@ import NoteMeta from "$components/NoteMeta.astro";
 import RightRailNoteList from "$components/RightRailNoteList.astro";
 import RightRailSection from "$components/RightRailSection.astro";
 import BaseLayout from "$layouts/BaseLayout.astro";
-import { backlinkNotes, buildContentIndex, latestNotes, previewPayload, sameFolderNotes } from "$lib/content/index";
+import {
+  backlinkNotes,
+  buildContentIndex,
+  latestNotes,
+  outboundLinkNotes,
+  previewPayload,
+  sameFolderNotes,
+} from "$lib/content/index";
 import { gitUpdatedDateForDoc } from "$lib/content/dates";
 import { pathForDoc } from "$lib/content/paths";
 import { folderListingForPath, folderPathsForEntries } from "$lib/content/tree";
@@ -41,9 +48,13 @@ const currentNotePath = page.kind === "note" ? pathForDoc(page.entry) : undefine
 const sameFolder = currentNotePath ? sameFolderNotes(contentIndex, currentNotePath, 5) : [];
 const latest = latestNotes(contentIndex, 5, currentNotePath);
 const backlinks = currentNotePath ? backlinkNotes(contentIndex, currentNotePath) : [];
+const outbound = currentNotePath ? outboundLinkNotes(contentIndex, currentNotePath) : [];
+const folderRecent =
+  folder?.notes.toSorted((a, b) => b.updated.getTime() - a.updated.getTime() || a.entry.data.title.localeCompare(b.entry.data.title)).slice(0, 6) ??
+  [];
 const previews = previewPayload(contentIndex);
 const previewJson = JSON.stringify(previews).replace(/</g, "\\u003c");
-const hasRightRail = headings.length > 0 || sameFolder.length > 0 || latest.length > 0 || backlinks.length > 0;
+const hasRightRail = headings.length > 0 || sameFolder.length > 0 || latest.length > 0 || backlinks.length > 0 || outbound.length > 0;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -55,22 +66,35 @@ const hasRightRail = headings.length > 0 || sameFolder.length > 0 || latest.leng
 
   {Content && <Content />}
 
-  <!-- TODO: Folder component -->
   {
     folder && (
       <section class:list={["folder-page", Content && "has-intro"]} aria-labelledby="folder-listing-heading">
-        <h2 id="folder-listing-heading">Browse</h2>
         {folder.folders.length > 0 && (
-          <ol class="folder-list">
-            {folder.folders.map((child) => (
-              <li>
-                <a href={hrefFor(base, child.path)}>{child.label}</a>
-              </li>
-            ))}
-          </ol>
+          <section class="folder-paths" aria-labelledby="folder-paths-heading">
+            <h2 id="folder-paths-heading">Paths</h2>
+            <ol class="folder-list">
+              {folder.folders.map((child) => (
+                <li>
+                  <a href={hrefFor(base, child.path)}>{child.label}</a>
+                </li>
+              ))}
+            </ol>
+          </section>
         )}
 
-        {folder.notes.length > 0 ? <NoteList notes={folder.notes} base={base} /> : <p>No notes yet.</p>}
+        <div class="folder-board">
+          <section class="folder-notes" aria-labelledby="folder-listing-heading">
+            <h2 id="folder-listing-heading">Notes</h2>
+            {folder.notes.length > 0 ? <NoteList notes={folder.notes} base={base} /> : <p>No notes yet.</p>}
+          </section>
+
+          {folderRecent.length > 0 && (
+            <aside class="folder-recent" aria-labelledby="folder-recent-heading">
+              <h2 id="folder-recent-heading">Recently tended</h2>
+              <RightRailNoteList notes={folderRecent} base={base} />
+            </aside>
+          )}
+        </div>
       </section>
     )
   }
@@ -78,6 +102,48 @@ const hasRightRail = headings.length > 0 || sameFolder.length > 0 || latest.leng
   {
     hasRightRail && (
       <div slot="right-rail">
+        {page.kind === "note" && (backlinks.length > 0 || outbound.length > 0) && (
+          <RightRailSection title="Local map">
+            <div class="connection-map" aria-label="Local note map">
+              <div>
+                <span>In</span>
+                <strong>{backlinks.length}</strong>
+              </div>
+              <div class="connection-map__node">
+                <span>{pageTitle}</span>
+              </div>
+              <div>
+                <span>Out</span>
+                <strong>{outbound.length}</strong>
+              </div>
+            </div>
+          </RightRailSection>
+        )}
+
+        {backlinks.length > 0 && (
+          <RightRailSection title="Linked from">
+            <RightRailNoteList notes={backlinks} base={base} />
+          </RightRailSection>
+        )}
+
+        {outbound.length > 0 && (
+          <RightRailSection title="Links to">
+            <RightRailNoteList notes={outbound} base={base} />
+          </RightRailSection>
+        )}
+
+        {sameFolder.length > 0 && (
+          <RightRailSection title="Same folder">
+            <RightRailNoteList notes={sameFolder} base={base} />
+          </RightRailSection>
+        )}
+
+        {latest.length > 0 && (
+          <RightRailSection title="Latest">
+            <RightRailNoteList notes={latest} base={base} />
+          </RightRailSection>
+        )}
+
         {headings.length > 0 && (
           <RightRailSection title="On this page">
             <nav class="page-toc" aria-label="Page table of contents">
@@ -91,24 +157,6 @@ const hasRightRail = headings.length > 0 || sameFolder.length > 0 || latest.leng
                   ))}
               </ol>
             </nav>
-          </RightRailSection>
-        )}
-
-        {backlinks.length > 0 && (
-          <RightRailSection title="Linked from">
-            <RightRailNoteList notes={backlinks} base={base} />
-          </RightRailSection>
-        )}
-
-        {sameFolder.length > 0 && (
-          <RightRailSection title="Same folder">
-            <RightRailNoteList notes={sameFolder} base={base} />
-          </RightRailSection>
-        )}
-
-        {latest.length > 0 && (
-          <RightRailSection title="Latest">
-            <RightRailNoteList notes={latest} base={base} />
           </RightRailSection>
         )}
       </div>
@@ -182,23 +230,81 @@ const hasRightRail = headings.length > 0 || sameFolder.length > 0 || latest.leng
   }
 
   <style>
+    :global(.content:has(.folder-page)) {
+      max-width: 72rem;
+    }
+
+    .connection-map {
+      align-items: center;
+      display: grid;
+      gap: 0.5rem;
+      grid-template-columns: minmax(0, 1fr) minmax(5rem, 1.35fr) minmax(0, 1fr);
+    }
+
+    .connection-map > div {
+      background: color-mix(in srgb, var(--color-surface) 70%, transparent);
+      border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
+      border-radius: 0.45rem;
+      min-width: 0;
+      padding: 0.55rem;
+      text-align: center;
+    }
+
+    .connection-map span {
+      color: var(--color-muted);
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      line-height: 1.2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .connection-map strong {
+      color: var(--color-text);
+      display: block;
+      font-size: 1.1rem;
+      line-height: 1.2;
+      margin-top: 0.25rem;
+    }
+
+    .connection-map__node {
+      border-color: var(--color-accent);
+    }
+
+    .connection-map__node span {
+      color: var(--color-text);
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      text-transform: none;
+    }
+
     .folder-page {
       margin-top: 0;
     }
 
     .folder-page.has-intro {
-      margin-top: 2rem;
+      border-top: 1px solid var(--color-border);
+      margin-top: 2.25rem;
+      padding-top: 2rem;
     }
 
-    .folder-page h2 {
+    .folder-page h2,
+    .folder-board h2 {
       font-family: var(--font-heading);
       margin: 0 0 1rem;
     }
 
+    .folder-paths {
+      margin-bottom: 2rem;
+    }
+
     .folder-list {
       display: grid;
-      gap: 0.5rem;
-      grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+      gap: 0.65rem;
+      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
       list-style: none;
       margin: 0 0 1.5rem;
       padding: 0;
@@ -224,6 +330,37 @@ const hasRightRail = headings.length > 0 || sameFolder.length > 0 || latest.leng
     .folder-list a:focus-visible {
       outline: 2px solid var(--color-accent);
       outline-offset: 3px;
+    }
+
+    .folder-board {
+      align-items: start;
+      display: grid;
+      gap: clamp(1.5rem, 4vw, 2.5rem);
+      grid-template-columns: minmax(0, 1fr) minmax(14rem, 18rem);
+    }
+
+    .folder-notes,
+    .folder-recent {
+      min-width: 0;
+    }
+
+    .folder-recent {
+      border-left: 1px solid var(--color-border);
+      padding-left: 1.25rem;
+    }
+
+    @media (max-width: 860px) {
+      .folder-board {
+        display: block;
+      }
+
+      .folder-recent {
+        border-left: 0;
+        border-top: 1px solid var(--color-border);
+        margin-top: 2rem;
+        padding-left: 0;
+        padding-top: 1.5rem;
+      }
     }
   </style>
 </BaseLayout>

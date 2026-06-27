@@ -1,5 +1,5 @@
 ---
-title: On Programming
+title: Programming
 ---
 
 This will contain notes related to programming languages I've
