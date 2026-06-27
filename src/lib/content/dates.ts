@@ -54,3 +54,7 @@ const readModifiedDate = (filePath: string) => fs.statSync(filePath).mtime;
 export function formatDate(date: Date) {
   return new Intl.DateTimeFormat("en", { day: "numeric", month: "short", year: "numeric" }).format(date);
 }
+
+export function displayDate(value: string) {
+  return new Intl.DateTimeFormat("en", { day: "numeric", month: "short", year: "numeric" }).format(new Date(value));
+}

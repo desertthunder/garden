@@ -3,19 +3,14 @@ import { getCollection } from "astro:content";
 import SidebarTree from "$components/SidebarTree.svelte";
 import { buildSidebarTree } from "../lib/content/tree";
 
-type Props = { base: string; currentPath: string; pagefindBundlePath: string };
+type Props = { base: string; currentPath: string };
 
-const { base, currentPath, pagefindBundlePath } = Astro.props;
+const { base, currentPath } = Astro.props;
 const entries = await getCollection("docs");
 const tree = buildSidebarTree(entries);
 ---
 
 <aside class="site-sidebar" aria-label="Garden navigation">
-  <div class="site-search">
-    <pagefind-config bundle-path={pagefindBundlePath}></pagefind-config>
-    <pagefind-searchbox placeholder="Search"></pagefind-searchbox>
-  </div>
-
   <nav aria-label="Content tree">
     <SidebarTree base={base} currentPath={currentPath} nodes={tree} client:load />
   </nav>
@@ -27,21 +22,6 @@ const tree = buildSidebarTree(entries);
     height: 100%;
     overflow: auto;
     padding: 1.25rem clamp(1rem, 2vw, 1.5rem);
-  }
-
-  .site-search {
-    margin-bottom: 1.25rem;
-  }
-
-  .site-search pagefind-searchbox {
-    --pagefind-ui-scale: 0.78;
-    --pagefind-ui-primary: var(--color-accent);
-    --pagefind-ui-text: var(--color-text);
-    --pagefind-ui-background: var(--color-surface);
-    --pagefind-ui-border: var(--color-border);
-    --pagefind-ui-border-width: 1px;
-    --pagefind-ui-border-radius: 6px;
-    --pagefind-ui-font: var(--font-body);
   }
 
   @media (max-width: 860px) {

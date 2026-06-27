@@ -7,7 +7,6 @@ type Props = { title: string; description?: string };
 
 const { title, description = "A digital garden by desertthunder.dev" } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const pagefindBundlePath = `${base}/pagefind/`;
 const currentPath = Astro.url.pathname.replace(base, "").replace(/\/$/, "") || "/";
 const ogImageUrl = new URL(`${base}/og.png`, Astro.site ?? Astro.url.origin).toString();
 const hasRightRail = Astro.slots.has("right-rail");
@@ -26,16 +25,13 @@ const hasRightRail = Astro.slots.has("right-rail");
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImageUrl} />
     <link rel="icon" href={`${base}/favicon.svg`} />
-    <link rel="stylesheet" href={`${base}/pagefind/pagefind-component-ui.css`} />
-    <script is:inline src={`${base}/pagefind/pagefind-component-ui.js`} type="module"></script>
     <title>{title === "Owais' Places" ? title : `${title} | Owais' Places`}</title>
   </head>
   <body>
     <SiteHeader base={base} currentPath={currentPath} />
 
     <div class:list={["site-shell", hasRightRail && "has-right-rail"]}>
-      <SiteSidebar base={base} currentPath={currentPath} pagefindBundlePath={pagefindBundlePath} />
-
+      <SiteSidebar base={base} currentPath={currentPath} />
       <main class="site-main">
         <article class="content" data-pagefind-body>
           <slot />

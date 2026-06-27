@@ -1,4 +1,5 @@
 ---
+import SearchOverlay from "$components/SearchOverlay.astro";
 import { hrefFor } from "$lib/utils/path";
 type Props = { base: string; currentPath: string };
 const { base, currentPath } = Astro.props;
@@ -6,15 +7,17 @@ const { base, currentPath } = Astro.props;
 
 <header class="site-header">
   <a class="site-title" href={hrefFor(base, "/")}>Owais' Places</a>
-  <nav class="site-links" aria-label="Site links">
-    <a class:list={["site-nav-link", currentPath === "/changelog" && "is-active"]} href={hrefFor(base, "/changelog/")}>
-      CHANGELOG
-    </a>
+  <div class="site-header__actions">
+    <SearchOverlay base={base} />
+    <nav class="site-links" aria-label="Site links">
+      <a class:list={["site-nav-link", currentPath === "/changelog" && "is-active"]} href={hrefFor(base, "/changelog/")}>
+        CHANGELOG
+      </a>
 
-    <a href="https://github.com/desertthunder/garden">GitHub</a>
-    <a href="https://bsky.app/profile/desertthunder.dev">Bluesky</a>
-    <a href="https://www.linkedin.com/in/owais-jamil/">LinkedIn</a>
-  </nav>
+      <a href="https://github.com/desertthunder/garden">GitHub</a>
+      <a href="https://desertthunder.dev">Dev</a>
+    </nav>
+  </div>
 </header>
 
 <style>
@@ -38,6 +41,14 @@ const { base, currentPath } = Astro.props;
     font-size: 1.15rem;
     font-weight: 700;
     text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .site-header__actions {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    min-width: 0;
   }
 
   .site-links {
@@ -69,6 +80,12 @@ const { base, currentPath } = Astro.props;
       align-items: flex-start;
       flex-direction: column;
       position: static;
+    }
+
+    .site-header__actions {
+      align-items: stretch;
+      flex-direction: column;
+      width: 100%;
     }
   }
 </style>
