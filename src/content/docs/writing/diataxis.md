@@ -2,25 +2,22 @@
 title: Diátaxis Framework
 ---
 
-import Aside from "../../../components/Aside.astro";
+
 
 Made by [Daniel Procida](https://vurt.eu/).
-
-<Aside type="note" title="Foundations">
 
 Diátaxis is based on the principle that documentation must serve the needs
 of its users. Knowing how to do that means understanding what the needs of users are.[^1]
 
-</Aside>
+Documentation writers are **practitioners** in the domain of a skill[^2].
+A skill's **domain** is defined by a craft. A **craft** is the use of a tool or
+product, or an entire discipline or profession
 
-- Documentation writers are **practitioners** in the domain of a skill[^2].
-- A skill's **domain** is defined by a craft
-    - A **craft** is the use of a tool or product, or an entire discipline or profession
-- **Action**
-    - Practical knowledge, knowing how
-- **Cognition**
-    - Theoretical, knowing that
-- The relationship of a practitioner with their practice is that it is something
+**Action**: Practical knowledge, knowing how
+
+**Cognition**: Theoretical, knowing that
+
+The relationship of a practitioner with their practice is that it is something
 that needs to be both acquired, and applied.
 
 | need          | addressed in  | the user             | the documentation |
