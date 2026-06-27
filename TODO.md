@@ -5,11 +5,10 @@
 
 ## Content Model
 
-- [ ] Add `tags` frontmatter, plus `/tags/` and per-tag listing pages.
-- [ ] Add `tags?: string[]` to the Astro content schema.
-- [ ] Add true recent notes using explicit `updated` frontmatter or git-derived dates.
-- [ ] Prefer explicit `updated` frontmatter for recent-note sorting.
-- [ ] Fall back to git dates only if maintaining dates becomes annoying.
+- [x] Add `tags` frontmatter, plus `/tags/` and per-tag listing pages.
+- [x] Add `tags?: string[]` to the Astro content schema.
+- [x] Add true recent notes using git-derived dates.
+- [x] Prefer git-derived dates for recent-note sorting.
 - [ ] Show updated dates in note headers and listing pages.
 - [ ] Add note maturity/status frontmatter such as seedling, growing, evergreen, or archived.
 - [ ] Use note status in headers, listings, related notes, and search filters.
@@ -32,8 +31,8 @@
 
 ## Tags and Collections
 
-- [ ] Generate a tag index page.
-- [ ] Generate one listing page per tag.
+- [x] Generate a tag index page.
+- [x] Generate one listing page per tag.
 - [ ] Consider hierarchical tags only after flat tags become useful.
 - [ ] Add generated collection pages: maps of content, topic hubs, reading trails, and unresolved stubs.
 - [ ] Support maps of content as Markdown pages with generated sections.

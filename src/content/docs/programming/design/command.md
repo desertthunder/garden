@@ -1,5 +1,8 @@
 ---
 title: Command Pattern
+tags:
+  - design-patterns
+  - programming
 ---
 
 Notes from *Game Programming Patterns*[^1]

@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { formatDate, gitUpdatedDateForDoc } from "../lib/content-dates";
 import { pathForDoc } from "../lib/content-paths";
 
 const entries = await getCollection("docs");
@@ -29,15 +30,18 @@ const notes = entries
   .map((item) => {
     const path = pathForDoc(item);
     const section = path.split("/").filter(Boolean)[0] ?? "writing";
+    const updated = gitUpdatedDateForDoc(item);
 
-    return { item, path, section };
+    return { item, path, section, updated };
   });
 
 const featuredSections = ["writing", "engineering", "programming", "psychology", "philosophy", "culture"]
   .map((section) => ({ section, items: notes.filter((note) => note.section === section).slice(0, 4) }))
   .filter((group) => group.items.length > 0);
 
-const recentNotes = [...notes].sort((a, b) => a.item.id.localeCompare(b.item.id)).slice(0, 8);
+const recentNotes = [...notes]
+  .sort((a, b) => b.updated.getTime() - a.updated.getTime() || a.item.data.title.localeCompare(b.item.data.title))
+  .slice(0, 8);
 ---
 
 <BaseLayout title="Owais' Places" description={entry.data.description}>
@@ -85,10 +89,10 @@ const recentNotes = [...notes].sort((a, b) => a.item.id.localeCompare(b.item.id)
 
     <ol class="home-note-list">
       {
-        recentNotes.map(({ item, path, section }) => (
+        recentNotes.map(({ item, path, updated }) => (
           <li>
             <a href={hrefFor(path)}>{item.data.title}</a>
-            <span>{sectionTitle(section)}</span>
+            <span>{formatDate(updated)}</span>
           </li>
         ))
       }

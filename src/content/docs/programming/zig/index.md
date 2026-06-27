@@ -1,5 +1,9 @@
 ---
 title: Zig Programming Language
+tags:
+  - programming
+  - systems-programming
+  - zig
 ---
 
 Zig is a modern systems programming language that emphasizes safety, performance,

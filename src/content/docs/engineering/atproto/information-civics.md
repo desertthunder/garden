@@ -1,5 +1,9 @@
 ---
 title: Information Civics
+tags:
+  - atproto
+  - governance
+  - internet
 ---
 
 > Archived from [infocivics.com](https://web.archive.org/web/20200218214112/https://infocivics.com/) on February 18, 2020. Original essay by Paul Frazee.

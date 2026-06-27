@@ -6,6 +6,5 @@ export function pathForDoc(entry: CollectionEntry<"docs">) {
     .replace(/\.(md|mdx)$/i, "")
     .replace(/(^|\/)README$/i, "$1index")
     .replace(/\/?index$/, "");
-
   return cleanId ? `/${cleanId}/` : "/";
 }

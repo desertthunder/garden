@@ -1,5 +1,9 @@
 ---
 title: Algorithm W
+tags:
+  - functional-programming
+  - programming
+  - type-systems
 ---
 
 Algorithm W is a **syntax-directed** way to *construct* proofs of these judgments and compute principal types. ([Wikipedia][^1])

@@ -1,5 +1,9 @@
 ---
 title: Recursive descent parsing
+tags:
+  - algorithms
+  - compilers
+  - parsing
 ---
 
 A *recursive descent parser* (RDP) is a **top-down** parser where each nonterminal of a context-free grammar is implemented as a (mutually) recursive procedure.

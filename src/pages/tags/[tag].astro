@@ -1,0 +1,95 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate, gitUpdatedDateForDoc } from "../../lib/content-dates";
+import { pathForDoc } from "../../lib/content-paths";
+import { tagSlug, tagTitle, tagsForDoc } from "../../lib/tags";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("docs");
+  const tagSlugs = new Set(
+    entries
+      .filter((entry) => pathForDoc(entry) !== "/" && entry.data.sidebar?.hidden !== true)
+      .flatMap((entry) => tagsForDoc(entry).map(tagSlug)),
+  );
+
+  return [...tagSlugs].map((tag) => ({ params: { tag } }));
+}
+
+const { tag } = Astro.params;
+
+if (!tag) {
+  throw new Error("Missing tag route parameter");
+}
+
+const entries = await getCollection("docs");
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const hrefFor = (path: string) => `${base}${path}` || "/";
+const title = tagTitle(tag);
+
+const notes = entries
+  .filter((entry) => pathForDoc(entry) !== "/" && entry.data.sidebar?.hidden !== true)
+  .filter((entry) => tagsForDoc(entry).map(tagSlug).includes(tag))
+  .map((entry) => ({ entry, path: pathForDoc(entry), updated: gitUpdatedDateForDoc(entry) }))
+  .sort((a, b) => b.updated.getTime() - a.updated.getTime() || a.entry.data.title.localeCompare(b.entry.data.title));
+---
+
+<BaseLayout title={`Tag: ${title}`} description={`Notes tagged ${title}.`}>
+  <header class="content-header">
+    <p><a href={hrefFor("/tags/")}>Tags</a></p>
+    <h1>{title}</h1>
+    <p>{notes.length} {notes.length === 1 ? "note" : "notes"}</p>
+  </header>
+
+  <ol class="tag-note-list">
+    {
+      notes.map(({ entry, path, updated }) => (
+        <li>
+          <a href={hrefFor(path)}>{entry.data.title}</a>
+          <span>{formatDate(updated)}</span>
+        </li>
+      ))
+    }
+  </ol>
+</BaseLayout>
+
+<style>
+  .tag-note-list {
+    border-top: 1px solid var(--color-border);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tag-note-list li {
+    align-items: baseline;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+  }
+
+  .tag-note-list a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .tag-note-list a:hover {
+    color: var(--color-accent);
+  }
+
+  .tag-note-list span {
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 860px) {
+    .tag-note-list li {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+</style>

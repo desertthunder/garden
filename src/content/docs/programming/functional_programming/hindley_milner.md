@@ -1,5 +1,9 @@
 ---
 title: Hindley-Milner
+tags:
+  - functional-programming
+  - programming
+  - type-systems
 ---
 
 Hindley–Milner is a type system for the λ-calculus with **parametric polymorphism**. It has two key properties:

@@ -1,0 +1,75 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { pathForDoc } from "../../lib/content-paths";
+import { tagSlug, tagsForDoc } from "../../lib/tags";
+
+const entries = await getCollection("docs");
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const hrefFor = (path: string) => `${base}${path}` || "/";
+
+const tags = entries
+  .filter((entry) => pathForDoc(entry) !== "/" && entry.data.sidebar?.hidden !== true)
+  .flatMap((entry) => tagsForDoc(entry))
+  .reduce(
+    (counts, tag) => counts.set(tag, (counts.get(tag) ?? 0) + 1),
+    new Map<string, number>(),
+  );
+
+const tagEntries = [...tags.entries()].toSorted(([a], [b]) => a.localeCompare(b));
+---
+
+<BaseLayout title="Tags" description="Browse notes by tag.">
+  <header class="content-header">
+    <h1>Tags</h1>
+    <p>Browse notes by tag.</p>
+  </header>
+
+  {
+    tagEntries.length > 0 ? (
+      <ul class="tag-list">
+        {tagEntries.map(([tag, count]) => (
+          <li>
+            <a href={hrefFor(`/tags/${tagSlug(tag)}/`)}>{tag}</a>
+            <span>{count}</span>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p>No tags yet.</p>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .tag-list {
+    border-top: 1px solid var(--color-border);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tag-list li {
+    align-items: baseline;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+  }
+
+  .tag-list a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .tag-list a:hover {
+    color: var(--color-accent);
+  }
+
+  .tag-list span {
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+</style>

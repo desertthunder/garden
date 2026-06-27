@@ -1,5 +1,9 @@
 ---
 title: Testing Svelte Projects
+tags:
+  - frontend
+  - svelte
+  - testing
 ---
 
 This page provides an overview of testing strategies for Svelte applications, covering unit

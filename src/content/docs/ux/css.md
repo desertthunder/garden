@@ -1,5 +1,9 @@
 ---
 title: Structuring CSS
+tags:
+  - css
+  - frontend
+  - ux
 ---
 
 The goal, as Julia puts it, boring, legible CSS that stays easy to change[^ref],

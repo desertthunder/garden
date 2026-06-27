@@ -1,5 +1,8 @@
 ---
 title: Git Submodules Workflow
+tags:
+  - git
+  - workflow
 ---
 
 ## Create or Add a Submodule

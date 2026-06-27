@@ -1,5 +1,8 @@
 ---
 title: Advanced Stats
+tags:
+  - baseball
+  - statistics
 ---
 
 ## WAR (Wins Above Replacement)

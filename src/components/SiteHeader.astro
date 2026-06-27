@@ -11,6 +11,7 @@ const hrefFor = (path: string) => `${base}${path}` || "/";
     <a class:list={["site-nav-link", currentPath === "/changelog" && "is-active"]} href={hrefFor("/changelog/")}>
       CHANGELOG
     </a>
+    <a class:list={["site-nav-link", currentPath === "/tags" && "is-active"]} href={hrefFor("/tags/")}>Tags</a>
     <a href="https://github.com/desertthunder/garden">GitHub</a>
     <a href="https://codeberg.org/desertthunder">Codeberg</a>
     <a href="https://bsky.app/profile/desertthunder.dev">Bluesky</a>

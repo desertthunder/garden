@@ -1,5 +1,9 @@
 ---
 title: Runes
+tags:
+  - frontend
+  - reactivity
+  - svelte
 ---
 
 Svelte 5 uses runes for explicit component reactivity. This page covers the core state-related runes: `$state`, `$derived`, `$props`, and `$effect`. For SvelteKit server/client state placement, see [Svelte State Management](/engineering/web/svelte/state/).

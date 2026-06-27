@@ -1,5 +1,9 @@
 ---
 title: C/C++ Patterns
+tags:
+  - c-cpp
+  - programming
+  - systems-programming
 ---
 
 Source: <https://cs61.seas.harvard.edu/site/2025/Patterns/>

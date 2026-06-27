@@ -1,5 +1,9 @@
 ---
 title: Regular Expressions (by Example)
+tags:
+  - programming
+  - regex
+  - search
 ---
 
 A regular expression is a pattern for finding text. Different tools support

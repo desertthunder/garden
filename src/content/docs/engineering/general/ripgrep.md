@@ -1,5 +1,9 @@
 ---
 title: Ripgrep
+tags:
+  - cli
+  - search
+  - tools
 ---
 
 Ripgrep is a line-oriented search tool that recursively searches directories for regex patterns[^1].

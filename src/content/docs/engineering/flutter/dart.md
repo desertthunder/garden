@@ -1,5 +1,9 @@
 ---
 title: Dart
+tags:
+  - dart
+  - flutter
+  - programming
 ---
 
 Dart is a typed, object-oriented language used for Flutter, command-line tools, servers,
