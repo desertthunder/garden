@@ -1,6 +1,6 @@
 ---
-import { getCollection } from "astro:content";
-import { pathForDoc } from "../lib/content-paths";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteSidebar from "../components/SiteSidebar.astro";
 import "../styles/styles.css";
 
 type Props = { title: string; description?: string };
@@ -10,34 +10,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const pagefindBundlePath = `${base}/pagefind/`;
 const currentPath = Astro.url.pathname.replace(base, "").replace(/\/$/, "") || "/";
 const ogImageUrl = new URL(`${base}/og.png`, Astro.site ?? Astro.url.origin).toString();
-const entries = await getCollection("docs");
-
-const hrefFor = (path: string) => `${base}${path}` || "/";
-
-function sectionTitle(section: string) {
-  return section
-    .split(/[-_]/)
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
-}
-
-const navEntries = entries
-  .map((entry) => ({ entry, path: pathForDoc(entry) }))
-  .sort((a, b) => {
-    if (a.path === "/") return -1;
-    if (b.path === "/") return 1;
-    return a.path.localeCompare(b.path);
-  });
-
-const groupedEntries = navEntries.reduce(
-  (groups, item) => {
-    const section = item.path === "/" ? "Home" : (item.path.split("/").filter(Boolean)[0] ?? "Home");
-    groups[section] ??= [];
-    groups[section].push(item);
-    return groups;
-  },
-  {} as Record<string, typeof navEntries>,
-);
 ---
 
 <!doctype html>
@@ -58,47 +30,10 @@ const groupedEntries = navEntries.reduce(
     <title>{title === "Owais' Places" ? title : `${title} | Owais' Places`}</title>
   </head>
   <body>
-    <header class="site-header">
-      <a class="site-title" href={hrefFor("/")}>Owais' Places</a>
-      <nav class="site-links" aria-label="Site links">
-        <a class:list={["site-nav-link", currentPath === "/changelog" && "is-active"]} href={hrefFor("/changelog/")}>
-          CHANGELOG
-        </a>
-        <a href="https://github.com/desertthunder/garden">GitHub</a>
-        <a href="https://codeberg.org/desertthunder">Codeberg</a>
-        <a href="https://bsky.app/profile/desertthunder.dev">Bluesky</a>
-        <a href="https://www.linkedin.com/in/owais-jamil/">LinkedIn</a>
-      </nav>
-    </header>
+    <SiteHeader base={base} currentPath={currentPath} />
 
     <div class="site-shell">
-      <aside class="site-sidebar" aria-label="Garden navigation">
-        <div class="site-search">
-          <pagefind-config bundle-path={pagefindBundlePath}></pagefind-config>
-          <pagefind-searchbox placeholder="Search"></pagefind-searchbox>
-        </div>
-
-        <nav>
-          {
-            Object.entries(groupedEntries).map(([section, items]) => (
-              <section class="nav-section">
-                <h2>{sectionTitle(section)}</h2>
-                <ul>
-                  {items.map(({ entry, path }) => (
-                    <li>
-                      <a
-                        class:list={["nav-link", currentPath === path.replace(/\/$/, "") && "is-active"]}
-                        href={hrefFor(path)}>
-                        {entry.data.title}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ))
-          }
-        </nav>
-      </aside>
+      <SiteSidebar base={base} currentPath={currentPath} pagefindBundlePath={pagefindBundlePath} />
 
       <main class="site-main">
         <article class="content" data-pagefind-body>
@@ -106,5 +41,25 @@ const groupedEntries = navEntries.reduce(
         </article>
       </main>
     </div>
+
+    <style>
+      .site-shell {
+        display: grid;
+        grid-template-columns: minmax(13rem, 18rem) minmax(0, 1fr);
+        margin-inline: auto;
+        max-width: 90rem;
+      }
+
+      .site-main {
+        min-width: 0;
+        padding: clamp(1.25rem, 4vw, 3rem);
+      }
+
+      @media (max-width: 860px) {
+        .site-shell {
+          display: block;
+        }
+      }
+    </style>
   </body>
 </html>

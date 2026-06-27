@@ -1,0 +1,75 @@
+---
+type Props = { base: string; currentPath: string };
+
+const { base, currentPath } = Astro.props;
+const hrefFor = (path: string) => `${base}${path}` || "/";
+---
+
+<header class="site-header">
+  <a class="site-title" href={hrefFor("/")}>Owais' Places</a>
+  <nav class="site-links" aria-label="Site links">
+    <a class:list={["site-nav-link", currentPath === "/changelog" && "is-active"]} href={hrefFor("/changelog/")}>
+      CHANGELOG
+    </a>
+    <a href="https://github.com/desertthunder/garden">GitHub</a>
+    <a href="https://codeberg.org/desertthunder">Codeberg</a>
+    <a href="https://bsky.app/profile/desertthunder.dev">Bluesky</a>
+    <a href="https://www.linkedin.com/in/owais-jamil/">LinkedIn</a>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    align-items: center;
+    background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    min-height: 4rem;
+    padding: 0.85rem clamp(1rem, 4vw, 2rem);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  .site-title {
+    color: var(--color-text);
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .site-links {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    gap: 0.75rem;
+    justify-content: flex-start;
+  }
+
+  .site-links a {
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+
+  .site-links a:hover,
+  .site-nav-link.is-active {
+    color: var(--color-accent);
+  }
+
+  .site-nav-link.is-active {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  @media (max-width: 860px) {
+    .site-header {
+      align-items: flex-start;
+      flex-direction: column;
+      position: static;
+    }
+  }
+</style>

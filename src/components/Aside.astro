@@ -1,8 +1,5 @@
 ---
-type Props = {
-  title?: string;
-  type?: "note" | "tip" | "caution" | "danger";
-};
+type Props = { title?: string; type?: "note" | "tip" | "caution" | "danger" };
 
 const { title, type = "note" } = Astro.props;
 ---
@@ -11,3 +8,29 @@ const { title, type = "note" } = Astro.props;
   {title && <p class="aside-title">{title}</p>}
   <slot />
 </aside>
+
+<style>
+  .aside {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 0.25rem solid var(--color-accent);
+    border-radius: 0.5rem;
+    margin: 1.25rem 0;
+    padding: 1rem;
+  }
+
+  .aside-tip {
+    border-left-color: var(--color-green);
+  }
+
+  .aside-caution,
+  .aside-danger {
+    border-left-color: var(--color-amber);
+  }
+
+  .aside-title {
+    color: var(--color-text);
+    font-weight: 700;
+    margin: 0 0 0.4rem;
+  }
+</style>

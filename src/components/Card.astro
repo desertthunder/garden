@@ -1,8 +1,5 @@
 ---
-type Props = {
-  title?: string;
-  href?: string;
-};
+type Props = { title?: string; href?: string };
 
 const { title, href } = Astro.props;
 const Tag = href ? "a" : "div";
@@ -12,3 +9,22 @@ const Tag = href ? "a" : "div";
   {title && <p class="card-title">{title}</p>}
   <slot />
 </Tag>
+
+<style>
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 0.25rem solid var(--color-accent);
+    border-radius: 0.5rem;
+    display: block;
+    margin: 1.25rem 0;
+    padding: 1rem;
+    text-decoration: none;
+  }
+
+  .card-title {
+    color: var(--color-text);
+    font-weight: 700;
+    margin: 0 0 0.4rem;
+  }
+</style>

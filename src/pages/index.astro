@@ -34,24 +34,17 @@ const notes = entries
   });
 
 const featuredSections = ["writing", "engineering", "programming", "psychology", "philosophy", "culture"]
-  .map((section) => ({
-    section,
-    items: notes.filter((note) => note.section === section).slice(0, 4),
-  }))
+  .map((section) => ({ section, items: notes.filter((note) => note.section === section).slice(0, 4) }))
   .filter((group) => group.items.length > 0);
 
-const recentNotes = [...notes]
-  .sort((a, b) => a.item.id.localeCompare(b.item.id))
-  .slice(0, 8);
+const recentNotes = [...notes].sort((a, b) => a.item.id.localeCompare(b.item.id)).slice(0, 8);
 ---
 
 <BaseLayout title="Owais' Places" description={entry.data.description}>
   <header class="home-hero">
     <p class="home-kicker">Digital garden</p>
     <h1>Owais' Places</h1>
-    <p class="home-deck">
-      Notes on software, writing, philosophy, psychology, and the odd trail that connects them.
-    </p>
+    <p class="home-deck">Notes on software, writing, philosophy, psychology, and the odd trail that connects them.</p>
     <div class="home-actions">
       <a href={hrefFor("/engineering/")}>Start with engineering</a>
       <a href={hrefFor("/changelog/")}>Recent updates</a>
@@ -64,8 +57,7 @@ const recentNotes = [...notes]
 
   <section class="home-section" aria-labelledby="paths-heading">
     <div class="home-section-header">
-      <h2 id="paths-heading">Paths Through The Garden</h2>
-      <p>Loose clusters, not a strict taxonomy.</p>
+      <h2 id="paths-heading">Paths</h2>
     </div>
 
     <div class="home-grid">
@@ -103,4 +95,153 @@ const recentNotes = [...notes]
       }
     </ol>
   </section>
+
+  <style>
+    .home-hero {
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: 2rem;
+      padding: clamp(1rem, 4vw, 2rem) 0 2rem;
+    }
+
+    .home-kicker {
+      color: var(--color-accent);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      margin: 0 0 0.65rem;
+      text-transform: uppercase;
+    }
+
+    .home-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      line-height: 0.95;
+      margin: 0;
+    }
+
+    .home-deck {
+      color: var(--color-muted);
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      max-width: 40rem;
+    }
+
+    .home-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .home-actions a {
+      border: 1px solid var(--color-border);
+      border-radius: 0.45rem;
+      color: var(--color-text);
+      padding: 0.55rem 0.75rem;
+      text-decoration: none;
+    }
+
+    .home-actions a:first-child {
+      background: var(--color-text);
+      color: var(--color-bg);
+    }
+
+    .home-actions a:hover {
+      border-color: var(--color-accent);
+    }
+
+    .home-intro {
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+    }
+
+    .home-section {
+      margin-top: 2.5rem;
+    }
+
+    .home-section-header {
+      align-items: baseline;
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .home-section-header h2 {
+      font-family: var(--font-heading);
+      margin: 0;
+    }
+
+    .home-section-header p {
+      color: var(--color-muted);
+      margin: 0;
+    }
+
+    .home-grid {
+      display: grid;
+      gap: 0.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    }
+
+    .home-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 0.5rem;
+      padding: 1rem;
+    }
+
+    .home-card h3 {
+      font-family: var(--font-heading);
+      margin: 0 0 0.7rem;
+    }
+
+    .home-card ul,
+    .home-note-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .home-card li + li {
+      margin-top: 0.45rem;
+    }
+
+    .home-card a,
+    .home-note-list a {
+      color: var(--color-text);
+      text-decoration: none;
+    }
+
+    .home-card a:hover,
+    .home-note-list a:hover {
+      color: var(--color-accent);
+    }
+
+    .home-note-list {
+      border-top: 1px solid var(--color-border);
+    }
+
+    .home-note-list li {
+      align-items: baseline;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      gap: 1rem;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+    }
+
+    .home-note-list span {
+      color: var(--color-muted);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 860px) {
+      .home-section-header,
+      .home-note-list li {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+    }
+  </style>
 </BaseLayout>

@@ -1,0 +1,10 @@
+html {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--color-accent);
+}

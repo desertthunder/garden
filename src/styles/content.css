@@ -1,0 +1,99 @@
+.content {
+  margin-inline: auto;
+  max-width: 48rem;
+}
+
+.content-header {
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+}
+
+.content-header h1,
+.content h1,
+.content h2,
+.content h3,
+.content h4 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+}
+
+.content-header h1 {
+  font-size: clamp(2.25rem, 4vw, 3.75rem);
+  margin: 0;
+}
+
+.content-header p {
+  color: var(--color-muted);
+  margin: 0.75rem 0 0;
+}
+
+.content :is(h2, h3, h4) {
+  margin-top: 2rem;
+}
+
+.content p,
+.content li {
+  color: color-mix(in srgb, var(--color-text) 92%, var(--color-muted));
+}
+
+.content code {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  padding: 0.08rem 0.25rem;
+}
+
+.content pre {
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  overflow: auto;
+  padding: 1rem;
+}
+
+.content pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.content blockquote {
+  border-left: 0.25rem solid var(--color-border);
+  color: var(--color-muted);
+  margin-inline: 0;
+  padding-left: 1rem;
+}
+
+.content table {
+  border-collapse: collapse;
+  display: block;
+  overflow-x: auto;
+}
+
+.content th,
+.content td {
+  border: 1px solid var(--color-border);
+  padding: 0.45rem 0.65rem;
+}
+
+.page-toc {
+  border-top: 1px solid var(--color-border);
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+}
+
+.page-toc h2 {
+  font-size: 1rem;
+}
+
+.page-toc ol {
+  list-style: none;
+  padding-left: 0;
+}
+
+.page-toc .depth-3 {
+  padding-left: 1rem;
+}
