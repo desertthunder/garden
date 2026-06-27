@@ -1,8 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { formatDate, gitUpdatedDateForDoc } from "../../lib/content-dates";
-import { pathForDoc } from "../../lib/content-paths";
+import { formatDate, gitUpdatedDateForDoc } from "../../lib/content/dates";
+import { pathForDoc } from "../../lib/content/paths";
 import { tagSlug, tagTitle, tagsForDoc } from "../../lib/tags";
 
 export async function getStaticPaths() {

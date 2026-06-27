@@ -6,8 +6,6 @@ tags:
   - writing
 ---
 
-import Aside from "../../../components/Aside.astro";
-
 Two-Slip boxes in one markdown file: note and reference - notes extend and relate to other notes, not in isolation
 (one note can exist in different contexts - basically, we can understand how different ideas[^1])
 
@@ -55,6 +53,7 @@ Hand writing facilitates understanding because it is slow - college students hav
 Shorter, in your own words allows us to focus on patterns, frames, and categories of an excerpt
 
 Re-reading breeds familiarity, writing forces us to confront misunderstanding
+
 - Cramming is for short term retention, not for learning
 
 The brain prioritizes comfort and its own happiness (like ego in The Power of Now)

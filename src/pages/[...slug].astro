@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { pathForDoc } from "../lib/content-paths";
+import { pathForDoc } from "../lib/content/paths";
 
 export async function getStaticPaths() {
   const entries = await getCollection("docs");
@@ -11,10 +11,7 @@ export async function getStaticPaths() {
     .map((entry) => {
       const slug = pathForDoc(entry).replace(/^\/|\/$/g, "");
 
-      return {
-        params: { slug },
-        props: { entry },
-      };
+      return { params: { slug }, props: { entry } };
     });
 }
 
