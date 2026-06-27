@@ -12,6 +12,8 @@ permissions:
 jobs:
     build:
         runs-on: ubuntu-latest
+        env:
+            SITE_URL: https://desertthunder.github.io/garden
         steps:
             - name: Checkout your repository using git
               uses: actions/checkout@v4
