@@ -1,5 +1,8 @@
 ---
 title: Leverage Index
+tags:
+    - baseball
+    - statistics
 ---
 
 How important is *this* plate appearance, relative to an average one?
@@ -34,14 +37,21 @@ High-level formula:
    - Weight it by the probability **pᵢ** of that outcome
 4. Compute the **expected absolute swing in WE** for this PA:
 
-    $\text{Swing}_\text{this PA} = \sum_i p_i \cdot |\text{WE}_i - \text{WE}_0|$
+    $$
+    \text{Swing}_\text{this PA} = \sum_i p_i \cdot |\text{WE}_i - \text{WE}_0|
+    $$
+
 5. Compute the **average swing** over *all* plate appearances in your dataset:
 
-    $\text{Swing}_\text{avg} = \text{mean over all PA of } \sum_i p_i \cdot |\text{WE}_i - \text{WE}_0|$
+    $$
+    \text{Swing}_\text{avg} = \text{mean over all PA of } \sum_i p_i \cdot |\text{WE}_i - \text{WE}_0|
+    $$
 
 6. The **Leverage Index (LI)** of this state is:
 
-    $LI = \frac{\text{Swing}*\text{this PA}}{\text{Swing}*\text{avg}}$
+    $$
+    LI = \frac{\text{Swing}*\text{this PA}}{\text{Swing}*\text{avg}}
+    $$
 
 This is exactly how FanGraphs and others describe it: expected WE swing for this state, divided by the league-wide average swing[^2]
 

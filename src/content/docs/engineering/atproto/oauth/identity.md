@@ -2,25 +2,19 @@
 title: OAuth Identity and Discovery
 ---
 
-import Aside from "../../../../../components/Aside.astro";
-
 Identity is the part of AT Protocol OAuth that differs most from familiar "Sign in with X" systems. A client is not only asking whether a login succeeded. It is asking whether a specific authorization server is allowed to speak for a specific AT Protocol account.
 
-<Aside type="note" title="Rule of thumb">
-
 Use handles for input and display. Use DIDs for account state. Use issuer URLs for authorization-server identity.
-
-</Aside>
 
 ## DID, Handle, PDS
 
 Three identifiers appear in the flow:
 
-| Identifier | Example | Stability | Use |
-| --- | --- | --- | --- |
-| DID | `did:plc:...` | Stable account identifier | Store this as the account ID. |
-| Handle | `alice.example.com` | Can change | Show it to humans and accept it as input. |
-| PDS URL | `https://pds.example.com` | Can change through migration | Route API requests and discover authorization. |
+| Identifier | Example                   | Stability                    | Use                                            |
+| ---------- | ------------------------- | ---------------------------- | ---------------------------------------------- |
+| DID        | `did:plc:...`             | Stable account identifier    | Store this as the account ID.                  |
+| Handle     | `alice.example.com`       | Can change                   | Show it to humans and accept it as input.      |
+| PDS URL    | `https://pds.example.com` | Can change through migration | Route API requests and discover authorization. |
 
 A handle is not enough for authentication. The client must resolve it to a DID and verify the relationship in both directions: the handle resolves to the DID, and the DID document claims the handle.
 
@@ -74,11 +68,7 @@ If the flow began with a server, the client verifies the reverse relationship:
 4. fetch that PDS's protected-resource metadata;
 5. confirm that it points to the authorization-server issuer used in the flow.
 
-<Aside type="caution" title="Do not skip this check">
-
 Without the `sub` and issuer checks, a malicious authorization server could claim to authenticate a DID it does not control. The browser redirect alone does not prove account identity.
-
-</Aside>
 
 ## OAuth Authn and Authz
 
@@ -97,6 +87,9 @@ Browser clients may need help resolving handles because DNS TXT lookups are not 
 ## References
 
 [^atproto-oauth]: Bluesky/AT Protocol. ["OAuth"](https://atproto.com/specs/oauth).
+
 [^oidc-core]: OpenID Foundation. [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html).
+
 [^rfc8414]: Jones, Michael, Nat Sakimura, and John Bradley. [RFC 8414: OAuth 2.0 Authorization Server Metadata](https://datatracker.ietf.org/doc/html/rfc8414).
+
 [^rfc9728]: Parecki, Aaron, et al. [RFC 9728: OAuth 2.0 Protected Resource Metadata](https://datatracker.ietf.org/doc/html/rfc9728).

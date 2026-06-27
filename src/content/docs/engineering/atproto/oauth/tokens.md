@@ -2,8 +2,6 @@
 title: OAuth Tokens and Security
 ---
 
-import Aside from "../../../../../components/Aside.astro";
-
 After approval, the client receives tokens and granted scopes. The main security
 question changes at this point. The client is no longer proving that the user
 approved the request; it is proving that each API request comes from the same
@@ -41,13 +39,9 @@ For each token request or PDS request, the client signs a fresh DPoP JWT. The
 proof includes the HTTP method, target URL, and a unique JWT ID. The server
 checks that the token is being used with the same public key it was bound to.
 
-<Aside type="note" title="Bearer token vs proof-bound token">
-
 A bearer token works like cash: whoever holds it can spend it. A DPoP-bound
 token works more like a signed instrument: possession of the string is not
 enough; the caller also needs the private key.
-
-</Aside>
 
 AT Protocol also requires server-provided DPoP nonces. Servers rotate those
 nonces, and clients track them per account session and per server. If a server
@@ -71,13 +65,9 @@ Refresh tokens obtain replacement tokens. In AT Protocol, refresh tokens are
 generally single-use: a refresh request returns a new refresh token and
 invalidates the old one.
 
-<Aside type="tip" title="Implementation habit">
-
 Serialize refresh requests for a session. Two concurrent refreshes can race: one
 request succeeds and rotates the token, while the other retries with a token
 that is already spent.
-
-</Aside>
 
 A client that wants refresh tokens must declare `refresh_token` in `grant_types`
 in its metadata.
@@ -124,5 +114,7 @@ or JWKS, the authorization server should reject refreshes tied to it.
 ## References
 
 [^atproto-oauth]: Bluesky/AT Protocol. ["OAuth"](https://atproto.com/specs/oauth).
+
 [^rfc9207]: Lodderstedt, Torsten, et al. [RFC 9207: OAuth 2.0 Authorization Server Issuer Identification](https://datatracker.ietf.org/doc/html/rfc9207).
+
 [^rfc9449]: Fett, Daniel, et al. [RFC 9449: OAuth 2.0 Demonstrating Proof of Possession](https://datatracker.ietf.org/doc/html/rfc9449).

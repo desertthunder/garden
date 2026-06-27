@@ -2,8 +2,6 @@
 title: AT Protocol OAuth
 ---
 
-import Aside from "../../../../../components/Aside.astro";
-
 OAuth is the account authorization system for AT Protocol clients. It lets an
 app obtain permission to call a user's Personal Data Server (PDS) without asking
 for the user's password.
@@ -13,13 +11,11 @@ AT Protocol has many PDS hosts and can use separate authorization servers,
 sometimes called entryways. A client therefore begins by discovering authority.
 It cannot hard-code one login domain and call the result authentication.
 
-<Aside type="note" title="Working definition">
+## Working Definition
 
 AT Protocol OAuth binds four things together: an account DID, the account's
 current PDS, an authorization-server issuer, and a DPoP key held by one client
 instance.
-
-</Aside>
 
 ## Why OAuth Is Part of the Protocol
 

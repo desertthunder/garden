@@ -23,11 +23,6 @@
 
   const isActive = (path: string) => currentPath === path.replace(/\/$/, "") || (path === "/" && currentPath === "/");
 
-  function isAncestor(path: string) {
-    const sectionPath = path.replace(/\/$/, "");
-    return path !== "/" && currentPath !== sectionPath && currentPath.startsWith(`${sectionPath}/`);
-  }
-
   const isOpen = (path: string) => openPaths.has(path);
 
   function toggle(path: string) {
@@ -60,7 +55,7 @@
     {#each nodes as node (node.path)}
       <li>
         {#if node.kind === "folder"}
-          <div class="folder-row" class:is-active={isActive(node.path)} class:is-ancestor={isAncestor(node.path)}>
+          <div class="folder-row" class:is-active={isActive(node.path)}>
             <button
               aria-expanded={isOpen(node.path)}
               aria-label={`${isOpen(node.path) ? "Collapse" : "Expand"} ${node.label}`}
@@ -156,7 +151,6 @@
 
   .folder-row:hover,
   .folder-row.is-active,
-  .folder-row.is-ancestor,
   .link:hover,
   .link:focus-visible,
   .link.is-active {
@@ -165,10 +159,8 @@
 
   .folder-row:hover .toggle,
   .folder-row.is-active .toggle,
-  .folder-row.is-ancestor .toggle,
   .folder-row:hover .folder-link,
   .folder-row.is-active .folder-link,
-  .folder-row.is-ancestor .folder-link,
   .link:hover,
   .link:focus-visible,
   .link.is-active {

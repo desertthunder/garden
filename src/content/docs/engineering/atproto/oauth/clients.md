@@ -2,8 +2,6 @@
 title: OAuth Clients and Metadata
 ---
 
-import Aside from "../../../../../components/Aside.astro";
-
 AT Protocol replaces central app registration with published client metadata. A client identifies itself with a `client_id`, and that `client_id` is a URL.
 
 ```text
@@ -26,20 +24,16 @@ The metadata endpoint must return HTTP 200 and JSON. The `client_id` field in th
 
 A minimal mental model:
 
-| Metadata field | What the server learns |
-| --- | --- |
-| `redirect_uris` | Where the user can be sent after approval. |
-| `scope` | The maximum set of scopes this client may request. |
-| `grant_types` | Whether the client can use authorization codes and refresh tokens. |
-| `application_type` | Whether web or native-client redirect rules apply. |
-| `dpop_bound_access_tokens` | Whether issued access tokens must be DPoP-bound. |
-| `jwks` or `jwks_uri` | Which keys identify a confidential client. |
-
-<Aside type="caution" title="Metadata is not identity proof">
+| Metadata field             | What the server learns                                             |
+| -------------------------- | ------------------------------------------------------------------ |
+| `redirect_uris`            | Where the user can be sent after approval.                         |
+| `scope`                    | The maximum set of scopes this client may request.                 |
+| `grant_types`              | Whether the client can use authorization codes and refresh tokens. |
+| `application_type`         | Whether web or native-client redirect rules apply.                 |
+| `dpop_bound_access_tokens` | Whether issued access tokens must be DPoP-bound.                   |
+| `jwks` or `jwks_uri`       | Which keys identify a confidential client.                         |
 
 A metadata file can claim a nice app name and display a logo. That does not prove the app is the one a user thinks it is. Authorization servers should show friendly branding only for trusted `client_id` values. Unknown clients should be shown by their full `client_id` URL.
-
-</Aside>
 
 ## Public Clients
 
@@ -61,10 +55,10 @@ That key lifecycle is the main advantage of confidential clients. A leaked key c
 
 DPoP and confidential-client authentication are easy to confuse.
 
-| Key | Scope | Purpose |
-| --- | --- | --- |
-| Confidential-client key | Client software or backend | Proves the request came from the registered confidential client. |
-| DPoP key | One session or device | Proves the token is being used by the same instance that received it. |
+| Key                     | Scope                      | Purpose                                                               |
+| ----------------------- | -------------------------- | --------------------------------------------------------------------- |
+| Confidential-client key | Client software or backend | Proves the request came from the registered confidential client.      |
+| DPoP key                | One session or device      | Proves the token is being used by the same instance that received it. |
 
 A public browser client has no confidential-client key, but still has a DPoP key. A backend-for-frontend design may use both.
 
@@ -96,4 +90,5 @@ This is a development exception for public clients. It is not the production mod
 ## References
 
 [^client-id-metadata]: Parecki, Aaron. ["OAuth Client ID Metadata Document"](https://datatracker.ietf.org/doc/draft-parecki-oauth-client-id-metadata-document/).
+
 [^rfc7523]: Campbell, Brian, Chuck Mortimore, and Michael Jones. [RFC 7523: JSON Web Token Profile for OAuth 2.0 Client Authentication and Authorization Grants](https://datatracker.ietf.org/doc/html/rfc7523).

@@ -24,11 +24,9 @@ const tree = buildSidebarTree(entries);
 <style>
   .site-sidebar {
     border-right: 1px solid var(--color-border);
-    height: calc(100vh - 4rem);
+    height: 100%;
     overflow: auto;
     padding: 1.25rem clamp(1rem, 2vw, 1.5rem);
-    position: sticky;
-    top: 4rem;
   }
 
   .site-search {
@@ -52,7 +50,6 @@ const tree = buildSidebarTree(entries);
       border-right: 0;
       height: auto;
       max-height: 18rem;
-      position: static;
     }
   }
 </style>

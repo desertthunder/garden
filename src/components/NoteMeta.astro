@@ -11,7 +11,9 @@ const tags = tagsForDoc(entry);
 ---
 
 <div class="note-meta">
-  <time datetime={updated.toISOString()}>{formatDate(updated)}</time>
+  <span>
+    Last Updated: <time datetime={updated.toISOString()}>{formatDate(updated)}</time>
+  </span>
   <div class="note-meta__tags">
     {tags.map((tag) => <a href={hrefFor(base, `/tags/${tagSlug(tag)}/`)}>{tag}</a>)}
   </div>

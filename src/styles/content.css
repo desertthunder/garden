@@ -1,6 +1,8 @@
 .content {
   margin-inline: auto;
   max-width: 48rem;
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
 .content-header {
@@ -36,6 +38,10 @@
   color: color-mix(in srgb, var(--color-text) 92%, var(--color-muted));
 }
 
+.content a {
+  overflow-wrap: anywhere;
+}
+
 .content code {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -49,6 +55,7 @@
   background: var(--color-code-bg);
   border: 1px solid var(--color-border);
   border-radius: 0.5rem;
+  max-width: 100%;
   overflow: auto;
   padding: 1rem;
 }
@@ -69,7 +76,25 @@
 .content table {
   border-collapse: collapse;
   display: block;
+  max-width: 100%;
   overflow-x: auto;
+}
+
+.content :is(svg, iframe, video) {
+  max-width: 100%;
+}
+
+.content mjx-container {
+  max-inline-size: 100%;
+}
+
+.content mjx-container[display="true"] {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.content mjx-container :is(mjx-math, mjx-assistive-mml) {
+  max-inline-size: 100%;
 }
 
 .content th,
@@ -135,10 +160,6 @@
   outline-offset: 2px;
 }
 
-.content a.has-note-preview {
-  position: relative;
-}
-
 .note-preview {
   background: var(--color-surface-raised);
   border: 1px solid var(--color-border);
@@ -148,18 +169,18 @@
   display: grid;
   gap: 0.25rem;
   inline-size: min(22rem, 80vw);
-  inset-block-start: calc(100% + 0.45rem);
-  inset-inline-start: 0;
+  left: 0;
   opacity: 0;
   padding: 0.8rem;
   pointer-events: none;
-  position: absolute;
+  position: fixed;
+  top: 0;
   transform: translateY(-0.2rem);
   transition:
     opacity 140ms ease,
     transform 140ms ease;
   visibility: hidden;
-  z-index: 5;
+  z-index: 1000;
 }
 
 .note-preview strong {
@@ -179,11 +200,8 @@
   line-height: 1.45;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .content a.has-note-preview:hover .note-preview,
-  .content a.has-note-preview:focus-visible .note-preview {
-    opacity: 1;
-    transform: translateY(0);
-    visibility: visible;
-  }
+.note-preview.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
 }

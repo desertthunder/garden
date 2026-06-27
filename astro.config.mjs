@@ -6,7 +6,7 @@ import svelte from "@astrojs/svelte";
 import { defineConfig, passthroughImageService } from "astro/config";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
-import rehypeMathjax from "rehype-mathjax";
+import rehypeMathjaxChtml from "rehype-mathjax/chtml";
 import remarkMath from "remark-math";
 import { ogImageIntegration } from "./src/integrations/og-image/index.ts";
 import search from "./src/integrations/search/index.ts";
@@ -25,9 +25,7 @@ function remarkDeploymentBaseLinks() {
   return (tree) => {
     rewriteNodeUrls(tree, (url) => {
       if (!url.startsWith("/") || url.startsWith("//")) return url;
-
       const path = url === sourceBase ? "/" : url.startsWith(`${sourceBase}/`) ? url.slice(sourceBase.length) : url;
-
       return `${basePrefix}${path}`;
     });
   };
@@ -40,7 +38,6 @@ function remarkDeploymentBaseLinks() {
 function rewriteNodeUrls(node, rewriteUrl) {
   if (node && typeof node === "object") {
     const markdownNode = /** @type {MarkdownNode} */ (node);
-
     if (typeof markdownNode.url === "string") {
       markdownNode.url = rewriteUrl(markdownNode.url);
     }
@@ -73,7 +70,15 @@ export default defineConfig({
   ],
   markdown: {
     syntaxHighlight: { type: "shiki", excludeLangs: ["math"] },
-    processor: unified({ remarkPlugins: [remarkDeploymentBaseLinks, remarkMath], rehypePlugins: [rehypeMathjax] }),
+    processor: unified({
+      remarkPlugins: [remarkDeploymentBaseLinks, remarkMath],
+      rehypePlugins: [
+        [
+          rehypeMathjaxChtml,
+          { chtml: { fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2" } },
+        ],
+      ],
+    }),
   },
   vite: {
     resolve: {
