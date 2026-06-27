@@ -2,11 +2,7 @@
 title: The Cult of Done Manifesto
 ---
 
-import Aside from "../../../components/Aside.astro";
-
 Source[^1]
-
-<Aside type="note">
 
 1. There are three states of being. Not knowing, action and completion.
 2. Accept that everything is a draft. It helps to get it done.
@@ -25,8 +21,6 @@ Source[^1]
 12. If you have an idea and publish it on the internet, that counts as a
     ghost of done.
 13. Done is the engine of more.
-
-</Aside>
 
 [^1]: Pettis, Bre. “The Cult of Done Manifesto.” Medium, 2 Aug. 2016,
 [https://medium.com/@bre/the-cult-of-done-manifesto-724ca1c2ff13](https://medium.com/@bre/the-cult-of-done-manifesto-724ca1c2ff13).

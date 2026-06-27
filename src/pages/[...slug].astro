@@ -27,18 +27,20 @@ const { Content, headings } = await render(entry);
   <Content />
   {
     headings.length > 0 && (
-      <nav class="page-toc" aria-label="Page table of contents">
-        <h2>On this page</h2>
-        <ol>
-          {headings
-            .filter((heading) => heading.depth === 2 || heading.depth === 3)
-            .map((heading) => (
-              <li class={`depth-${heading.depth}`}>
-                <a href={`#${heading.slug}`}>{heading.text}</a>
-              </li>
+      <div slot="right-rail">
+        <nav class="page-toc" aria-label="Page table of contents">
+          <h2>On this page</h2>
+          <ol>
+            {headings
+              .filter((heading) => heading.depth === 2 || heading.depth === 3)
+              .map((heading) => (
+                <li class={`depth-${heading.depth}`}>
+                  <a href={`#${heading.slug}`}>{heading.text}</a>
+                </li>
             ))}
-        </ol>
-      </nav>
+          </ol>
+        </nav>
+      </div>
     )
   }
 </BaseLayout>

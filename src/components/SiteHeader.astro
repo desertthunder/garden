@@ -8,14 +8,17 @@ const hrefFor = (path: string) => `${base}${path}` || "/";
 <header class="site-header">
   <a class="site-title" href={hrefFor("/")}>Owais' Places</a>
   <nav class="site-links" aria-label="Site links">
-    <a class:list={["site-nav-link", currentPath === "/changelog" && "is-active"]} href={hrefFor("/changelog/")}>
-      CHANGELOG
-    </a>
-    <a class:list={["site-nav-link", currentPath === "/tags" && "is-active"]} href={hrefFor("/tags/")}>Tags</a>
-    <a href="https://github.com/desertthunder/garden">GitHub</a>
-    <a href="https://codeberg.org/desertthunder">Codeberg</a>
-    <a href="https://bsky.app/profile/desertthunder.dev">Bluesky</a>
-    <a href="https://www.linkedin.com/in/owais-jamil/">LinkedIn</a>
+    <div style="border-right: 1px solid; padding: 0 1rem">
+      <a class:list={["site-nav-link", currentPath === "/changelog" && "is-active"]} href={hrefFor("/changelog/")}>
+        CHANGELOG
+      </a>
+      <a class:list={["site-nav-link", currentPath === "/tags" && "is-active"]} href={hrefFor("/tags/")}>Tags</a>
+    </div>
+    <div>
+      <a href="https://github.com/desertthunder/garden">GitHub</a>
+      <a href="https://bsky.app/profile/desertthunder.dev">Bluesky</a>
+      <a href="https://www.linkedin.com/in/owais-jamil/">LinkedIn</a>
+    </div>
   </nav>
 </header>
 
