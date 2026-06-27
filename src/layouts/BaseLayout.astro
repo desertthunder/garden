@@ -75,18 +75,21 @@ const hasRightRail = Astro.slots.has("right-rail");
     <script>
       const sidebarShell = document.querySelector("[data-sidebar-shell]");
       const sidebarToggles = document.querySelectorAll("[data-sidebar-toggle]");
+      const sidebarTargets = { left: "garden-map", right: "garden-context" };
 
-      function applySidebarState(side, collapsed) {
+      function applySidebarState(side: "left" | "right", collapsed: boolean) {
         sidebarShell?.classList.toggle(`is-${side}-collapsed`, collapsed);
+        document.getElementById(sidebarTargets[side])?.setAttribute("aria-hidden", String(collapsed));
 
         document.querySelectorAll(`[data-sidebar-toggle="${side}"]`).forEach((toggle) => {
           toggle.setAttribute("aria-expanded", String(!collapsed));
         });
       }
 
-      for (const side of ["left", "right"]) {
+      for (const side of ["left", "right"] as const) {
         applySidebarState(side, localStorage.getItem(`garden-${side}-rail`) === "collapsed");
       }
+      sidebarShell?.classList.add("is-sidebar-ready");
 
       sidebarToggles.forEach((toggle) => {
         toggle.addEventListener("click", () => {
@@ -94,7 +97,7 @@ const hasRightRail = Astro.slots.has("right-rail");
           if (!side) return;
 
           const collapsed = !sidebarShell?.classList.contains(`is-${side}-collapsed`);
-          applySidebarState(side, collapsed);
+          applySidebarState(side as "left" | "right", collapsed);
           localStorage.setItem(`garden-${side}-rail`, collapsed ? "collapsed" : "open");
         });
       });
@@ -102,8 +105,8 @@ const hasRightRail = Astro.slots.has("right-rail");
 
     <style>
       .site-shell {
-        --left-rail-width: minmax(15rem, 20rem);
-        --right-rail-width: minmax(15rem, 19rem);
+        --left-rail-width: clamp(15rem, 22vw, 20rem);
+        --right-rail-width: clamp(15rem, 21vw, 19rem);
         display: grid;
         grid-template-columns: var(--left-rail-width) minmax(0, 1fr);
         height: calc(100dvh - 4rem);
@@ -111,6 +114,10 @@ const hasRightRail = Astro.slots.has("right-rail");
         max-width: 96rem;
         min-width: 0;
         overflow: hidden;
+      }
+
+      .site-shell.is-sidebar-ready {
+        transition: grid-template-columns 220ms cubic-bezier(0.2, 0, 0, 1);
       }
 
       .site-shell.has-right-rail {
@@ -139,6 +146,10 @@ const hasRightRail = Astro.slots.has("right-rail");
         overflow: hidden;
       }
 
+      .is-sidebar-ready .sidebar-frame {
+        transition: grid-template-rows 220ms cubic-bezier(0.2, 0, 0, 1);
+      }
+
       .sidebar-frame--left {
         border-right: 1px solid var(--color-border);
       }
@@ -164,6 +175,9 @@ const hasRightRail = Astro.slots.has("right-rail");
         min-height: 2.6rem;
         padding: 0.75rem 1rem;
         text-transform: uppercase;
+        transition:
+          background-color 160ms ease,
+          color 160ms ease;
         width: 100%;
       }
 
@@ -192,7 +206,7 @@ const hasRightRail = Astro.slots.has("right-rail");
 
       .is-left-collapsed .sidebar-frame--left,
       .is-right-collapsed .sidebar-frame--right {
-        grid-template-rows: minmax(0, 1fr);
+        grid-template-rows: minmax(0, 1fr) 0fr;
       }
 
       .is-left-collapsed .sidebar-frame--left .sidebar-toggle__open,
@@ -205,13 +219,31 @@ const hasRightRail = Astro.slots.has("right-rail");
         display: inline;
       }
 
-      :global(.is-left-collapsed .site-sidebar),
+      .is-sidebar-ready :global(.site-sidebar),
+      .is-sidebar-ready .right-rail {
+        transition:
+          opacity 160ms ease,
+          transform 220ms cubic-bezier(0.2, 0, 0, 1),
+          visibility 0s linear 0s;
+      }
+
+      :global(.is-left-collapsed .site-sidebar) {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(-0.5rem);
+        visibility: hidden;
+      }
+
       .is-right-collapsed .right-rail {
-        display: none;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(0.5rem);
+        visibility: hidden;
       }
 
       .right-rail {
         height: 100%;
+        min-height: 0;
         min-width: 0;
         overflow: auto;
         padding: 1.1rem clamp(1rem, 2vw, 1.5rem) 1.5rem;
@@ -248,13 +280,23 @@ const hasRightRail = Astro.slots.has("right-rail");
 
         .is-left-collapsed .sidebar-frame--left,
         .is-right-collapsed .sidebar-frame--right {
-          grid-template-rows: auto;
+          grid-template-rows: auto 0fr;
         }
 
         .right-rail {
           max-height: none;
           overflow: auto;
           padding: 1.25rem clamp(1rem, 4vw, 1.5rem);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .site-shell.is-sidebar-ready,
+        .is-sidebar-ready .sidebar-frame,
+        .is-sidebar-ready :global(.site-sidebar),
+        .is-sidebar-ready .right-rail,
+        .sidebar-toggle {
+          transition-duration: 0.01ms;
         }
       }
     </style>

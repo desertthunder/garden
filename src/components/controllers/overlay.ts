@@ -1,4 +1,4 @@
-import { displayDate } from "$lib/content/dates";
+import { displayDate } from "$lib/utils/dates";
 
 type SearchNote = { excerpt: string; path: string; tags: string[]; title: string; updated: string };
 type PagefindResultData = { url: string };

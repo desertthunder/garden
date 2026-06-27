@@ -5,9 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createIndex, type PagefindServiceConfig } from "pagefind";
 
-type SearchIntegrationOptions = {
-  indexConfig?: PagefindServiceConfig;
-};
+type SearchIntegrationOptions = { indexConfig?: PagefindServiceConfig };
 
 const contentTypes: Record<string, string> = {
   ".css": "text/css; charset=utf-8",

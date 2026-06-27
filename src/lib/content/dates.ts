@@ -1,5 +1,6 @@
 import proc from "node:child_process";
 import fs from "node:fs";
+export { displayDate, formatDate } from "$lib/utils/dates";
 import type { DocEntry } from "./tree";
 
 const contentDir = "src/content/docs";
@@ -50,11 +51,3 @@ function readGitDate(filePath: string) {
 }
 
 const readModifiedDate = (filePath: string) => fs.statSync(filePath).mtime;
-
-export function formatDate(date: Date) {
-  return new Intl.DateTimeFormat("en", { day: "numeric", month: "short", year: "numeric" }).format(date);
-}
-
-export function displayDate(value: string) {
-  return new Intl.DateTimeFormat("en", { day: "numeric", month: "short", year: "numeric" }).format(new Date(value));
-}

@@ -129,34 +129,42 @@ function commitSummary(commit: CommitEntry) {
 
   <style>
     .changelog-container {
+      display: grid;
+      gap: 2.5rem;
+      margin-top: 2rem;
       max-width: 100%;
     }
 
     .changelog-entry {
-      margin-bottom: 3rem;
-      padding-bottom: 2rem;
       border-bottom: 1px solid var(--color-border);
+      padding-bottom: 2rem;
     }
 
     .changelog-entry:last-child {
       border-bottom: none;
+      padding-bottom: 0;
     }
 
     .changelog-entry h2 {
       color: var(--color-text);
-      margin-bottom: 1rem;
+      font-family: var(--font-heading);
+      font-size: clamp(1.35rem, 3vw, 1.75rem);
+      line-height: 1.2;
+      margin: 0 0 0.75rem;
     }
 
     .commit-list {
       display: grid;
-      gap: 0.875rem;
     }
 
     .commit-card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: 0.75rem;
-      overflow: hidden;
+      border-bottom: 1px solid var(--color-border);
+      min-width: 0;
+      overflow: clip;
+    }
+
+    .commit-card:last-child {
+      border-bottom: 0;
     }
 
     .commit-card > summary {
@@ -166,7 +174,8 @@ function commitSummary(commit: CommitEntry) {
       gap: 0.35rem 0.5rem;
       grid-template-columns: 1rem 1fr;
       list-style: none;
-      padding: 0.875rem 1rem;
+      min-height: 3.25rem;
+      padding: 0.875rem 0;
       user-select: none;
     }
 
@@ -183,7 +192,7 @@ function commitSummary(commit: CommitEntry) {
       transform-origin: center;
       transition:
         color 120ms ease,
-        transform 120ms ease;
+        transform 180ms cubic-bezier(0.2, 0, 0, 1);
     }
 
     .commit-card[open] > summary::before {
@@ -191,8 +200,15 @@ function commitSummary(commit: CommitEntry) {
     }
 
     .commit-card > summary:hover::before,
+    .commit-card > summary:focus-visible::before,
+    .commit-card > summary:focus-visible .commit-title,
     .commit-card > summary:hover .commit-title {
       color: var(--color-accent);
+    }
+
+    .commit-card > summary:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 3px;
     }
 
     .commit-summary-main {
@@ -204,7 +220,8 @@ function commitSummary(commit: CommitEntry) {
     .commit-title {
       color: var(--color-text);
       font-weight: 650;
-      transition: color 120ms ease;
+      line-height: 1.25;
+      transition: color 160ms ease;
     }
 
     .commit-meta {
@@ -215,8 +232,9 @@ function commitSummary(commit: CommitEntry) {
 
     .commit-body {
       border-top: 1px solid var(--color-border);
+      margin-left: 1.5rem;
       min-width: 0;
-      padding: 0.25rem 1rem 1rem;
+      padding: 0.25rem 0 1rem;
     }
 
     .change-section {
@@ -252,8 +270,9 @@ function commitSummary(commit: CommitEntry) {
     }
 
     .change-section li {
-      background: var(--color-surface-raised);
-      border-radius: 0.5rem;
+      background: color-mix(in srgb, var(--color-surface) 72%, transparent);
+      border: 1px solid color-mix(in srgb, var(--color-border) 76%, transparent);
+      border-radius: 0.45rem;
       min-width: 0;
       padding: 0.65rem 0.75rem;
     }
@@ -316,7 +335,8 @@ function commitSummary(commit: CommitEntry) {
 
     .diff {
       background: var(--color-code-bg);
-      border-radius: 0.375rem;
+      border: 1px solid var(--color-border);
+      border-radius: 0.45rem;
       box-sizing: border-box;
       font-size: 0.85rem;
       line-height: 1.2;
@@ -324,6 +344,21 @@ function commitSummary(commit: CommitEntry) {
       max-width: 100%;
       overflow-x: auto;
       padding: 1rem 1.25rem;
+    }
+
+    @media (max-width: 640px) {
+      .changelog-container {
+        gap: 2rem;
+        margin-top: 1.5rem;
+      }
+
+      .commit-card > summary {
+        padding-block: 0.75rem;
+      }
+
+      .commit-body {
+        margin-left: 0;
+      }
     }
 
     .diff code {

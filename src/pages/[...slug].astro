@@ -52,6 +52,7 @@ const outbound = currentNotePath ? outboundLinkNotes(contentIndex, currentNotePa
 const folderRecent =
   folder?.notes.toSorted((a, b) => b.updated.getTime() - a.updated.getTime() || a.entry.data.title.localeCompare(b.entry.data.title)).slice(0, 6) ??
   [];
+const showFolderRecent = folder ? folder.notes.length > folderRecent.length : false;
 const previews = previewPayload(contentIndex);
 const previewJson = JSON.stringify(previews).replace(/</g, "\\u003c");
 const hasRightRail = headings.length > 0 || sameFolder.length > 0 || latest.length > 0 || backlinks.length > 0 || outbound.length > 0;
@@ -82,13 +83,13 @@ const hasRightRail = headings.length > 0 || sameFolder.length > 0 || latest.leng
           </section>
         )}
 
-        <div class="folder-board">
+        <div class:list={["folder-board", showFolderRecent && "has-recent"]}>
           <section class="folder-notes" aria-labelledby="folder-listing-heading">
             <h2 id="folder-listing-heading">Notes</h2>
             {folder.notes.length > 0 ? <NoteList notes={folder.notes} base={base} /> : <p>No notes yet.</p>}
           </section>
 
-          {folderRecent.length > 0 && (
+          {showFolderRecent && (
             <aside class="folder-recent" aria-labelledby="folder-recent-heading">
               <h2 id="folder-recent-heading">Recently tended</h2>
               <RightRailNoteList notes={folderRecent} base={base} />
@@ -282,7 +283,7 @@ const hasRightRail = headings.length > 0 || sameFolder.length > 0 || latest.leng
     }
 
     .folder-page {
-      margin-top: 0;
+      margin-top: 2rem;
     }
 
     .folder-page.has-intro {
@@ -333,6 +334,10 @@ const hasRightRail = headings.length > 0 || sameFolder.length > 0 || latest.leng
     }
 
     .folder-board {
+      min-width: 0;
+    }
+
+    .folder-board.has-recent {
       align-items: start;
       display: grid;
       gap: clamp(1.5rem, 4vw, 2.5rem);

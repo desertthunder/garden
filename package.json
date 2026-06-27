@@ -1,7 +1,7 @@
 {
-  "name": "migration",
+  "name": "digital-garden-owais",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "packageManager": "pnpm@10.23.0",
   "scripts": {
     "dev": "astro dev",
@@ -9,6 +9,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "format": "prettier --write **/*.{ts,js,astro,json}",
+    "check": "astro check",
+    "typecheck": "astro check",
     "test": "vitest --reporter=dot",
     "test:coverage": "vitest --coverage"
   },
