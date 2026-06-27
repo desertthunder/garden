@@ -1,12 +1,16 @@
 ---
 import SearchOverlay from "$components/SearchOverlay.astro";
+import { buildVersion } from "$lib/version";
 import { hrefFor } from "$lib/utils/path";
 type Props = { base: string; currentPath: string };
 const { base, currentPath } = Astro.props;
 ---
 
 <header class="site-header">
-  <a class="site-title" href={hrefFor(base, "/")}>Owais' Places</a>
+  <a class="site-title" href={hrefFor(base, "/")}>
+    <span>Owais' Places</span>
+    <span class="site-version" title={`Commit ${buildVersion.commit}`}>{buildVersion.display}</span>
+  </a>
   <div class="site-header__actions">
     <SearchOverlay base={base} />
     <nav class="site-links" aria-label="Site links">
@@ -36,7 +40,10 @@ const { base, currentPath } = Astro.props;
   }
 
   .site-title {
+    align-items: center;
     color: var(--color-text);
+    display: inline-flex;
+    gap: 0.45rem;
     font-family: var(--font-heading);
     font-size: 1.15rem;
     font-weight: 700;
@@ -44,11 +51,20 @@ const { base, currentPath } = Astro.props;
     white-space: nowrap;
   }
 
+  .site-version {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 650;
+    letter-spacing: 0;
+  }
+
   .site-header__actions {
     align-items: center;
     display: flex;
     gap: 1rem;
     min-width: 0;
+    flex: 1;
   }
 
   .site-links {

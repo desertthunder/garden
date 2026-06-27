@@ -10,6 +10,7 @@ const pagefindBundlePath = hrefFor(base, "/pagefind/");
 
 <div
   class="search-overlay"
+  style="flex: 1;  width: 100%; padding: 0 1rem;"
   data-search-overlay
   data-base={base}
   data-content-index={contentIndexPath}
@@ -51,6 +52,8 @@ const pagefindBundlePath = hrefFor(base, "/pagefind/");
     min-width: min(18rem, 36vw);
     padding: 0 0.55rem;
     text-align: left;
+    flex: 1;
+    width: 100%;
   }
 
   .search-trigger:hover,

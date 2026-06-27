@@ -1,6 +1,6 @@
 ---
-import SiteHeader from "../components/SiteHeader.astro";
-import SiteSidebar from "../components/SiteSidebar.astro";
+import SiteHeader from "$components/SiteHeader.astro";
+import SiteSidebar from "$components/SiteSidebar.astro";
 import "../styles/styles.css";
 
 type Props = { title: string; description?: string };
@@ -29,7 +29,6 @@ const hasRightRail = Astro.slots.has("right-rail");
   </head>
   <body>
     <SiteHeader base={base} currentPath={currentPath} />
-
     <div class:list={["site-shell", hasRightRail && "has-right-rail"]} data-sidebar-shell>
       <div class="sidebar-frame sidebar-frame--left">
         <button

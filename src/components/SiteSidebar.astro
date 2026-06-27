@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import SidebarTree from "$components/SidebarTree.svelte";
-import { buildSidebarTree } from "../lib/content/tree";
+import { buildSidebarTree } from "$lib/content/tree";
 import { hrefFor } from "$lib/utils/path";
 
 type Props = { base: string; currentPath: string };

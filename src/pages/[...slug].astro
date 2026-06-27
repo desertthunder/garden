@@ -50,12 +50,16 @@ const latest = latestNotes(contentIndex, 5, currentNotePath);
 const backlinks = currentNotePath ? backlinkNotes(contentIndex, currentNotePath) : [];
 const outbound = currentNotePath ? outboundLinkNotes(contentIndex, currentNotePath) : [];
 const folderRecent =
-  folder?.notes.toSorted((a, b) => b.updated.getTime() - a.updated.getTime() || a.entry.data.title.localeCompare(b.entry.data.title)).slice(0, 6) ??
-  [];
+  folder?.notes
+    .toSorted(
+      (a, b) => b.updated.getTime() - a.updated.getTime() || a.entry.data.title.localeCompare(b.entry.data.title),
+    )
+    .slice(0, 6) ?? [];
 const showFolderRecent = folder ? folder.notes.length > folderRecent.length : false;
 const previews = previewPayload(contentIndex);
 const previewJson = JSON.stringify(previews).replace(/</g, "\\u003c");
-const hasRightRail = headings.length > 0 || sameFolder.length > 0 || latest.length > 0 || backlinks.length > 0 || outbound.length > 0;
+const hasRightRail =
+  headings.length > 0 || sameFolder.length > 0 || latest.length > 0 || backlinks.length > 0 || outbound.length > 0;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -165,70 +169,7 @@ const hasRightRail = headings.length > 0 || sameFolder.length > 0 || latest.leng
   }
 
   {page.kind === "note" && <script is:inline type="application/json" id="note-preview-data" set:html={previewJson} />}
-
-  {
-    page.kind === "note" && (
-      <script is:inline>
-        const previewData = JSON.parse(document.getElementById("note-preview-data")?.textContent ?? "{}");
-        const basePath = document.documentElement.dataset.basePath ?? "";
-        const content = document.querySelector(".content");
-        const previewCard = document.createElement("div");
-        previewCard.className = "note-preview";
-        previewCard.innerHTML = `<strong></strong><small></small><span></span>`;
-        document.body.append(previewCard);
-
-        function normalizePreviewPath(href) {
-          const url = new URL(href, window.location.href);
-          if (url.origin !== window.location.origin) return undefined;
-          if (basePath && !url.pathname.startsWith(`${basePath}/`)) return undefined;
-          const path = basePath ? url.pathname.slice(basePath.length) : url.pathname;
-          return path.endsWith("/") ? path : `${path}/`;
-        }
-
-        function hidePreview() {
-          previewCard.classList.remove("is-visible");
-        }
-
-        function showPreview(link, preview) {
-          previewCard.querySelector("strong").textContent = preview.title;
-          previewCard.querySelector("small").textContent = [preview.date, ...(preview.tags ?? [])].filter(Boolean).join(" · ");
-          previewCard.querySelector("span").textContent = preview.excerpt;
-          previewCard.classList.add("is-visible");
-
-          const linkRect = link.getBoundingClientRect();
-          const cardRect = previewCard.getBoundingClientRect();
-          const gap = 8;
-          const left = Math.min(Math.max(gap, linkRect.left), window.innerWidth - cardRect.width - gap);
-          const bottomTop = linkRect.bottom + gap;
-          const top =
-            bottomTop + cardRect.height <= window.innerHeight - gap
-              ? bottomTop
-              : Math.max(gap, linkRect.top - cardRect.height - gap);
-
-          previewCard.style.left = `${left}px`;
-          previewCard.style.top = `${top}px`;
-        }
-
-        content?.querySelectorAll("a[href]").forEach((link) => {
-          const path = normalizePreviewPath(link.href);
-          const preview = path ? previewData[path] : undefined;
-          if (!preview) return;
-
-          link.classList.add("has-note-preview");
-          link.addEventListener("mouseenter", () => showPreview(link, preview));
-          link.addEventListener("focus", () => showPreview(link, preview));
-          link.addEventListener("mouseleave", hidePreview);
-          link.addEventListener("blur", hidePreview);
-        });
-
-        window.addEventListener("scroll", hidePreview, true);
-        window.addEventListener("resize", hidePreview);
-        window.addEventListener("keydown", (event) => {
-          if (event.key === "Escape") hidePreview();
-        });
-      </script>
-    )
-  }
+  {page.kind === "note" && <script src="$components/controllers/previews.ts" />}
 
   <style>
     :global(.content:has(.folder-page)) {

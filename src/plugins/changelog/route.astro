@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import BaseLayout from "$layouts/BaseLayout.astro";
 import changelogConfig from "virtual:garden-changelog-config";
 import { getGitLog, groupChangesByDate, getFileDiff, type CommitEntry } from "./lib/git";
 import { pathToSlug, extractTitle, formatDate } from "./lib/utils";

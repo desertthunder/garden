@@ -1,10 +1,10 @@
 ---
 import { getCollection } from "astro:content";
-import NoteList from "../../components/NoteList.astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import { gitUpdatedDateForDoc } from "../../lib/content/dates";
-import { pathForDoc } from "../../lib/content/paths";
-import { tagSlug, tagTitle, tagsForDoc } from "../../lib/tags";
+import NoteList from "$components/NoteList.astro";
+import BaseLayout from "$layouts/BaseLayout.astro";
+import { gitUpdatedDateForDoc } from "$lib/content/dates";
+import { pathForDoc } from "$lib/content/paths";
+import { tagSlug, tagTitle, tagsForDoc } from "$lib/tags";
 import { hrefFor } from "$lib/utils/path";
 
 export async function getStaticPaths() {

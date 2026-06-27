@@ -49,7 +49,7 @@ if (root) {
   }
 
   async function ensurePagefind() {
-    pagefindPromise ??= import(`${pagefindBundlePath}pagefind.js`).then(async (pagefind: PagefindModule) => {
+    pagefindPromise ??= import(/* @vite-ignore */ `${pagefindBundlePath}pagefind.js`).then(async (pagefind: PagefindModule) => {
       await pagefind.options({ bundlePath: pagefindBundlePath });
       await pagefind.init();
       return pagefind;
