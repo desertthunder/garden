@@ -7,16 +7,13 @@ const { base, currentPath } = Astro.props;
 <header class="site-header">
   <a class="site-title" href={hrefFor(base, "/")}>Owais' Places</a>
   <nav class="site-links" aria-label="Site links">
-    <div style="border-right: 1px solid; padding: 0 1rem">
-      <a class:list={["site-nav-link", currentPath === "/changelog" && "is-active"]} href={hrefFor(base, "/changelog/")}>
-        CHANGELOG
-      </a>
-    </div>
-    <div>
-      <a href="https://github.com/desertthunder/garden">GitHub</a>
-      <a href="https://bsky.app/profile/desertthunder.dev">Bluesky</a>
-      <a href="https://www.linkedin.com/in/owais-jamil/">LinkedIn</a>
-    </div>
+    <a class:list={["site-nav-link", currentPath === "/changelog" && "is-active"]} href={hrefFor(base, "/changelog/")}>
+      CHANGELOG
+    </a>
+
+    <a href="https://github.com/desertthunder/garden">GitHub</a>
+    <a href="https://bsky.app/profile/desertthunder.dev">Bluesky</a>
+    <a href="https://www.linkedin.com/in/owais-jamil/">LinkedIn</a>
   </nav>
 </header>
 
