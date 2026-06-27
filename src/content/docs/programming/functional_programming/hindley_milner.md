@@ -1,5 +1,6 @@
 ---
 title: Hindley-Milner
+featured: 60
 tags:
   - functional-programming
   - programming

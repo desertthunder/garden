@@ -9,6 +9,7 @@ export const collections = {
       .object({
         title: z.string(),
         description: z.string().optional(),
+        featured: z.number().int().positive().optional(),
         tags: z.array(z.string()).optional(),
         sidebar: z.object({ hidden: z.boolean().optional() }).optional(),
       })

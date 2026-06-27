@@ -1,5 +1,6 @@
 ---
 title: The Cult of Done Manifesto
+featured: 20
 ---
 
 Source[^1]

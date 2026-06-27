@@ -1,5 +1,6 @@
 ---
 title: Zig Programming Language
+featured: 50
 tags:
   - programming
   - systems-programming

@@ -1,5 +1,6 @@
 ---
 title: Bobby Bonilla Day
+featured: 10
 ---
 
 On July 1st of every year the New York Mets pay Bonilla $1,193,248.20 under a

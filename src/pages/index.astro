@@ -24,8 +24,9 @@ const notes = entries
     return { item, path, section, updated };
   });
 
-const recentNotes = [...notes]
-  .sort((a, b) => b.updated.getTime() - a.updated.getTime() || a.item.data.title.localeCompare(b.item.data.title))
+const featuredNotes = notes
+  .filter(({ item }) => item.data.featured !== undefined)
+  .sort((a, b) => (a.item.data.featured ?? 0) - (b.item.data.featured ?? 0))
   .slice(0, 8);
 ---
 
@@ -35,7 +36,7 @@ const recentNotes = [...notes]
     <h1>Owais' Places</h1>
     <p class="home-deck">Notes on software, writing, philosophy, psychology, and the odd trail that connects them.</p>
     <div class="home-actions">
-      <a href={hrefFor(base, "/engineering/")}>Start with engineering</a>
+      <a href={hrefFor(base, "/engineering/")}>Start</a>
       <a href={hrefFor(base, "/changelog/")}>Recent updates</a>
     </div>
   </header>
@@ -46,10 +47,9 @@ const recentNotes = [...notes]
 
   <section class="home-section" aria-labelledby="notes-heading">
     <div class="home-section-header">
-      <h2 id="notes-heading">Browse Notes</h2>
+      <h2 id="notes-heading">Featured Notes</h2>
     </div>
-
-    <NoteList notes={recentNotes.map(({ item, path, updated }) => ({ entry: item, path, updated }))} base={base} />
+    <NoteList notes={featuredNotes.map(({ item, path, updated }) => ({ entry: item, path, updated }))} base={base} />
   </section>
 
   <style>

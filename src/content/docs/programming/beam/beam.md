@@ -1,5 +1,6 @@
 ---
 title: The BEAM
+featured: 40
 ---
 
 The BEAM (Berkeley Erlang Abstract Machine) is the virtual machine that runs Elixir and Erlang programs.

@@ -1,5 +1,6 @@
 ---
 title: Algorithm W
+featured: 70
 tags:
   - functional-programming
   - programming

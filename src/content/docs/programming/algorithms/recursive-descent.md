@@ -1,5 +1,6 @@
 ---
 title: Recursive descent parsing
+featured: 80
 tags:
   - algorithms
   - compilers
