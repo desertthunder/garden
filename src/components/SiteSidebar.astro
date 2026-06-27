@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import SidebarTreeNode from "./SidebarTreeNode.astro";
+import SidebarTree from "$components/SidebarTree.svelte";
 import { buildSidebarTree } from "../lib/content/tree";
 
 type Props = { base: string; currentPath: string; pagefindBundlePath: string };
@@ -17,9 +17,7 @@ const tree = buildSidebarTree(entries);
   </div>
 
   <nav aria-label="Content tree">
-    <ul class="nav-tree">
-      {tree.map((node) => <SidebarTreeNode base={base} currentPath={currentPath} node={node} />)}
-    </ul>
+    <SidebarTree base={base} currentPath={currentPath} nodes={tree} client:load />
   </nav>
 </aside>
 
@@ -46,14 +44,6 @@ const tree = buildSidebarTree(entries);
     --pagefind-ui-border-width: 1px;
     --pagefind-ui-border-radius: 6px;
     --pagefind-ui-font: var(--font-body);
-  }
-
-  .nav-tree {
-    display: grid;
-    gap: 0.12rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
   }
 
   @media (max-width: 860px) {

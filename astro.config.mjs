@@ -1,7 +1,8 @@
 // @ts-check
+import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import { unified } from "@astrojs/markdown-remark";
+import svelte from "@astrojs/svelte";
 import { defineConfig, passthroughImageService } from "astro/config";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -68,6 +69,7 @@ export default defineConfig({
     ogImageIntegration(),
     search(),
     sitemap(),
+    svelte(),
   ],
   markdown: {
     syntaxHighlight: { type: "shiki", excludeLangs: ["math"] },

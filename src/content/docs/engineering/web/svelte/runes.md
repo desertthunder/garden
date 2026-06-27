@@ -6,7 +6,7 @@ tags:
   - svelte
 ---
 
-Svelte 5 uses runes for explicit component reactivity. This page covers the core state-related runes: `$state`, `$derived`, `$props`, and `$effect`. For SvelteKit server/client state placement, see [Svelte State Management](/engineering/web/svelte/state/).
+Svelte 5 uses runes for explicit component reactivity. This page covers the core state-related runes: `$state`, `$derived`, `$props`, and `$effect`. For SvelteKit server/client state placement, see [Svelte State Management](/engineering/web/svelte/state/). For using Svelte as a hydrated widget inside Astro, see [Svelte Islands in Astro](/engineering/web/svelte/islands/).
 
 ## What runes are
 
@@ -206,7 +206,7 @@ Advanced variants exist for rarer cases: `$effect.pre` runs before DOM updates,
 `$effect.pending()` reports pending promises in the current boundary, and
 `$effect.root` creates a manually controlled effect scope.[^effect]
 
-## Choosing a rune
+## Choosing a Rune
 
 | Need                             | Use        |
 | -------------------------------- | ---------- |
@@ -215,12 +215,8 @@ Advanced variants exist for rarer cases: `$effect.pre` runs before DOM updates,
 | Component inputs                 | `$props`   |
 | Browser side effects             | `$effect`  |
 
-[^runes]: Svelte, “What are runes?”, Svelte documentation, https://svelte.dev/docs/svelte/what-are-runes
-
-[^state]: Svelte, “$state”, Svelte documentation LLM text, https://svelte.dev/docs/svelte/$state/llms.txt
-
-[^derived]: Svelte, “$derived”, Svelte documentation LLM text, https://svelte.dev/docs/svelte/$derived/llms.txt
-
-[^props]: Svelte, “$props”, Svelte documentation LLM text, https://svelte.dev/docs/svelte/$props/llms.txt
-
-[^effect]: Svelte, “$effect”, Svelte documentation LLM text, https://svelte.dev/docs/svelte/$effect/llms.txt
+[^runes]: Svelte, “What are runes?”, Svelte documentation, <https://svelte.dev/docs/svelte/what-are-runes>
+[^state]: Svelte, "\$state, Svelte documentation, <https://svelte.dev/docs/svelte/$state/>
+[^derived]: Svelte, "\$derived, Svelte documentation, <https://svelte.dev/docs/svelte/$derived/>
+[^props]: Svelte, "\$props, Svelte documentation, <https://svelte.dev/docs/svelte/$props/>
+[^effect]: Svelte, "\$effect, Svelte documentation, <https://svelte.dev/docs/svelte/$effect/>

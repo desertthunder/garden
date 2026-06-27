@@ -1,0 +1,56 @@
+---
+import type { NoteListItem } from "$lib/content/tree";
+import { hrefFor } from "$lib/utils/path";
+import NoteMeta from "$components/NoteMeta.astro";
+
+type Props = { base: string; note: NoteListItem };
+
+const { base, note } = Astro.props;
+---
+
+<article class="note-card">
+  <a class="note-card-title" href={hrefFor(base, note.path)}>{note.entry.data.title}</a>
+  {note.entry.data.description && <p>{note.entry.data.description}</p>}
+  <NoteMeta entry={note.entry} updated={note.updated} base={base} />
+</article>
+
+<style>
+  .note-card {
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.7rem 0;
+  }
+
+  .note-card:first-child {
+    padding-top: 0;
+  }
+
+  .note-card:last-child {
+    border-bottom: 0;
+  }
+
+  .note-card-title {
+    color: var(--color-text);
+    display: inline-block;
+    font-size: 0.92rem;
+    font-weight: 650;
+    line-height: 1.25;
+    text-decoration: none;
+  }
+
+  .note-card-title:hover,
+  .note-card-title:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .note-card-title:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  .note-card p {
+    color: var(--color-muted);
+    font-size: 0.82rem;
+    line-height: 1.4;
+    margin: 0.25rem 0 0;
+  }
+</style>

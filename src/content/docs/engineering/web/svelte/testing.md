@@ -151,10 +151,7 @@ any flow that would be expensive to catch with isolated tests.
 - Use real web primitives in server tests.
 - Keep at least one E2E test for the core user journey.
 
-[^svelte-faq]: Svelte, “How do I test Svelte apps?”, Svelte FAQ, https://svelte.dev/docs/svelte/faq#How-do-I-test-Svelte-apps
-
-[^svelte-testing]: Svelte, “Testing”, Svelte documentation LLM text, https://svelte.dev/docs/svelte/testing/llms.txt
-
-[^sveltest-site]: Scott Spence, “Sveltest - Comprehensive Testing Suite for Svelte”, https://sveltest.dev/
-
-[^sveltest-readme]: Scott Spence, “Sveltest”, GitHub repository README, https://github.com/spences10/sveltest
+[^svelte-faq]: Svelte, “How do I test Svelte apps?”, Svelte FAQ, <https://svelte.dev/docs/svelte/faq#How-do-I-test-Svelte-apps>
+[^svelte-testing]: Svelte, “Testing”, Svelte documentation LLM text, <https://svelte.dev/docs/svelte/testing/>
+[^sveltest-site]: Scott Spence, “Sveltest - Comprehensive Testing Suite for Svelte”, <https://sveltest.dev/>
+[^sveltest-readme]: Scott Spence, “Sveltest”, GitHub repository README, <https://github.com/spences10/sveltest>

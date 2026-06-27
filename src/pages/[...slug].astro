@@ -2,7 +2,10 @@
 import { getCollection, render } from "astro:content";
 import NoteList from "$components/NoteList.astro";
 import NoteMeta from "$components/NoteMeta.astro";
+import RightRailNoteList from "$components/RightRailNoteList.astro";
+import RightRailSection from "$components/RightRailSection.astro";
 import BaseLayout from "$layouts/BaseLayout.astro";
+import { backlinkNotes, buildContentIndex, latestNotes, previewPayload, sameFolderNotes } from "$lib/content/index";
 import { gitUpdatedDateForDoc } from "$lib/content/dates";
 import { pathForDoc } from "$lib/content/paths";
 import { folderListingForPath, folderPathsForEntries } from "$lib/content/tree";
@@ -25,6 +28,7 @@ export async function getStaticPaths() {
 const { page } = Astro.props;
 const entries = await getCollection("docs");
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const contentIndex = buildContentIndex(entries);
 const folder = page.kind === "folder" ? folderListingForPath(entries, page.path) : undefined;
 const entry = page.kind === "note" ? page.entry : folder?.entry;
 const rendered = entry ? await render(entry) : undefined;
@@ -33,6 +37,13 @@ const headings = rendered?.headings ?? [];
 const pageTitle = page.kind === "folder" ? (entry?.data.title ?? folder?.label ?? "Folder") : page.entry.data.title;
 const pageDescription = entry?.data.description;
 const noteUpdated = page.kind === "note" ? gitUpdatedDateForDoc(page.entry) : undefined;
+const currentNotePath = page.kind === "note" ? pathForDoc(page.entry) : undefined;
+const sameFolder = currentNotePath ? sameFolderNotes(contentIndex, currentNotePath, 5) : [];
+const latest = latestNotes(contentIndex, 5, currentNotePath);
+const backlinks = currentNotePath ? backlinkNotes(contentIndex, currentNotePath) : [];
+const previews = previewPayload(contentIndex);
+const previewJson = JSON.stringify(previews).replace(/</g, "\\u003c");
+const hasRightRail = headings.length > 0 || sameFolder.length > 0 || latest.length > 0 || backlinks.length > 0;
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription}>
@@ -65,23 +76,78 @@ const noteUpdated = page.kind === "note" ? gitUpdatedDateForDoc(page.entry) : un
     )
   }
 
-  <!-- TODO: ToC component -->
   {
-    headings.length > 0 && (
+    hasRightRail && (
       <div slot="right-rail">
-        <nav class="page-toc" aria-label="Page table of contents">
-          <h2>On this page</h2>
-          <ol>
-            {headings
-              .filter((heading) => heading.depth === 2 || heading.depth === 3)
-              .map((heading) => (
-                <li class={`depth-${heading.depth}`}>
-                  <a href={`#${heading.slug}`}>{heading.text}</a>
-                </li>
-              ))}
-          </ol>
-        </nav>
+        {headings.length > 0 && (
+          <RightRailSection title="On this page">
+            <nav class="page-toc" aria-label="Page table of contents">
+              <ol>
+                {headings
+                  .filter((heading) => heading.depth === 2 || heading.depth === 3)
+                  .map((heading) => (
+                    <li class={`depth-${heading.depth}`}>
+                      <a href={`#${heading.slug}`}>{heading.text}</a>
+                    </li>
+                  ))}
+              </ol>
+            </nav>
+          </RightRailSection>
+        )}
+
+        {backlinks.length > 0 && (
+          <RightRailSection title="Linked from">
+            <RightRailNoteList notes={backlinks} base={base} />
+          </RightRailSection>
+        )}
+
+        {sameFolder.length > 0 && (
+          <RightRailSection title="Same folder">
+            <RightRailNoteList notes={sameFolder} base={base} />
+          </RightRailSection>
+        )}
+
+        {latest.length > 0 && (
+          <RightRailSection title="Latest">
+            <RightRailNoteList notes={latest} base={base} />
+          </RightRailSection>
+        )}
       </div>
+    )
+  }
+
+  {page.kind === "note" && <script is:inline type="application/json" id="note-preview-data" set:html={previewJson} />}
+
+  {
+    page.kind === "note" && (
+      <script is:inline>
+        const previewData = JSON.parse(document.getElementById("note-preview-data")?.textContent ?? "{}");
+        const basePath = document.documentElement.dataset.basePath ?? "";
+        const content = document.querySelector(".content");
+
+        function normalizePreviewPath(href) {
+          const url = new URL(href, window.location.href);
+          if (url.origin !== window.location.origin) return undefined;
+          if (basePath && !url.pathname.startsWith(`${basePath}/`)) return undefined;
+          const path = basePath ? url.pathname.slice(basePath.length) : url.pathname;
+          return path.endsWith("/") ? path : `${path}/`;
+        }
+
+        content?.querySelectorAll("a[href]").forEach((link) => {
+          const path = normalizePreviewPath(link.href);
+          const preview = path ? previewData[path] : undefined;
+          if (!preview) return;
+
+          link.classList.add("has-note-preview");
+          const card = document.createElement("span");
+          card.className = "note-preview";
+          card.innerHTML = `<strong></strong><small></small><span></span>`;
+          card.querySelector("strong").textContent = preview.title;
+          card.querySelector("small").textContent = [preview.date, ...(preview.tags ?? [])].filter(Boolean).join(" · ");
+          card.querySelector("span").textContent = preview.excerpt;
+          link.append(card);
+        });
+      </script>
     )
   }
 

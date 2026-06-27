@@ -4,8 +4,8 @@
   --font-body: "Instrument Sans Variable", system-ui, sans-serif;
   --font-mono: "Google Sans Code Variable", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --color-bg: #17171B;
-  --color-surface: #161821;
-  --color-surface-raised: #1E2132;
+  --color-surface-raised: #161821;
+  --color-surface: #1E2132;
   --color-code-bg: #111;
   --color-border: #424546;
   --color-muted: #809CC1;

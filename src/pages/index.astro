@@ -1,31 +1,19 @@
 ---
 import { getCollection, render } from "astro:content";
-import NoteList from "../components/NoteList.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import { gitUpdatedDateForDoc } from "../lib/content/dates";
-import { pathForDoc } from "../lib/content/paths";
+import NoteList from "$components/NoteList.astro";
+import BaseLayout from "$layouts/BaseLayout.astro";
+import { gitUpdatedDateForDoc } from "$lib/content/dates";
+import { pathForDoc } from "$lib/content/paths";
+import { hrefFor } from "$lib/utils/path";
 
 const entries = await getCollection("docs");
 const entry = entries.find((item) => pathForDoc(item) === "/");
-
 if (!entry) {
   throw new Error("Missing homepage content entry: src/content/docs/index.mdx");
 }
 
 const { Content } = await render(entry);
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-
-function hrefFor(path: string) {
-  return `${base}${path}` || "/";
-}
-
-function sectionTitle(section: string) {
-  return section
-    .split(/[-_]/)
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
-}
-
 const notes = entries
   .filter((item) => pathForDoc(item) !== "/" && item.data.sidebar?.hidden !== true)
   .map((item) => {
@@ -35,10 +23,6 @@ const notes = entries
 
     return { item, path, section, updated };
   });
-
-const featuredSections = ["writing", "engineering", "programming", "psychology", "philosophy", "culture"]
-  .map((section) => ({ section, items: notes.filter((note) => note.section === section).slice(0, 4) }))
-  .filter((group) => group.items.length > 0);
 
 const recentNotes = [...notes]
   .sort((a, b) => b.updated.getTime() - a.updated.getTime() || a.item.data.title.localeCompare(b.item.data.title))
@@ -51,36 +35,13 @@ const recentNotes = [...notes]
     <h1>Owais' Places</h1>
     <p class="home-deck">Notes on software, writing, philosophy, psychology, and the odd trail that connects them.</p>
     <div class="home-actions">
-      <a href={hrefFor("/engineering/")}>Start with engineering</a>
-      <a href={hrefFor("/changelog/")}>Recent updates</a>
+      <a href={hrefFor(base, "/engineering/")}>Start with engineering</a>
+      <a href={hrefFor(base, "/changelog/")}>Recent updates</a>
     </div>
   </header>
 
   <section class="home-intro">
     <Content />
-  </section>
-
-  <section class="home-section" aria-labelledby="paths-heading">
-    <div class="home-section-header">
-      <h2 id="paths-heading">Paths</h2>
-    </div>
-
-    <div class="home-grid">
-      {
-        featuredSections.map((group) => (
-          <section class="home-card">
-            <h3>{sectionTitle(group.section)}</h3>
-            <ul>
-              {group.items.map(({ item, path }) => (
-                <li>
-                  <a href={hrefFor(path)}>{item.data.title}</a>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))
-      }
-    </div>
   </section>
 
   <section class="home-section" aria-labelledby="notes-heading">

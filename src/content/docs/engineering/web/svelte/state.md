@@ -22,9 +22,11 @@ Do this instead:
 
 ### Keep `load` pure
 
-Do not write to stores, globals, or other shared state inside `load`. Return data from
-`load` and let SvelteKit pass it to the page. This keeps SSR safe and makes the app easier
-to reason about.[^kit-state]
+Do not write to stores, globals, or other shared state inside `load`.
+
+Return data from `load` and let SvelteKit pass it to the page.
+
+This keeps SSR safe and makes the app easier to reason about.[^kit-state]
 
 ```ts
 export async function load({ fetch }) {
@@ -36,9 +38,10 @@ export async function load({ fetch }) {
 
 ### Use context for app-level state
 
-SvelteKit's own app state uses Svelte context on the server so that state is attached to
-the component tree instead of a process-global singleton. You can use the same pattern for
-your own state. Pass a function through context to preserve reactivity across boundaries:[^kit-state]
+SvelteKit's own app state uses Svelte context on the server so that state is
+attached to the component tree instead of a process-global singleton. You can
+use the same pattern for your own state. Pass a function through context to
+preserve reactivity across boundaries:[^kit-state]
 
 ```svelte
 <!-- src/routes/+layout.svelte -->
@@ -62,15 +65,19 @@ your own state. Pass a function through context to preserve reactivity across bo
 <p>Welcome {user().name}</p>
 ```
 
-Prefer passing state down. During SSR, updating context state from a deeper component cannot
-change markup that a parent has already rendered; on the client, the parent can react to the
-new value, which can cause hydration flashes.[^kit-state]
+Prefer passing state down. During SSR, updating context state from a deeper
+component cannot change markup that a parent has already rendered;
+on the client, the parent can react to the new value, which can cause hydration
+flashes.[^kit-state]
 
 ### Page and layout components are reused
 
-SvelteKit preserves layout and page component instances across navigation. That means setup
-code in a component does not rerun just because `data` changed, and `onMount`/`onDestroy` do
-not rerun on every route change. Values derived from `data` must be reactive:[^kit-state]
+SvelteKit preserves layout and page component instances across navigation.
+
+That means setup code in a component does not rerun just because `data` changed,
+and `onMount`/`onDestroy` do not rerun on every route change.
+
+Values derived from `data` must be reactive:[^kit-state]
 
 ```svelte
 <script>
@@ -95,12 +102,14 @@ If a component must be destroyed and recreated on navigation, key it by URL:
 
 ### Put durable navigation state in the URL
 
-If state should survive reloads or affect SSR, put it in the URL. Filters, sorting, tabs,
-and pagination often belong in search params like `?sort=price&order=ascending`. Read them
-in `load` through the `url` parameter or in components through `page.url.searchParams`.[^kit-state]
+If state should survive reloads or affect SSR, put it in the URL.
+Filters, sorting, tabs, and pagination often belong in search params like
+`?sort=price&order=ascending`.
 
-For disposable UI state that should survive back/forward navigation without becoming URL or
-database state, use SvelteKit snapshots.[^kit-state]
+Read them in `load` through the `url` parameter or in components through `page.url.searchParams`.[^kit-state]
+
+For disposable UI state that should survive back/forward navigation without
+becoming URL or database state, use SvelteKit snapshots.[^kit-state]
 
 ## Choosing where state belongs
 
@@ -112,6 +121,10 @@ database state, use SvelteKit snapshots.[^kit-state]
 | URL-affecting state               | URL search params                     |
 | Disposable history-entry UI state | SvelteKit snapshots                   |
 
-For component-local state, derived values, component props, and browser effects, use Svelte 5 runes like `$state`, `$derived`, `$props`, and `$effect`; see [Runes](/engineering/web/svelte/runes/).
+For component-local state, derived values, component props, and browser effects,
+use Svelte 5 runes like `$state`, `$derived`, `$props`, and `$effect`;
+see [Runes](/engineering/web/svelte/runes/).
 
-[^kit-state]: SvelteKit, “State management”, SvelteKit documentation LLM text, https://svelte.dev/docs/kit/state-management/llms.txt
+For small interactive widgets inside Astro pages, see [Svelte Islands in Astro](/engineering/web/svelte/islands/).
+
+[^kit-state]: SvelteKit, “State management”, SvelteKit documentation, <https://svelte.dev/docs/kit/state-management/>

@@ -1,8 +1,6 @@
 ---
 import { hrefFor } from "$lib/utils/path";
-
 type Props = { base: string; currentPath: string };
-
 const { base, currentPath } = Astro.props;
 ---
 
@@ -13,7 +11,6 @@ const { base, currentPath } = Astro.props;
       <a class:list={["site-nav-link", currentPath === "/changelog" && "is-active"]} href={hrefFor(base, "/changelog/")}>
         CHANGELOG
       </a>
-      <a class:list={["site-nav-link", currentPath === "/tags" && "is-active"]} href={hrefFor(base, "/tags/")}>Tags</a>
     </div>
     <div>
       <a href="https://github.com/desertthunder/garden">GitHub</a>

@@ -1,0 +1,18 @@
+---
+import NoteCard from "$components/NoteCard.astro";
+import type { NoteListItem } from "$lib/content/tree";
+
+type Props = { base: string; notes: NoteListItem[] };
+
+const { base, notes } = Astro.props;
+---
+
+<div class="rail-note-list">
+  {notes.map((note) => <NoteCard base={base} note={note} />)}
+</div>
+
+<style>
+  .rail-note-list {
+    display: grid;
+  }
+</style>
