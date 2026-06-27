@@ -1,7 +1,8 @@
 ---
 import { getCollection, render } from "astro:content";
+import NoteList from "../components/NoteList.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { formatDate, gitUpdatedDateForDoc } from "../lib/content/dates";
+import { gitUpdatedDateForDoc } from "../lib/content/dates";
 import { pathForDoc } from "../lib/content/paths";
 
 const entries = await getCollection("docs");
@@ -87,16 +88,7 @@ const recentNotes = [...notes]
       <h2 id="notes-heading">Browse Notes</h2>
     </div>
 
-    <ol class="home-note-list">
-      {
-        recentNotes.map(({ item, path, updated }) => (
-          <li>
-            <a href={hrefFor(path)}>{item.data.title}</a>
-            <span>{formatDate(updated)}</span>
-          </li>
-        ))
-      }
-    </ol>
+    <NoteList notes={recentNotes.map(({ item, path, updated }) => ({ entry: item, path, updated }))} base={base} />
   </section>
 
   <style>
@@ -197,8 +189,7 @@ const recentNotes = [...notes]
       margin: 0 0 0.7rem;
     }
 
-    .home-card ul,
-    .home-note-list {
+    .home-card ul {
       list-style: none;
       margin: 0;
       padding: 0;
@@ -208,39 +199,17 @@ const recentNotes = [...notes]
       margin-top: 0.45rem;
     }
 
-    .home-card a,
-    .home-note-list a {
+    .home-card a {
       color: var(--color-text);
       text-decoration: none;
     }
 
-    .home-card a:hover,
-    .home-note-list a:hover {
+    .home-card a:hover {
       color: var(--color-accent);
     }
 
-    .home-note-list {
-      border-top: 1px solid var(--color-border);
-    }
-
-    .home-note-list li {
-      align-items: baseline;
-      border-bottom: 1px solid var(--color-border);
-      display: flex;
-      gap: 1rem;
-      justify-content: space-between;
-      padding: 0.75rem 0;
-    }
-
-    .home-note-list span {
-      color: var(--color-muted);
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-    }
-
     @media (max-width: 860px) {
-      .home-section-header,
-      .home-note-list li {
+      .home-section-header {
         align-items: flex-start;
         flex-direction: column;
         gap: 0.25rem;

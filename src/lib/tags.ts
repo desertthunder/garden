@@ -1,6 +1,6 @@
-import type { CollectionEntry } from "astro:content";
+import type { DocEntry } from "./content/tree";
 
-export function tagsForDoc(entry: CollectionEntry<"docs">) {
+export function tagsForDoc(entry: DocEntry) {
   return [...new Set(entry.data.tags ?? [])].toSorted((a, b) => a.localeCompare(b));
 }
 

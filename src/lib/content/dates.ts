@@ -1,11 +1,12 @@
 import type { CollectionEntry } from "astro:content";
 import proc from "node:child_process";
 import fs from "node:fs";
+import type { DocEntry } from "./tree";
 
 const contentDir = "src/content/docs";
 const dateCache = new Map<string, Date>();
 
-export function gitUpdatedDateForDoc(entry: CollectionEntry<"docs">) {
+export function gitUpdatedDateForDoc(entry: DocEntry) {
   const filePath = filePathForDoc(entry);
   const cached = dateCache.get(filePath);
   if (cached) return cached;
@@ -15,7 +16,7 @@ export function gitUpdatedDateForDoc(entry: CollectionEntry<"docs">) {
   return date;
 }
 
-function filePathForDoc(entry: CollectionEntry<"docs">) {
+function filePathForDoc(entry: DocEntry) {
   const path = `${contentDir}/${entry.id}`;
   const candidates = [
     path,

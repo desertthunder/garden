@@ -1,7 +1,8 @@
 ---
 import { getCollection } from "astro:content";
+import NoteList from "../../components/NoteList.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { formatDate, gitUpdatedDateForDoc } from "../../lib/content/dates";
+import { gitUpdatedDateForDoc } from "../../lib/content/dates";
 import { pathForDoc } from "../../lib/content/paths";
 import { tagSlug, tagTitle, tagsForDoc } from "../../lib/tags";
 
@@ -41,55 +42,5 @@ const notes = entries
     <p>{notes.length} {notes.length === 1 ? "note" : "notes"}</p>
   </header>
 
-  <ol class="tag-note-list">
-    {
-      notes.map(({ entry, path, updated }) => (
-        <li>
-          <a href={hrefFor(path)}>{entry.data.title}</a>
-          <span>{formatDate(updated)}</span>
-        </li>
-      ))
-    }
-  </ol>
+  <NoteList notes={notes} base={base} />
 </BaseLayout>
-
-<style>
-  .tag-note-list {
-    border-top: 1px solid var(--color-border);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .tag-note-list li {
-    align-items: baseline;
-    border-bottom: 1px solid var(--color-border);
-    display: flex;
-    gap: 1rem;
-    justify-content: space-between;
-    padding: 0.75rem 0;
-  }
-
-  .tag-note-list a {
-    color: var(--color-text);
-    text-decoration: none;
-  }
-
-  .tag-note-list a:hover {
-    color: var(--color-accent);
-  }
-
-  .tag-note-list span {
-    color: var(--color-muted);
-    font-family: var(--font-mono);
-    font-size: 0.82rem;
-  }
-
-  @media (max-width: 860px) {
-    .tag-note-list li {
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-  }
-</style>

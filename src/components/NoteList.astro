@@ -1,0 +1,62 @@
+---
+import type { NoteListItem } from "$lib/content/tree";
+import NoteMeta from "./NoteMeta.astro";
+
+type Props = { notes: NoteListItem[]; base: string };
+
+const { notes, base } = Astro.props;
+const hrefFor = (path: string) => `${base}${path}` || "/";
+---
+
+<ol class="note-list">
+  {
+    notes.map(({ entry, path, updated }) => (
+      <li>
+        <a class="note-list-title" href={hrefFor(path)}>
+          {entry.data.title}
+        </a>
+        {entry.data.description && <p class="note-list-description">{entry.data.description}</p>}
+        <NoteMeta entry={entry} updated={updated} base={base} />
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .note-list {
+    border-top: 1px solid var(--color-border);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .note-list li {
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.75rem 0;
+  }
+
+  .note-list-title {
+    color: var(--color-text);
+    display: inline-block;
+    font-weight: 650;
+    line-height: 1.25;
+    text-decoration: none;
+  }
+
+  .note-list-title:hover,
+  .note-list-title:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .note-list-title:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  .note-list-description {
+    color: var(--color-muted);
+    font-size: 0.92rem;
+    line-height: 1.45;
+    margin: 0.25rem 0 0;
+  }
+</style>

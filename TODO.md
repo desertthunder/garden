@@ -19,15 +19,15 @@
 
 ## Folder Navigation
 
-- [ ] Add folder listing pages for every content folder.
-- [ ] Use `index.md`/`README.mdx` content as folder page intros when present.
-- [ ] List descendant notes on folder pages, not only direct children.
-- [ ] Sort folder listings with folders first, then notes by title.
-- [ ] Replace the flat sidebar groups with a server-rendered file tree/explorer.
-- [ ] Build the explorer tree from existing `pathForDoc` paths.
-- [ ] Use folder index titles as explorer folder labels when available.
-- [ ] Preserve active-link highlighting in the explorer.
-- [ ] Consider collapsible explorer state only after the static tree works.
+- [x] Add folder listing pages for every content folder.
+- [x] Use `index.md`/`README.mdx` content as folder page intros when present.
+- [x] List descendant notes on folder pages, not only direct children.
+- [x] Sort folder listings with folders first, then notes by title.
+- [x] Replace the flat sidebar groups with a server-rendered file tree/explorer.
+- [x] Build the explorer tree from existing `pathForDoc` paths.
+- [x] Use folder index titles as explorer folder labels when available.
+- [x] Preserve active-link highlighting in the explorer.
+- [ ] Collapsible explorer state only after the static tree works.
 
 ## Tags and Collections
 
@@ -74,13 +74,13 @@
 - [ ] Reuse note metadata across pages, listings, previews, and related-note cards.
 - [ ] Add Notion-style listing cards for home, folder, tag, and related-note lists.
 - [ ] Include title, excerpt, tags/status, updated date, and optional thumbnail in listing cards.
-- [ ] Use compact rows instead of card grids for dense archive views.
+- [x] Use compact rows instead of card grids for dense archive views.
 - [ ] Add previous/next navigation within meaningful sequences.
 - [ ] Use explicit trails before folder order for previous/next navigation.
 - [ ] Show title, tags/status, and direction labels in previous/next links.
-- [ ] Add a right rail for contextual discovery on wide screens.
+- [x] Add a right rail for contextual discovery on wide screens.
 - [ ] Put table of contents, backlinks, related notes, latest notes, and same-folder notes in the right rail.
-- [ ] Collapse the right rail below the article on narrow screens.
+- [x] Collapse the right rail below the article on narrow screens.
 - [ ] Add vertical stacked note reading as an experimental mode.
 - [ ] Open internal links in adjacent panes in stacked-note mode.
 - [ ] Keep the current page as the canonical URL in stacked-note mode.

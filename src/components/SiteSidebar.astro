@@ -1,37 +1,13 @@
 ---
 import { getCollection } from "astro:content";
-import { pathForDoc } from "../lib/content/paths";
+import SidebarTreeNode from "./SidebarTreeNode.astro";
+import { buildSidebarTree } from "../lib/content/tree";
 
 type Props = { base: string; currentPath: string; pagefindBundlePath: string };
 
 const { base, currentPath, pagefindBundlePath } = Astro.props;
 const entries = await getCollection("docs");
-const hrefFor = (path: string) => `${base}${path}` || "/";
-
-function sectionTitle(section: string) {
-  return section
-    .split(/[-_]/)
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
-}
-
-const navEntries = entries
-  .map((entry) => ({ entry, path: pathForDoc(entry) }))
-  .sort((a, b) => {
-    if (a.path === "/") return -1;
-    if (b.path === "/") return 1;
-    return a.path.localeCompare(b.path);
-  });
-
-const groupedEntries = navEntries.reduce(
-  (groups, item) => {
-    const section = item.path === "/" ? "Home" : (item.path.split("/").filter(Boolean)[0] ?? "Home");
-    groups[section] ??= [];
-    groups[section].push(item);
-    return groups;
-  },
-  {} as Record<string, typeof navEntries>,
-);
+const tree = buildSidebarTree(entries);
 ---
 
 <aside class="site-sidebar" aria-label="Garden navigation">
@@ -40,25 +16,10 @@ const groupedEntries = navEntries.reduce(
     <pagefind-searchbox placeholder="Search"></pagefind-searchbox>
   </div>
 
-  <nav>
-    {
-      Object.entries(groupedEntries).map(([section, items]) => (
-        <section class="nav-section">
-          <h2>{sectionTitle(section)}</h2>
-          <ul>
-            {items.map(({ entry, path }) => (
-              <li>
-                <a
-                  class:list={["nav-link", currentPath === path.replace(/\/$/, "") && "is-active"]}
-                  href={hrefFor(path)}>
-                  {entry.data.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))
-    }
+  <nav aria-label="Content tree">
+    <ul class="nav-tree">
+      {tree.map((node) => <SidebarTreeNode base={base} currentPath={currentPath} node={node} />)}
+    </ul>
   </nav>
 </aside>
 
@@ -87,43 +48,12 @@ const groupedEntries = navEntries.reduce(
     --pagefind-ui-font: var(--font-body);
   }
 
-  .nav-section {
-    margin-top: 1.35rem;
-  }
-
-  .nav-section h2 {
-    color: var(--color-text);
-    font-size: 0.78rem;
-    letter-spacing: 0;
-    margin: 0 0 0.45rem;
-    text-transform: uppercase;
-  }
-
-  .nav-section ul {
+  .nav-tree {
     display: grid;
-    gap: 0.35rem;
+    gap: 0.12rem;
     list-style: none;
     margin: 0;
     padding: 0;
-  }
-
-  .nav-link {
-    border-radius: 0.35rem;
-    color: var(--color-muted);
-    display: block;
-    font-size: 0.92rem;
-    line-height: 1.25;
-    padding: 0.3rem 0.4rem;
-    text-decoration: none;
-  }
-
-  .nav-link:hover,
-  .nav-link.is-active {
-    color: var(--color-accent);
-  }
-
-  .nav-link.is-active {
-    background: var(--color-surface);
   }
 
   @media (max-width: 860px) {

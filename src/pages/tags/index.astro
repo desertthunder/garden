@@ -1,8 +1,8 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import { pathForDoc } from "../../lib/content/paths";
-import { tagSlug, tagsForDoc } from "../../lib/tags";
+import BaseLayout from "$layouts/BaseLayout.astro";
+import { pathForDoc } from "$lib/content/paths";
+import { tagSlug, tagsForDoc } from "$lib/tags";
 
 const entries = await getCollection("docs");
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -40,7 +40,6 @@ const tagEntries = [...tags.entries()].toSorted(([a], [b]) => a.localeCompare(b)
 
 <style>
   .tag-list {
-    border-top: 1px solid var(--color-border);
     list-style: none;
     margin: 0;
     padding: 0;

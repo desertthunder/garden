@@ -4,6 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import { unified } from "@astrojs/markdown-remark";
 import { defineConfig, passthroughImageService } from "astro/config";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 import rehypeMathjax from "rehype-mathjax";
 import remarkMath from "remark-math";
 import { ogImageIntegration } from "./src/integrations/og-image/index.ts";
@@ -71,5 +72,14 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: { type: "shiki", excludeLangs: ["math"] },
     processor: unified({ remarkPlugins: [remarkDeploymentBaseLinks, remarkMath], rehypePlugins: [rehypeMathjax] }),
+  },
+  vite: {
+    resolve: {
+      alias: {
+        $components: fileURLToPath(new URL("./src/components", import.meta.url)),
+        $layouts: fileURLToPath(new URL("./src/layouts", import.meta.url)),
+        $lib: fileURLToPath(new URL("./src/lib", import.meta.url)),
+      },
+    },
   },
 });

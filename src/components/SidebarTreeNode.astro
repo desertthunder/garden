@@ -1,0 +1,86 @@
+---
+import type { SidebarNode } from "../lib/content/tree";
+
+type Props = {
+  base: string;
+  currentPath: string;
+  node: SidebarNode;
+};
+
+const { base, currentPath, node } = Astro.props;
+const hrefFor = (path: string) => `${base}${path}` || "/";
+
+function isActive(path: string) {
+  return currentPath === path.replace(/\/$/, "") || (path === "/" && currentPath === "/");
+}
+
+function isAncestor(path: string) {
+  const sectionPath = path.replace(/\/$/, "");
+  return path !== "/" && currentPath !== sectionPath && currentPath.startsWith(`${sectionPath}/`);
+}
+---
+
+<li>
+  <a
+    class:list={[
+      "nav-link",
+      `is-${node.kind}`,
+      isActive(node.path) && "is-active",
+      node.kind === "folder" && isAncestor(node.path) && "is-ancestor",
+    ]}
+    href={hrefFor(node.path)}>
+    {node.label}
+  </a>
+
+  {
+    node.kind === "folder" && node.children.length > 0 && (
+      <ul>
+        {node.children.map((child) => (
+          <Astro.self base={base} currentPath={currentPath} node={child} />
+        ))}
+      </ul>
+    )
+  }
+</li>
+
+<style>
+  li {
+    margin: 0;
+  }
+
+  ul {
+    display: grid;
+    gap: 0.12rem;
+    list-style: none;
+    margin: 0.12rem 0 0.12rem 0.55rem;
+    padding: 0 0 0 0.45rem;
+  }
+
+  .nav-link {
+    border-radius: 0.35rem;
+    color: var(--color-muted);
+    display: block;
+    font-size: 0.9rem;
+    line-height: 1.3;
+    padding: 0.3rem 0.4rem;
+    text-decoration: none;
+  }
+
+  .nav-link.is-folder {
+    color: var(--color-text);
+    font-weight: 650;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible,
+  .nav-link.is-active,
+  .nav-link.is-ancestor {
+    background: var(--color-surface);
+    color: var(--color-accent);
+  }
+
+  .nav-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+</style>

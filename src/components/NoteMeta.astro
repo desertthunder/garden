@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatDate } from "$lib/content/dates";
+import { tagSlug, tagsForDoc } from "$lib/tags";
+import type { DocEntry } from "$lib/content/tree";
+
+type Props = { entry: DocEntry; updated: Date; base: string };
+
+const { entry, updated, base } = Astro.props;
+const tags = tagsForDoc(entry);
+const hrefFor = (path: string) => `${base}${path}` || "/";
+---
+
+<p class="note-meta">
+  <time datetime={updated.toISOString()}>{formatDate(updated)}</time>
+  {tags.map((tag) => <a href={hrefFor(`/tags/${tagSlug(tag)}/`)}>{tag}</a>)}
+</p>
+
+<style>
+  .note-meta {
+    align-items: center;
+    color: var(--color-muted);
+    display: flex;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    gap: 0.35rem;
+    line-height: 1.4;
+    margin: 0.18rem 0 0;
+  }
+
+  .note-meta time,
+  .note-meta a {
+    color: inherit;
+  }
+
+  .note-meta a {
+    text-decoration: none;
+  }
+
+  .note-meta a:hover,
+  .note-meta a:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .note-meta a:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+</style>
