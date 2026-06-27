@@ -17,11 +17,14 @@ export function gitUpdatedDateForDoc(entry: DocEntry) {
 
 function filePathForDoc(entry: DocEntry) {
   const path = `${contentDir}/${entry.id}`;
+  const readmePath = path.replace(/(^|\/)readme$/i, "$1README");
   return (
     [
       path,
       `${path}.md`,
       `${path}.mdx`,
+      `${readmePath}.md`,
+      `${readmePath}.mdx`,
       `${path}/index.md`,
       `${path}/index.mdx`,
       `${path}/README.md`,
