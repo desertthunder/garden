@@ -39,7 +39,21 @@
 }
 
 .content a {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.2em;
+  transition:
+    color 140ms ease,
+    text-shadow 140ms ease;
   overflow-wrap: anywhere;
+}
+
+.content a:hover,
+.content a:focus-visible {
+  color: color-mix(in srgb, var(--color-accent) 88%, white);
+  text-decoration-line: none;
+  text-shadow: 0 0 0.75rem color-mix(in srgb, var(--color-accent) 38%, transparent);
 }
 
 .content code {

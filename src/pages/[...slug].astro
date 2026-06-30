@@ -114,7 +114,7 @@ const hasRightRail =
                 <span>In</span>
                 <strong>{backlinks.length}</strong>
               </div>
-              <div class="connection-map__node">
+              <div class="connection-map__node" title={pageTitle}>
                 <span>{pageTitle}</span>
               </div>
               <div>
@@ -168,8 +168,8 @@ const hasRightRail =
     )
   }
 
-  {page.kind === "note" && <script is:inline type="application/json" id="note-preview-data" set:html={previewJson} />}
-  {page.kind === "note" && <script src="$components/controllers/previews.ts" />}
+  <script is:inline type="application/json" id="note-preview-data" set:html={previewJson} />
+  <script src="$components/controllers/previews.ts"></script>
 
   <style>
     :global(.content:has(.folder-page)) {
@@ -188,7 +188,11 @@ const hasRightRail =
       border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent);
       border-radius: 0.45rem;
       min-width: 0;
-      padding: 0.55rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      gap: 0.25rem;
+      padding: 0.5rem;
       text-align: center;
     }
 
@@ -197,7 +201,7 @@ const hasRightRail =
       display: block;
       font-family: var(--font-mono);
       font-size: 0.68rem;
-      line-height: 1.2;
+      line-height: 1.125;
       overflow: hidden;
       text-overflow: ellipsis;
       text-transform: uppercase;
@@ -209,7 +213,6 @@ const hasRightRail =
       display: block;
       font-size: 1.1rem;
       line-height: 1.2;
-      margin-top: 0.25rem;
     }
 
     .connection-map__node {
@@ -220,6 +223,7 @@ const hasRightRail =
       color: var(--color-text);
       font-family: var(--font-heading);
       font-size: 0.82rem;
+      padding: 0.15rem 0.25rem;
       text-transform: none;
     }
 

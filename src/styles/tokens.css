@@ -6,7 +6,7 @@
   --color-bg: #161821;
   --color-surface: #1e2132;
   --color-surface-raised: #272c42;
-  --color-code-bg: #0f1117;
+  --color-code-bg: #212337;
   --color-border: #3e445e;
   --color-muted: #6b7089;
   --color-text: #c6c8d1;
@@ -16,4 +16,7 @@
   --color-purple: #a093c7;
   --color-red: #e27878;
   --color-amber: #e2a478;
+  --eldritch-tag-bg: #212337;
+  --eldritch-tag-fg: white;
+  --eldritch-tag-bg-hover: #9c85e6;
 }

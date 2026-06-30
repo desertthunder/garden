@@ -1,9 +1,9 @@
 type NotePreview = { date?: string; excerpt?: string; tags?: string[]; title?: string };
 
 const data = document.getElementById("note-preview-data");
-const content = document.querySelector<HTMLElement>(".content");
+const shell = document.querySelector<HTMLElement>(".site-shell");
 
-if (data && content) {
+if (data && shell) {
   const previewData = JSON.parse(data.textContent ?? "{}") as Record<string, NotePreview>;
   const basePath = document.documentElement.dataset.basePath ?? "";
   const previewCard = document.createElement("div");
@@ -47,17 +47,36 @@ if (data && content) {
     previewCard.style.top = `${top}px`;
   }
 
-  content.querySelectorAll<HTMLAnchorElement>("a[href]").forEach((link) => {
+  function previewForLink(link: HTMLAnchorElement) {
     const path = normalizePreviewPath(link.href);
-    const preview = path ? previewData[path] : undefined;
-    if (!preview) return;
+    return path ? previewData[path] : undefined;
+  }
 
-    link.classList.add("has-note-preview");
-    link.addEventListener("mouseenter", () => showPreview(link, preview));
-    link.addEventListener("focus", () => showPreview(link, preview));
-    link.addEventListener("mouseleave", hidePreview);
-    link.addEventListener("blur", hidePreview);
+  function linkFromEvent(event: Event) {
+    return event.target instanceof Element ? event.target.closest<HTMLAnchorElement>("a[href]") : null;
+  }
+
+  shell.addEventListener("pointerover", (event) => {
+    const link = linkFromEvent(event);
+    if (!link) return;
+    const preview = previewForLink(link);
+    if (preview) showPreview(link, preview);
   });
+
+  shell.addEventListener("pointerout", (event) => {
+    const link = linkFromEvent(event);
+    const related = event instanceof PointerEvent ? event.relatedTarget : null;
+    if (link && !(related instanceof Node && link.contains(related))) hidePreview();
+  });
+
+  shell.addEventListener("focusin", (event) => {
+    const link = linkFromEvent(event);
+    if (!link) return;
+    const preview = previewForLink(link);
+    if (preview) showPreview(link, preview);
+  });
+
+  shell.addEventListener("focusout", hidePreview);
 
   window.addEventListener("scroll", hidePreview, true);
   window.addEventListener("resize", hidePreview);

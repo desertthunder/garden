@@ -3,23 +3,21 @@ import SearchOverlay from "$components/SearchOverlay.astro";
 import { buildVersion } from "$lib/version";
 import { hrefFor } from "$lib/utils/path";
 type Props = { base: string; currentPath: string };
-const { base, currentPath } = Astro.props;
+const { base } = Astro.props;
 ---
 
 <header class="site-header">
-  <a class="site-title" href={hrefFor(base, "/")}>
-    <span>Owais' Places</span>
-    <span class="site-version" title={`Commit ${buildVersion.commit}`}>{buildVersion.display}</span>
-  </a>
+  <div class="site-brand">
+    <a class="site-title" href={hrefFor(base, "/")}>Owais' Places</a>
+    <a class="site-version" href={hrefFor(base, "/changelog/")} title={`Commit ${buildVersion.commit}`}>
+      {buildVersion.display}
+    </a>
+  </div>
   <div class="site-header__actions">
     <SearchOverlay base={base} />
     <nav class="site-links" aria-label="Site links">
-      <a class:list={["site-nav-link", currentPath === "/changelog" && "is-active"]} href={hrefFor(base, "/changelog/")}>
-        CHANGELOG
-      </a>
-
       <a href="https://github.com/desertthunder/garden">GitHub</a>
-      <a href="https://desertthunder.dev">Dev</a>
+      <a href="https://desertthunder.dev">owais</a>
     </nav>
   </div>
 </header>
@@ -39,16 +37,19 @@ const { base, currentPath } = Astro.props;
     z-index: 2;
   }
 
-  .site-title {
+  .site-brand {
     align-items: center;
-    color: var(--color-text);
     display: inline-flex;
     gap: 0.45rem;
+    white-space: nowrap;
+  }
+
+  .site-title {
+    color: var(--color-text);
     font-family: var(--font-heading);
     font-size: 1.15rem;
     font-weight: 700;
     text-decoration: none;
-    white-space: nowrap;
   }
 
   .site-version {
@@ -57,6 +58,12 @@ const { base, currentPath } = Astro.props;
     font-size: 0.68rem;
     font-weight: 650;
     letter-spacing: 0;
+    text-decoration: none;
+  }
+
+  .site-version:hover,
+  .site-version:focus-visible {
+    color: color-mix(in srgb, var(--color-accent) 88%, white);
   }
 
   .site-header__actions {
@@ -73,7 +80,8 @@ const { base, currentPath } = Astro.props;
     flex-wrap: wrap;
     font-family: var(--font-mono);
     gap: 0.75rem;
-    justify-content: flex-start;
+    justify-content: flex-end;
+    margin-left: auto;
   }
 
   .site-links a {
@@ -82,13 +90,8 @@ const { base, currentPath } = Astro.props;
   }
 
   .site-links a:hover,
-  .site-nav-link.is-active {
+  .site-links a:focus-visible {
     color: var(--color-accent);
-  }
-
-  .site-nav-link.is-active {
-    text-decoration: underline;
-    text-underline-offset: 0.25em;
   }
 
   @media (max-width: 860px) {

@@ -38,12 +38,18 @@ const tags = tagsForDoc(entry);
   }
 
   .note-meta a {
+    background: var(--eldritch-tag-bg);
+    border: 1px solid var(--eldritch-tag-bg);
+    border-radius: 0.3rem;
+    color: var(--eldritch-tag-fg);
+    padding: 0.08rem 0.35rem;
     text-decoration: none;
   }
 
   .note-meta a:hover,
   .note-meta a:focus-visible {
-    color: var(--color-accent);
+    background: var(--eldritch-tag-bg-hover);
+    color: var(--color-bg);
   }
 
   .note-meta a:focus-visible {
