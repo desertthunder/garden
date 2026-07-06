@@ -13,7 +13,7 @@ const hasRightRail = Astro.slots.has("right-rail");
 ---
 
 <!doctype html>
-<html lang="en" data-base-path={base}>
+<html lang="en" data-base-path={base} data-theme="cyberdream">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -25,6 +25,23 @@ const hasRightRail = Astro.slots.has("right-rail");
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImageUrl} />
     <link rel="icon" href={`${base}/favicon.svg`} />
+    <script is:inline>
+      (() => {
+        const themes = new Set(["iceberg", "oxocarbon", "spaceduck", "cyberdream", "thorn"]);
+        let theme = "cyberdream";
+
+        try {
+          const storedTheme = localStorage.getItem("garden-theme");
+          if (storedTheme && themes.has(storedTheme)) {
+            theme = storedTheme;
+          }
+        } catch {
+          // If storage is blocked, keep the default theme.
+        }
+
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
     <title>{title === "Owais' Places" ? title : `${title} | Owais' Places`}</title>
   </head>
   <body>

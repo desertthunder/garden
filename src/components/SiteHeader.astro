@@ -1,5 +1,6 @@
 ---
 import SearchOverlay from "$components/SearchOverlay.astro";
+import ThemeSwitcher from "$components/ThemeSwitcher.astro";
 import { buildVersion } from "$lib/version";
 import { hrefFor } from "$lib/utils/path";
 type Props = { base: string; currentPath: string };
@@ -15,6 +16,7 @@ const { base } = Astro.props;
   </div>
   <div class="site-header__actions">
     <SearchOverlay base={base} />
+    <ThemeSwitcher />
     <nav class="site-links" aria-label="Site links">
       <a href="https://github.com/desertthunder/garden">GitHub</a>
       <a href="https://desertthunder.dev">owais</a>
@@ -69,7 +71,7 @@ const { base } = Astro.props;
   .site-header__actions {
     align-items: center;
     display: flex;
-    gap: 1rem;
+    gap: 0.8rem;
     min-width: 0;
     flex: 1;
   }
@@ -102,9 +104,31 @@ const { base } = Astro.props;
     }
 
     .site-header__actions {
-      align-items: stretch;
-      flex-direction: column;
+      align-items: center;
+      display: grid;
+      grid-template-columns: minmax(0, auto) auto;
+      justify-content: space-between;
       width: 100%;
+    }
+
+    .site-header__actions :global(.search-overlay) {
+      grid-column: 1 / -1;
+      padding-inline: 0 !important;
+    }
+
+    .site-links {
+      justify-content: flex-end;
+      margin-left: 0;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .site-header__actions {
+      column-gap: 0.65rem;
+    }
+
+    .site-links {
+      gap: 0.55rem;
     }
   }
 </style>

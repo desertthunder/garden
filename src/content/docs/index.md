@@ -24,3 +24,13 @@ phenomenal [essay](https://maggieappleton.com/garden-history) on the history & e
 of digital gardens.
 
 Also, take a look at my notes on [cultivating](/writing/cultivation/) a garden.
+
+### Themes
+
+This site includes theme palettes adapted from:
+
+- [Cyberdream](https://github.com/scottmckendry/cyberdream.nvim)
+- [Iceberg](https://github.com/cocopon/iceberg.vim)
+- [Oxocarbon](https://github.com/nyoom-engineering/oxocarbon.nvim)
+- [Spaceduck](https://github.com/pineapplegiant/spaceduck)
+- [Thorn](https://github.com/jpwol/thorn.nvim)

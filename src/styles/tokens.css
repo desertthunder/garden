@@ -1,4 +1,5 @@
-:root {
+:root,
+:root[data-theme="iceberg"] {
   color-scheme: dark;
   --font-heading: "Instrument Sans Variable", system-ui, sans-serif;
   --font-body: "Instrument Sans Variable", system-ui, sans-serif;
@@ -16,7 +17,83 @@
   --color-purple: #a093c7;
   --color-red: #e27878;
   --color-amber: #e2a478;
-  --eldritch-tag-bg: #212337;
-  --eldritch-tag-fg: white;
-  --eldritch-tag-bg-hover: #9c85e6;
+  --tag-bg: #212337;
+  --tag-fg: white;
+  --tag-bg-hover: #9c85e6;
+}
+
+:root[data-theme="oxocarbon"] {
+  --color-bg: #161616;
+  --color-surface: #2a2a2a;
+  --color-surface-raised: #454545;
+  --color-code-bg: #262626;
+  --color-border: #525252;
+  --color-muted: #8d8d8d;
+  --color-text: #d9d9d9;
+  --color-accent: #78a9ff;
+  --color-green: #42be65;
+  --color-blue: #33b1ff;
+  --color-purple: #be95ff;
+  --color-red: #ee5396;
+  --color-amber: #ff7eb6;
+  --tag-bg: #262626;
+  --tag-fg: #f4f4f4;
+  --tag-bg-hover: #78a9ff;
+}
+
+:root[data-theme="spaceduck"] {
+  --color-bg: #0f111b;
+  --color-surface: #16172d;
+  --color-surface-raised: #1b1c36;
+  --color-code-bg: #1b1c36;
+  --color-border: #30365f;
+  --color-muted: #818596;
+  --color-text: #d9d9d9;
+  --color-accent: #00a3cc;
+  --color-green: #5ccc96;
+  --color-blue: #00a3cc;
+  --color-purple: #b3a1e6;
+  --color-red: #e33400;
+  --color-amber: #f2ce00;
+  --tag-bg: #1b1c36;
+  --tag-fg: #d9d9d9;
+  --tag-bg-hover: #7a5ccc;
+}
+
+:root[data-theme="cyberdream"] {
+  --color-bg: #16181a;
+  --color-surface: #1e2124;
+  --color-surface-raised: #2b3036;
+  --color-code-bg: #1e2124;
+  --color-border: #3c4048;
+  --color-muted: #7b8496;
+  --color-text: #ffffff;
+  --color-accent: #5ef1ff;
+  --color-green: #5eff6c;
+  --color-blue: #5ea1ff;
+  --color-purple: #bd5eff;
+  --color-red: #ff6e5e;
+  --color-amber: #ffbd5e;
+  --tag-bg: #1e2124;
+  --tag-fg: #ffffff;
+  --tag-bg-hover: #ff5ef1;
+}
+
+:root[data-theme="thorn"] {
+  --color-bg: #172526;
+  --color-surface: #1d3334;
+  --color-surface-raised: #26403e;
+  --color-code-bg: #131f20;
+  --color-border: #233935;
+  --color-muted: #9b9a8c;
+  --color-text: #dbd2c7;
+  --color-accent: #87cbb1;
+  --color-green: #88b497;
+  --color-blue: #91c4c0;
+  --color-purple: #f9ada0;
+  --color-red: #d2696c;
+  --color-amber: #ffd7aa;
+  --tag-bg: #131f20;
+  --tag-fg: #dbd2c7;
+  --tag-bg-hover: #568270;
 }

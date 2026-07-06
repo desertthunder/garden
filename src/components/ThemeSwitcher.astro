@@ -1,0 +1,173 @@
+---
+const themes = [
+  { value: "cyberdream", label: "Cyberdream", swatches: ["#16181a", "#5ef1ff", "#ff5ef1"] },
+  { value: "iceberg", label: "Iceberg", swatches: ["#161821", "#84a0c6", "#a093c7"] },
+  { value: "oxocarbon", label: "Oxocarbon", swatches: ["#161616", "#78a9ff", "#42be65"] },
+  { value: "spaceduck", label: "Spaceduck", swatches: ["#0f111b", "#00a3cc", "#b3a1e6"] },
+  { value: "thorn", label: "Thorn", swatches: ["#172526", "#87cbb1", "#ffd7aa"] },
+];
+---
+
+<div class="theme-switcher" data-theme-switcher>
+  <label class="theme-switcher__label" for="site-theme">Theme</label>
+  <div class="theme-switcher__control">
+    <span class="theme-switcher__swatches" aria-hidden="true">
+      {themes[0].swatches.map((swatch) => <span class="theme-switcher__swatch" style={`--swatch: ${swatch}`} />)}
+    </span>
+    <select id="site-theme" name="theme" data-theme-select aria-label="Theme">
+      {themes.map((theme) => <option value={theme.value}>{theme.label}</option>)}
+    </select>
+  </div>
+</div>
+
+<script>
+  type Theme = "cyberdream" | "iceberg" | "oxocarbon" | "spaceduck" | "thorn";
+
+  type Swatch = [string, string, string];
+
+  const themeOptions = {
+    iceberg: ["#161821", "#84a0c6", "#a093c7"],
+    oxocarbon: ["#161616", "#78a9ff", "#42be65"],
+    spaceduck: ["#0f111b", "#00a3cc", "#b3a1e6"],
+    cyberdream: ["#16181a", "#5ef1ff", "#ff5ef1"],
+    thorn: ["#172526", "#87cbb1", "#ffd7aa"],
+  } satisfies Record<Theme, Swatch>;
+
+  const themeSelect = document.querySelector("[data-theme-select]");
+  const swatchWrap = document.querySelector("[data-theme-switcher] .theme-switcher__swatches");
+  const themeNames = Object.keys(themeOptions);
+
+  function updateSwatches(theme: Theme) {
+    const swatches = themeOptions[theme] ?? themeOptions.cyberdream;
+    swatchWrap?.replaceChildren(
+      ...swatches.map((swatch) => {
+        const item = document.createElement("span");
+        item.className = "theme-switcher__swatch";
+        item.style.setProperty("--swatch", swatch);
+        return item;
+      }),
+    );
+  }
+
+  function applyTheme(theme: Theme) {
+    const nextTheme = themeNames.includes(theme) ? theme : "cyberdream";
+    document.documentElement.dataset.theme = nextTheme;
+    updateSwatches(nextTheme);
+
+    try {
+      localStorage.setItem("garden-theme", nextTheme);
+    } catch {
+      console.warn("Failed to save theme preference to localStorage.");
+    }
+  }
+
+  if (themeSelect instanceof HTMLSelectElement) {
+    const currentTheme = document.documentElement.dataset.theme ?? "cyberdream";
+    themeSelect.value = themeNames.includes(currentTheme) ? currentTheme : "cyberdream";
+    updateSwatches(themeSelect.value as Theme);
+
+    themeSelect.addEventListener("change", () => {
+      applyTheme(themeSelect.value as Theme);
+    });
+  }
+</script>
+
+<style>
+  .theme-switcher {
+    align-items: center;
+    display: inline-flex;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  .theme-switcher__label {
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .theme-switcher__control {
+    align-items: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    display: inline-flex;
+    gap: 0.45rem;
+    height: 2.25rem;
+    min-width: 10.5rem;
+    padding: 0 0.45rem;
+    transition:
+      border-color 160ms ease,
+      color 160ms ease;
+  }
+
+  .theme-switcher__control:focus-within,
+  .theme-switcher__control:hover {
+    border-color: var(--color-accent);
+  }
+
+  .theme-switcher__swatches {
+    display: inline-flex;
+    flex: 0 0 auto;
+    isolation: isolate;
+  }
+
+  :global(.theme-switcher__swatch) {
+    background: var(--swatch);
+    border: 1px solid color-mix(in srgb, var(--color-text) 30%, transparent);
+    border-radius: 999px;
+    height: 0.78rem;
+    width: 0.78rem;
+  }
+
+  :global(.theme-switcher__swatch + .theme-switcher__swatch) {
+    margin-left: -0.22rem;
+  }
+
+  .theme-switcher select {
+    appearance: none;
+    background:
+      linear-gradient(45deg, transparent 50%, currentColor 50%) calc(100% - 0.65rem) 50% / 0.32rem 0.32rem no-repeat,
+      linear-gradient(135deg, currentColor 50%, transparent 50%) calc(100% - 0.45rem) 50% / 0.32rem 0.32rem no-repeat;
+    border: 0;
+    color: var(--color-text);
+    cursor: pointer;
+    flex: 1 1 auto;
+    font: inherit;
+    font-size: 0.86rem;
+    height: 100%;
+    min-width: 0;
+    outline: 0;
+    padding: 0 1.1rem 0 0;
+  }
+
+  .theme-switcher select:focus-visible {
+    outline: 0;
+  }
+
+  @media (max-width: 860px) {
+    .theme-switcher {
+      align-self: flex-start;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .theme-switcher {
+      gap: 0.35rem;
+    }
+
+    .theme-switcher__label {
+      font-size: 0.68rem;
+    }
+
+    .theme-switcher__control {
+      min-width: 8.75rem;
+    }
+
+    .theme-switcher__swatches {
+      display: none;
+    }
+  }
+</style>
