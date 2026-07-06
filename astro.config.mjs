@@ -3,7 +3,7 @@ import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import svelte from "@astrojs/svelte";
-import { defineConfig, passthroughImageService } from "astro/config";
+import { defineConfig } from "astro/config";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 import rehypeMathjaxChtml from "rehype-mathjax/chtml";
@@ -101,7 +101,11 @@ function rewriteNodeUrls(node, rewriteUrl) {
 export default defineConfig({
   site: deploymentUrl.origin,
   base: deploymentBase,
-  image: { service: passthroughImageService() },
+  image: {
+    breakpoints: [384, 640, 768, 1024, 1536],
+    layout: "constrained",
+    responsiveStyles: true,
+  },
   integrations: [
     mdx(),
     changelog({ path: "changelog", contentDir: "src/content/docs", diffLines: 15, historyDays: 90 }),

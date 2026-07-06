@@ -1,10 +1,17 @@
 ---
 title: Information Civics
+description: Paul Frazee's essay on governance, authority, and rights in networked computing systems.
 tags:
   - atproto
   - governance
   - internet
 ---
+
+import { Image } from "astro:assets";
+import committeeOfFiveImage from "./images/information-civics/committee-of-five-presenting-the-declaration-of-independence-to-congress.jpg";
+import gnuImage from "./images/information-civics/gnu.png";
+import julyRevolutionImage from "./images/information-civics/july-revolution.jpg";
+import putneyDebatesImage from "./images/information-civics/putneydebates.jpg";
 
 > Archived from [infocivics.com](https://web.archive.org/web/20200218214112/https://infocivics.com/) on February 18, 2020. Original essay by Paul Frazee.
 
@@ -57,7 +64,12 @@ should it be assigned? Once assigned, how can it be constrained?
 
 ### Beyond the overthrow of kings
 
-![putneydebates.jpg](./images/information-civics/putneydebates.jpg)
+<Image
+  src={putneyDebatesImage}
+  alt="Putney Debates illustration"
+  width={768}
+  widths={[384, 640, 768]}
+/>
 
 In the 1647 [Putney Debates](https://en.wikipedia.org/wiki/Putney_Debates), the
 soldiers who helped win the English Civil War wanted suffrage, but the
@@ -245,7 +257,12 @@ great injustice. As they make the change, they do not find political liberation.
 Like the soldiers of the English Civil War in their Putney Debates, they find
 ourselves revolting to be ruled by another king.
 
-![july-revolution.jpg](./images/information-civics/july-revolution.jpg)
+<Image
+  src={julyRevolutionImage}
+  alt="July Revolution painting"
+  width={768}
+  widths={[384, 640, 768]}
+/>
 
 ### Anti-authoritarian networking
 
@@ -277,7 +294,12 @@ constraints on how authority may be applied. Webs of Trust produce open and free
 choice. These mechanisms don’t preclude the use of servers or authorities, but
 they do reduce their power.
 
-![committee-of-five-presenting-the-declaration-of-independence-to-congress.jpg](./images/information-civics/committee-of-five-presenting-the-declaration-of-independence-to-congress.jpg)
+<Image
+  src={committeeOfFiveImage}
+  alt="Committee of Five presenting the Declaration of Independence to Congress"
+  width={768}
+  widths={[384, 640, 768]}
+/>
 
 ### Standards processes
 
@@ -347,7 +369,7 @@ the process and the development will stagnate (or the network will split).
 Therefore it’s incumbent on the community to design a process that shares power
 without succumbing to dysfunction.
 
-![gnu.png](./images/information-civics/gnu.png)
+<Image src={gnuImage} alt="GNU logo" width={240} />
 
 ## IV. Architectural Rights
 
