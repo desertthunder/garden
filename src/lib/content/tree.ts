@@ -10,7 +10,7 @@ export type FolderItem = { label: string; path: string; entry?: DocEntry };
 
 export type SidebarNode =
   | { kind: "folder"; children: SidebarNode[]; label: string; path: string }
-  | { kind: "note"; entry: DocEntry; label: string; path: string };
+  | { kind: "note"; label: string; path: string };
 
 type IndexedContent = { entriesByPath: Map<string, DocEntry>; folderPaths: Set<string>; notes: NoteListItem[] };
 
@@ -20,7 +20,7 @@ export function buildSidebarTree(entries: DocEntry[]) {
   const home = content.entriesByPath.get("/");
 
   if (home) {
-    nodes.push({ kind: "note", entry: home, label: home.data.title, path: "/" });
+    nodes.push({ kind: "note", label: home.data.title, path: "/" });
   }
 
   nodes.push(...nodesForFolder("/", content));
@@ -77,7 +77,6 @@ function nodesForFolder(parentPath: string, content: IndexedContent): SidebarNod
 
   const notes = childNotes(parentPath, content).map((note) => ({
     kind: "note" as const,
-    entry: note.entry,
     label: note.entry.data.title,
     path: note.path,
   }));
