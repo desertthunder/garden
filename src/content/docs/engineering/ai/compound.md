@@ -4,141 +4,190 @@ tags:
   - ai
   - engineering
   - agents
-source: https://every.to/guides/compound-engineering
-author: Kieran Klaassen and Claude
-date: not listed on the captured page
-captured: 2026-07-03
 ---
 
-## Summary
+Compound engineering is an AI-assisted development loop where each task improves
+the system that will handle the next task.[^compound]
 
-Compound engineering is an AI-native development philosophy where every unit
-of work should make future work easier by turning decisions, fixes, patterns,
-and taste into reusable system context.
+The normal loop is:
 
-## Key Ideas
+```text
+Plan -> Work -> Review -> Compound -> Repeat
+```
 
-- **The loop is plan → work → review → compound:** Planning defines the work, agents execute it, review catches problems, and the compound step teaches the system so the next task is easier.
-- **The compound step is the differentiator:** Without documenting patterns, updating agent instructions, and creating reusable tools, AI-assisted development remains ordinary development with faster typing.
-- **Plans become the main artifact:** A good plan captures requirements, tradeoffs, files, edge cases, and acceptance criteria before code exists, making agent execution and later review cheaper.
-- **Taste should move out of people’s heads:** Preferences about naming, architecture, testing, copy, and design should be encoded in `CLAUDE.md`, `AGENTS.md`, skills, commands, review agents, and docs.
-- **Trust comes from safety nets, not constant supervision:** Tests, review agents, logs, worktrees, PRs, and rollback paths are more scalable than approving every line manually.
-- **Agent-native environments reduce manual glue work:** If agents cannot run tests, inspect logs, create PRs, view screenshots, or access debugging data, humans inherit those tasks.
-- **Parallel work changes the bottleneck:** Human attention used to be the bottleneck; in this model, compute and coordination become the bottlenecks.
+The first three steps ship the current change. The compound step captures what
+the system learned: plans, patterns, bug fixes, review findings, tests, prompts,
+agent instructions, commands, and reusable tools.[^compound]
 
-### Each task should make later tasks easier
+## Main Idea
 
-The article argues that normal codebases get harder to change because each
-feature adds complexity. Compound engineering reverses this by using bug fixes,
-plans, reviews, and patterns as material for future automation and documentation.
+Normal codebases tend to get harder to change as features accumulate. Compound
+engineering tries to reverse that by treating every feature and bug fix as raw
+material for future automation.
 
-**Confidence:** high for the philosophy; the source offers a clear mechanism
-but not quantitative proof.
+A bug fix should prevent a class of future bugs. A review finding should become
+a test, checklist item, style rule, or reviewer instruction. A repeated manual
+workflow should become a command or script.
 
-### AI-assisted work needs more planning and review, not less
+This is the useful part of the idea. AI makes the compounding loop cheaper
+because agents can help plan, implement, review, and document the pattern. But
+the loop is not about typing faster. It is about making the development system
+less dependent on private memory.
 
-The authors recommend spending most feature time on planning and review, with
-implementation and compounding taking the smaller share.
+## Planning
 
-Their rationale is that agent execution is only as good as the plan and feedback
-loop that guide it.
+The article's strongest claim is that planning becomes the main artifact.
+Klaassen and Claude phrase it as "Plans are the new code."[^plans]
 
-**Confidence:** medium; plausible, but the specific time split is experiential
-rather than empirically established.
+A useful plan captures:
 
-### System improvement should be treated as feature work
+- what is being built and why;
+- relevant files and existing patterns;
+- external docs and best practices;
+- constraints and tradeoffs;
+- edge cases;
+- tests and acceptance criteria;
+- review focus.
 
-The article proposes a broader 50/50 allocation: half of engineering time
-building features, half improving the system that builds features. Examples
-include creating review agents, documenting patterns, and building generators.
+This matters more with agents because execution is cheap. If the plan is vague,
+the agent fills gaps with guesses. If the plan is concrete, implementation and
+review both get easier.
 
-**Confidence:** medium; the article gives concrete examples, but the exact
-ratio is a heuristic.
+## Review
 
-### Manual line-by-line review does not scale
+Manual line-by-line supervision does not scale well when agents can produce
+large changes quickly. The replacement is not blind trust. It is a better review
+system:
 
-The source claims that if engineers cannot trust AI output, they should improve
-the system instead of compensating with constant manual review. Review agents,
-tests, monitoring, and explicit PR review are the proposed replacements.
+- tests, linting, type checks, and screenshots;
+- specialized review agents;
+- explicit priority levels for findings;
+- isolated branches or worktrees;
+- logs, rollback paths, and PR checks;
+- a final human review of the important decisions.
 
-**Confidence:** medium; this depends heavily on codebase risk, team maturity,
-and quality of verification.
+The article recommends capturing review findings as patterns so the next cycle
+can catch the same issue earlier.[^compound]
 
-### Agent-native architecture makes AI more useful
+## Parallel Work
 
-The source defines agent-native architecture as giving agents the same relevant
-capabilities humans have: running local apps, tests, linters, migrations, git
-operations, logs, screenshots, network inspection, and error tracking.
+When agents make implementation cheaper, the bottleneck moves from typing to
+coordination. Independent tasks can run in parallel, but shared files, shared
+schemas, and ambiguous ownership still create conflicts.
 
-**Confidence:** high as a practical checklist; security and production
-permissions still need boundaries.
+The practical rule is to parallelize work with clean boundaries: one feature
+area, one review pass, one test-writing task, or one research task. Serial work
+still makes sense when the next task depends on decisions from the previous one.
 
-### Compound engineering extends beyond coding
+## Compounding
 
-The article applies the same loop to design, user research, data analysis,
-copywriting, and product marketing: structure context, generate artifacts,
-review them, and encode what worked for reuse.
+The compound step asks:
 
-**Confidence:** medium; useful pattern, but some sections are sketches rather
-than complete processes.
+- What worked?
+- What failed?
+- What pattern should be reusable?
+- Where should that pattern live?
+- Would the system catch this next time?
 
-## Important Terms
+The answer might be an `AGENTS.md` rule, a `CLAUDE.md` update, a test, a local
+command, a review prompt, an architecture note, a generator, or a runbook.
 
-| Term                      | Meaning                                                                                                              |
-| ------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Compound engineering      | A development approach where each task updates the system so future tasks become easier.                             |
-| Compound step             | The post-review step that captures lessons, documents patterns, updates agent context, and creates reusable tools.   |
-| Agent-native architecture | Project and environment design that lets agents inspect, modify, test, debug, and ship work with minimal human glue. |
-| Plan-first development    | Writing and reviewing the plan before implementation so the agent has a source of truth.                             |
-| Taste extraction          | Encoding a team’s preferences into docs, prompts, skills, commands, and automated reviewers.                         |
-| Vibe coding               | Fast outcome-oriented prototyping where the user cares about the result more than the implementation details.        |
-| Safety nets               | Tests, reviewers, isolation, logs, rollbacks, and PR checks that make autonomous agent work safer.                   |
+The important distinction is findability. Capturing a lesson in a private chat
+log does not compound much. Capturing it in the repo, with useful names and
+metadata, gives later agents and humans a chance to retrieve it.
 
-## Questions for Review
+## Agent-Native Architecture
 
-- What makes compound engineering different from ordinary AI-assisted coding?
-- Why is the compound step more important than the implementation step?
-- What kinds of team “taste” can be extracted into system context?
-- Why do plans become more important when agents write more of the code?
-- What capabilities would an agent need to work in an agent-native environment?
-- When might vibe coding be useful, and when would it be risky?
-- What replaces manual line-by-line review in the compound engineering model?
+An agent-native environment gives agents the same relevant development surfaces
+humans use:
 
-## Connections
+- file access;
+- test, lint, typecheck, and build commands;
+- local app inspection;
+- browser and screenshot access;
+- logs and error output;
+- issue, PR, and review context;
+- rollback and isolation tools.
 
-- Related ideas: continuous improvement, knowledge management, test
-  automation, platform engineering, agentic workflows.
-- Related sources: `AGENTS.md`, `CLAUDE.md`, architecture decision records,
-  style guides, runbooks, postmortems.
-- Tensions: autonomy vs. control; velocity vs. safety; reusable system context
-  vs. documentation overhead.
-- Useful applications: recurring bug prevention, onboarding, review automation,
-  design system capture, release notes, changelog generation.
+The article describes this as progressive rather than all-or-nothing. Basic
+file and test access is the starting point. Browser access, logs, and PR
+creation come later as trust and safety nets improve.[^compound]
 
-## Open Questions
+Production access still needs boundaries. "Agent-native" should not mean every
+agent can mutate secrets, infrastructure, or customer data.
 
-- How should teams measure whether compounding work is actually making
-  future work faster?
-- Which tasks are safe to parallelize, and which must remain serial to avoid
-  coordination failures?
-- How much production access should agents receive, even read-only?
-- What is the minimum useful version of this workflow for a small project?
-- How do teams keep agent instructions and skills from becoming stale or
-  contradictory?
+## Taste Extraction
 
-## Notable Quotes
+Compound engineering depends on moving taste out of people's heads. Naming,
+architecture, testing preferences, UI standards, copy tone, and review habits
+should become written context or executable checks.
 
-> “Each unit of engineering work should make subsequent units easier—not harder.”
+This is especially useful for small teams. If one person is carrying the whole
+style guide in memory, agents and teammates will keep rediscovering it through
+review comments.
 
----
+## Vibe Coding
 
-> “Plans are the new code.”
+The source uses "vibe coding" for fast, outcome-oriented prototyping where the
+developer cares more about the result than the implementation details. That can
+be useful for sketches, demos, and throwaway experiments.
 
-## Takeaways
+It is risky when the code becomes production software. At that point, the work
+needs plans, tests, review, and a compound step so the system can explain and
+maintain what was built.
 
-- Treat every bug fix, review finding, and design decision as reusable system
-  knowledge.
-- Build trust by improving plans, tests, reviewers, and rollback paths rather
-  than watching every generated line.
-- The long-term payoff comes from teaching the system instead of just shipping
-  the current feature.
+## Beyond Code
+
+The same loop can apply outside implementation:
+
+- product research becomes structured planning context;
+- design feedback becomes design-system rules;
+- copy review becomes voice and terminology guidance;
+- analytics work becomes reusable queries and dashboards.
+
+The common shape is the same: do the work, review the output, then encode the
+learning somewhere future work can use it.
+
+## Tensions
+
+The article gives a strong operating model, but several parts are heuristics.
+The suggested time split, including heavy emphasis on planning and review, is
+experience-based rather than measured proof.[^compound]
+
+The risky failure modes are predictable:
+
+- documentation can become stale;
+- agents can optimize for written rules while missing intent;
+- parallel work can create coordination conflicts;
+- too much autonomy can outrun the available safety nets;
+- compounding work can become busywork if nobody retrieves it later.
+
+The practical test is simple: does the captured lesson reduce future review
+time, prevent a repeated bug, or make onboarding easier? If not, it may not be
+worth keeping.
+
+## Terms
+
+| Term                      | Meaning                                                                                      |
+| ------------------------- | -------------------------------------------------------------------------------------------- |
+| Compound engineering      | A development approach where each task updates the system so future tasks become easier.     |
+| Compound step             | The post-review step that captures lessons, documents patterns, and creates reusable tools.  |
+| Agent-native architecture | Project and environment design that lets agents inspect, test, debug, and ship work.         |
+| Plan-first development    | Writing and reviewing a plan before implementation starts.                                   |
+| Taste extraction          | Encoding a team's preferences into docs, prompts, skills, commands, and automated reviewers. |
+| Vibe coding               | Fast outcome-oriented prototyping where implementation details are secondary.                |
+| Safety nets               | Tests, reviewers, isolation, logs, rollbacks, and PR checks that make autonomous work safer. |
+
+## Questions
+
+- What kinds of team taste should be encoded in project files?
+- Which repeated review findings should become tests?
+- Which tasks are safe to parallelize?
+- How much local or production access should agents receive?
+- How can a team measure whether compounding work is actually paying off?
+- What is the smallest useful version of this loop for a solo project?
+- What replaces manual line-by-line review in this model?
+
+[^compound]:
+    Kieran Klaassen and Claude, "Compound Engineering," Every,
+    <https://every.to/guides/compound-engineering>. Accessed 6 Jul. 2026.

@@ -5,141 +5,221 @@ tags:
   - engineering
   - agents
   - specs
-source: https://addyosmani.com/blog/good-spec/
-author: Addy Osmani
-date: 2026-01-13
-captured: 2026-07-03
 ---
 
-## Summary
+An AI agent spec is a structured document that tells a coding agent what to
+build, how to work, what to test, and what not to touch.
 
-Good specs for AI coding agents are clear, structured, scoped, testable, and
-continuously updated: enough context to guide the agent, not so much that it
-loses focus.
+The spec should be clear enough to prevent guessing, but focused enough that the
+agent can use it. Addy Osmani's rule is useful: minimal does not have to mean
+short.[^osmani]
 
-## Key Ideas
+## Start With Vision
 
-- **Start with the vision:** Give the agent a concise goal, user need, and core
-   requirements, then use the agent to draft a more detailed spec.
-- **Plan before coding:** Read-only planning modes help the agent explore the
-   codebase, ask clarifying questions, and produce a plan before it edits files.
-- **Use a professional structure:** A useful spec looks more like a PRD/SRS
-   than a loose prompt. It should include objective, stack, commands, tests,
-   structure, style, workflow, and boundaries.
-- **Keep context modular:** Feed the agent the relevant slice of the spec for
-   the current task instead of dumping a giant document into every prompt.
-- **Build in verification:** Specs should include tests, acceptance criteria,
-   self-checks, boundaries, and review steps so the agent can compare its work
-   against the requirements.
-- **Treat specs as living artifacts:** Update the spec when requirements,
-   architecture, data models, or constraints change; commit it with the
-   project like code.
-- **Human judgment remains required:** The spec improves agent behavior, but
-   the developer still owns quality, intent, tradeoffs, and critical review.
+Start with the user need, the goal, and the success criteria. Let the agent help
+expand that into a fuller spec, but keep control of the direction.
 
-### Massive specs can make agents worse, not better
+The first version should answer:
 
-Osmani argues that context window limits and limited model attention make
-large undifferentiated specs unreliable. Long contexts should be summarized,
-indexed, split into component specs, or retrieved only when relevant.
+- Who is this for?
+- What problem does it solve?
+- What does success look like?
+- What constraints are already known?
+- What should stay out of scope?
 
-**Confidence:** high; this matches the article’s core rationale, though exact
-failure thresholds depend on model and task.
+This keeps the agent from optimizing for implementation details before it knows
+the purpose.
 
-### The best specs cover six recurring areas
+## Plan Before Coding
 
-The article cites GitHub analysis of more than 2,500 agent configuration files
-and says effective specs usually include commands, testing, project structure,
-code style, git workflow, and boundaries.
+Read-only planning modes are useful because they let the agent inspect the
+codebase, identify patterns, ask questions, and write a plan before touching
+files.[^osmani]
 
-**Confidence:** medium-high; the checklist is concrete and practical, but the
-article does not reproduce the underlying dataset.
+A good planning phase produces:
 
-### Specs should be executable parts of the workflow
+- relevant files and existing patterns;
+- proposed steps;
+- risks and unknowns;
+- test strategy;
+- acceptance criteria;
+- questions that need a human answer.
 
-Rather than writing a spec and ignoring it, Osmani recommends a gated flow:
-specify, plan, break into tasks, implement, and verify each phase before moving on.
+Do not skip review of the plan. If the plan is wrong, the implementation will
+usually be wrong faster.
 
-**Confidence:** high as a workflow recommendation; the specific tools are optional.
+## Structure
 
-### Small focused tasks outperform one giant prompt
+Osmani recommends treating the spec more like a PRD or SRS than a loose prompt.
+GitHub's analysis of more than 2,500 agent configuration files found six
+recurring areas in useful agent instructions: commands, testing, project
+structure, code style, git workflow, and boundaries.[^osmani]
 
-The article recommends breaking implementation into phases or components,
-passing only the relevant spec section, and starting fresh when switching major
-features.
+A practical spec outline:
 
-**Confidence:** high; the mechanism is clear: less irrelevant context reduces
-instruction conflicts and attention dilution.
+```md
+# Feature Spec
 
-### Constraints need nuance
+## Objective
 
-A useful spec should distinguish between actions the agent may always take,
-actions requiring human approval, and actions it must never take. This is
-better than a flat list of prohibitions.
+## Users and Use Cases
 
-**Confidence:** high as a practical pattern.
+## Requirements
 
-### Tests give agents a feedback loop
+## Non-Goals
 
-Tests, conformance suites, linting, and explicit success criteria let agents
-iterate: write code, run checks, inspect failures, fix, and repeat.
+## Tech Stack
 
-**Confidence:** high; automated checks are one of the strongest ways to turn a
-spec into enforceable behavior.
+## Commands
 
-## Important Terms
+## Project Structure
 
-| Term                  | Meaning                                                                                                               |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| AI agent spec         | A structured document that tells a coding agent what to build, how to work, what to test, and what not to touch.      |
-| PRD                   | Product Requirements Document; user-centered description of what problem is being solved and what success looks like. |
-| SRS                   | Software Requirements Specification; more detailed technical requirements for implementation.                         |
-| Plan Mode             | A read-only planning phase where the agent can inspect and design but not edit code.                                  |
-| Agent Experience (AX) | Designing docs, schemas, commands, and project structure so agents can reliably consume and act on them.              |
-| Three-tier boundaries | Rules grouped into always do, ask first, and never do.                                                                |
-| Conformance tests     | Spec-derived tests that any implementation must pass, often reusable across implementations.                          |
-| LLM-as-a-Judge        | A second model or agent reviewing output against subjective criteria such as style or architecture.                   |
+## Code Style
 
-## Questions for Review
+## Boundaries
 
-- Why should an AI agent spec start with vision before implementation detail?
+## Test Plan
+
+## Acceptance Criteria
+```
+
+Commands should be executable, not vague. `pnpm test`, `pytest -v`, or
+`cargo test` is more useful than "run the tests."
+
+## Workflow
+
+A spec is more useful when it drives the work instead of sitting beside it.
+Osmani describes a gated flow:
+
+1. Specify the user experience and success criteria.
+2. Plan the technical approach.
+3. Break the plan into small tasks.
+4. Implement each task and verify it before moving on.[^osmani]
+
+That shape keeps review focused. Instead of reviewing one large generated
+change, the human can review the spec, the plan, the task breakdown, and then
+the implementation.
+
+## Context Size
+
+Large undifferentiated specs can make agents worse. Context windows are finite,
+and models do not pay equal attention to every instruction.[^osmani]
+
+Split large specs by phase or component:
+
+- backend API;
+- frontend UI;
+- data model;
+- migration plan;
+- security requirements;
+- test plan.
+
+Then feed the agent the relevant slice for the current task. A compact table of
+contents or section summary can stay in context while full details are retrieved
+only when needed.
+
+Recent AGENTS.md research points in the same direction. One 2026 study found
+that unnecessary repository context can reduce task success while increasing
+cost, even though agents do tend to follow the instructions they are given.[^agents-eval]
+Another cataloged common configuration smells: context bloat, skill leakage,
+lint leakage, blind references, init fossilization, and conflicting
+instructions.[^agents-smells]
+
+## Boundaries
+
+Flat "do not do this" lists are weaker than tiered boundaries.
+
+| Tier      | Meaning                               | Examples                                         |
+| --------- | ------------------------------------- | ------------------------------------------------ |
+| Always    | The agent can do this without asking. | Run tests, follow formatting, update docs.       |
+| Ask first | The agent must pause for approval.    | Add dependencies, change schemas, edit CI.       |
+| Never     | The agent must not do this.           | Commit secrets, edit vendor files, delete tests. |
+
+The point is to make the safe path explicit. The agent should know when to
+continue, when to ask, and when to stop.[^osmani]
+
+## Verification
+
+Specs work best when they include checks the agent can run.
+
+Good verification material:
+
+- unit, integration, and end-to-end test commands;
+- lint and typecheck commands;
+- conformance fixtures;
+- expected input/output examples;
+- screenshot or visual review requirements;
+- self-check questions;
+- review-agent prompts for subjective criteria.
+
+Tests give the agent a feedback loop: implement, run checks, inspect failures,
+fix, and repeat. Conformance suites are especially useful when the same contract
+should hold across implementations.[^osmani]
+
+LLM-as-a-judge can help with subjective criteria such as style, accessibility,
+or architecture, but it should supplement deterministic checks rather than
+replace them.
+
+## Living Document
+
+A spec that is not updated becomes misleading context. Update it when the data
+model changes, a requirement is cut, an edge case is discovered, or the team
+chooses a new convention.[^osmani]
+
+Version it with the project. The spec is useful to agents because it is also
+useful to humans returning to the code later.
+
+## When To Keep It Small
+
+Not every task needs a full PRD. For a small isolated change, a focused prompt
+plus the relevant commands may be enough.
+
+Use a heavier spec when the task has:
+
+- multiple files or phases;
+- data model changes;
+- security, privacy, or migration risk;
+- design or copy requirements;
+- ambiguous product behavior;
+- expensive review if the first pass is wrong.
+
+The skill is matching spec weight to task risk.
+
+## Terms
+
+| Term                  | Meaning                                                                                                  |
+| --------------------- | -------------------------------------------------------------------------------------------------------- |
+| AI agent spec         | A structured document that guides a coding agent's work, checks, and boundaries.                         |
+| PRD                   | Product Requirements Document; user-centered description of the problem and success criteria.            |
+| SRS                   | Software Requirements Specification; detailed technical requirements for implementation.                 |
+| Plan Mode             | Read-only planning phase where an agent can inspect and design before editing code.                      |
+| Agent Experience      | Designing docs, schemas, commands, and project structure so agents can reliably consume and act on them. |
+| Three-tier boundaries | Rules grouped into always do, ask first, and never do.                                                   |
+| Conformance tests     | Spec-derived tests that any implementation must pass.                                                    |
+| LLM-as-a-judge        | A second model or agent reviewing output against criteria that are hard to test deterministically.       |
+
+## Questions
+
 - What six areas should a strong coding-agent spec cover?
-- Why can too much context reduce an agent’s reliability?
-- What is the difference between “always,” “ask first,” and “never” constraints?
-- How do tests and conformance suites make specs more enforceable?
-- When is a lightweight prompt enough, and when is a full spec necessary?
-- Why should specs be version-controlled and updated like code?
+- Which parts of the spec belong in durable project files versus one-off
+  prompts?
+- Where does too much context start hurting the agent?
+- Which constraints should be always, ask first, or never?
+- What tests make the spec enforceable?
+- How will the team notice when the spec becomes stale?
 
-## Connections
+[^osmani]:
+    Addy Osmani, "How to write a good spec for AI agents," 13 Jan. 2026,
+    <https://addyosmani.com/blog/good-spec/>. Accessed 6 Jul. 2026.
 
-- Related ideas: spec-driven development, PRDs, SRS documents, test-driven
-  development, acceptance criteria, executable documentation.
-- Related sources: `AGENTS.md`, `CLAUDE.md`, project READMEs, architecture
-  docs, test plans, CI configuration.
-- Tensions: detail vs. overload; automation vs. human review; fast prototyping
-  vs. production engineering.
-- Useful applications: onboarding agents to a repo, writing feature plans,
-  constraining autonomous edits, turning requirements into testable tasks.
+[^agents-eval]:
+    Thibaud Gloaguen, Niels Mündler, Mark Müller, Veselin Raychev,
+    and Martin Vechev, "Evaluating AGENTS.md: Are Repository-Level Context Files
+    Helpful for Coding Agents?" arXiv, 12 Feb. 2026,
+    <https://arxiv.org/abs/2602.11988>. Accessed 6 Jul. 2026.
 
-## Open Questions
-
-- How detailed should a spec be for different task sizes?
-- Which parts of a spec belong in a durable project file versus a one-off prompt?
-- How should teams detect that a spec has become stale?
-- What tooling best connects specs to tests, CI, and agent context retrieval?
-- How can teams measure whether better specs reduce review time or rework?
-
-## Notable Quotes
-
-> “Minimal does not necessarily mean short.”
-
----
-
-> “A spec for an AI agent isn’t ‘write once, done.’”
-
-## Takeaways
-
-- Write specs that are clear, scoped, structured, and testable.
-- Give agents only the context they need for the current task.
-- Keep the spec alive: update it, version it, and use it as the source of truth
-  for planning, implementation, and review.
+[^agents-smells]:
+    Helio Victor F. dos Santos, Vitor Costa, Joao Eduardo
+    Montandon, Luciana Lourdes Silva, and Marco Tulio Valente, "Configuration
+    Smells in AGENTS.md Files: Common Mistakes in Configuring Coding Agents,"
+    arXiv, 14 Jun. 2026, <https://arxiv.org/abs/2606.15828>. Accessed 6 Jul. 2026.

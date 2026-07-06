@@ -1,5 +1,9 @@
 ---
 title: Trees
+tags:
+    - programming
+    - data structures
+    - trees
 ---
 
 *"All roads lead to trees."*

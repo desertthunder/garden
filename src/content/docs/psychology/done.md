@@ -1,6 +1,9 @@
 ---
 title: The Cult of Done Manifesto
 featured: 20
+tags:
+    - psychology
+    - productivity
 ---
 
 Source[^1]

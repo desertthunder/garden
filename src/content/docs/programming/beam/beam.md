@@ -1,6 +1,12 @@
 ---
 title: The BEAM
 featured: 40
+tags:
+  - elixir
+  - erlang
+  - beam
+  - otp
+  - genserver
 ---
 
 The BEAM (Berkeley Erlang Abstract Machine) is the virtual machine that runs Elixir and Erlang programs.
@@ -42,6 +48,6 @@ OTP[^otp] standardizes how they behave. They have:
 - supervision
 - lifecycle callbacks
 
-[^otp]: Introduction. https://erlang.org/documentation/doc-5.2/doc/system_architecture_intro/sys_arch_intro.html. Accessed 31 May 2026.
+[^otp]: Introduction. <https://erlang.org/documentation/doc-5.2/doc/system_architecture_intro/sys_arch_intro.html>. Accessed 31 May 2026.
 
-[^sup]: Supervision Principles. https://erlang.org/documentation/doc-4.9.1/doc/design_principles/sup_princ.html. Accessed 31 May 2026.
+[^sup]: Supervision Principles. <https://erlang.org/documentation/doc-4.9.1/doc/design_principles/sup_princ.html>. Accessed 31 May 2026.
