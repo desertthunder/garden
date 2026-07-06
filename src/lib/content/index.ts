@@ -138,17 +138,51 @@ function normalizeInternalPath(href: string, fromPath: string) {
   return ensureTrailingSlash(`/${baseParts.join("/")}/`);
 }
 
-function excerptFromBody(body: string) {
-  const text = body
-    .replace(/^---[\s\S]*?---/, "")
+export function excerptFromBody(body: string) {
+  const contentBody = stripMdxEsmBlocks(body.replace(/^---[\s\S]*?---/, ""));
+  const text = contentBody
     .replace(/```[\s\S]*?```/g, "")
     .replace(/!\[[^\]]*]\([^)]+\)/g, "")
     .replace(/\[[^\]]+]\([^)]+\)/g, (match) => match.replace(/^\[|\]\([^)]+\)$/g, ""))
+    .replace(/<\/?[A-Za-z][^>]*>/g, " ")
     .replace(/[#>*_`~\-[\]]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 
   return text.length > 180 ? `${text.slice(0, 177).trim()}...` : text;
+}
+
+function stripMdxEsmBlocks(body: string) {
+  const lines = body.split(/\r?\n/);
+  const kept: string[] = [];
+  let inImportBlock = false;
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+
+    if (inImportBlock) {
+      inImportBlock = !/\bfrom\s+["'][^"']+["'];?$/.test(trimmed);
+      continue;
+    }
+
+    if (isMdxImportStart(trimmed)) {
+      inImportBlock = !isCompleteMdxImport(trimmed);
+      continue;
+    }
+
+    if (/^export\s+(?:const|let|var|function|class|default|\{|\*)\b/.test(trimmed)) continue;
+    kept.push(line);
+  }
+
+  return kept.join("\n");
+}
+
+function isMdxImportStart(line: string) {
+  return /^import\s+(?:["'][^"']+["'];?|.+\s+from\s+["'][^"']+["'];?|(?:type\s+)?[{*])/.test(line);
+}
+
+function isCompleteMdxImport(line: string) {
+  return /^import\s+["'][^"']+["'];?$/.test(line) || /\bfrom\s+["'][^"']+["'];?$/.test(line);
 }
 
 function noteListItem(note: ContentIndexNote): NoteListItem {

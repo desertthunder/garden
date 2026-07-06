@@ -9,7 +9,7 @@ programming notes that I've taken (and continue to take) throughout my career
 and while working on personal projects. My hope is that someone learns something
 new or finds some wisdom that resonates with them.
 
-Digital gardens fascinated me for a long time. I miss the days of stumbling upon
+Digital gardens have fascinated me for a long time. I miss the days of stumbling upon
 the [odd personal site](https://tilde.town/~dozens/sofa/) and want to be a part of
 bringing that back. I've tried keeping gardens in various iterations with tools
 like notion and even google drive, but nothing has been quite as consistent as a
