@@ -1,6 +1,7 @@
 ---
 const themes = [
   { value: "cyberdream", label: "Cyberdream", swatches: ["#16181a", "#5ef1ff", "#ff5ef1"] },
+  { value: "eldritch", label: "Eldritch", swatches: ["#212337", "#37f499", "#04d1f9"] },
   { value: "iceberg", label: "Iceberg", swatches: ["#161821", "#84a0c6", "#a093c7"] },
   { value: "oxocarbon", label: "Oxocarbon", swatches: ["#161616", "#78a9ff", "#42be65"] },
   { value: "spaceduck", label: "Spaceduck", swatches: ["#0f111b", "#00a3cc", "#b3a1e6"] },
@@ -21,12 +22,13 @@ const themes = [
 </div>
 
 <script>
-  type Theme = "cyberdream" | "iceberg" | "oxocarbon" | "spaceduck" | "thorn";
+  type Theme = "cyberdream" | "eldritch" | "iceberg" | "oxocarbon" | "spaceduck" | "thorn";
 
   type Swatch = [string, string, string];
 
   const themeOptions = {
     iceberg: ["#161821", "#84a0c6", "#a093c7"],
+    eldritch: ["#212337", "#37f499", "#04d1f9"],
     oxocarbon: ["#161616", "#78a9ff", "#42be65"],
     spaceduck: ["#0f111b", "#00a3cc", "#b3a1e6"],
     cyberdream: ["#16181a", "#5ef1ff", "#ff5ef1"],

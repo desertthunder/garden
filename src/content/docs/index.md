@@ -30,6 +30,7 @@ Also, take a look at my notes on [cultivating](/writing/cultivation/) a garden.
 This site includes theme palettes adapted from:
 
 - [Cyberdream](https://github.com/scottmckendry/cyberdream.nvim)
+- [Eldritch](https://github.com/eldritch-theme/eldritch.nvim)
 - [Iceberg](https://github.com/cocopon/iceberg.vim)
 - [Oxocarbon](https://github.com/nyoom-engineering/oxocarbon.nvim)
 - [Spaceduck](https://github.com/pineapplegiant/spaceduck)

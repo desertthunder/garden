@@ -2,7 +2,7 @@
 :root[data-theme="iceberg"] {
   color-scheme: dark;
   --font-heading: "Instrument Sans Variable", system-ui, sans-serif;
-  --font-body: "Instrument Sans Variable", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible Next Variable", system-ui, sans-serif;
   --font-mono: "Google Sans Code Variable", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --color-bg: #161821;
   --color-surface: #1e2132;
@@ -77,6 +77,25 @@
   --tag-bg: #1e2124;
   --tag-fg: #ffffff;
   --tag-bg-hover: #ff5ef1;
+}
+
+:root[data-theme="eldritch"] {
+  --color-bg: #212337;
+  --color-surface: #292e42;
+  --color-surface-raised: #343a55;
+  --color-code-bg: #171928;
+  --color-border: #414868;
+  --color-muted: #abb4da;
+  --color-text: #ebfafa;
+  --color-accent: #37f499;
+  --color-green: #37f499;
+  --color-blue: #04d1f9;
+  --color-purple: #a48cf2;
+  --color-red: #f16c75;
+  --color-amber: #f7c67f;
+  --tag-bg: #171928;
+  --tag-fg: #ebfafa;
+  --tag-bg-hover: #37f499;
 }
 
 :root[data-theme="thorn"] {
